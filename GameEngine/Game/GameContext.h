@@ -30,7 +30,7 @@ private:
 
     float m_deltaTime = 0.f;
 
-    std::vector<IGameObject*> m_objects;
+    std::vector<GameObject*> m_objects;
 
     glm::vec3 m_lightPos;
     glm::vec4 m_lightColor;
@@ -83,7 +83,7 @@ public:
         return m_objects.size();
     }
 
-    IGameObject* GetObject(size_t index)
+    GameObject* GetObject(size_t index)
     {
         return m_objects.at(index);
     }
@@ -92,55 +92,9 @@ public:
     float GetDeltaTime() { return m_deltaTime; }
     
 
-    void Update()
-    {
-        if (m_objects.size())
-            for (IGameObject* obj : m_objects)
-                if (obj)
-                {
-                    if (m_player)
-                        m_player->GetPhysicsMask()->SetLastFramePos(m_player->m_pos);
+    void Update();
 
-                    obj->IUpdate();
-
-                    if (GameObject* gameObj = dynamic_cast<GameObject*>(obj))
-                    {
-                        if (m_player)
-                        {
-                            if (Player* player = dynamic_cast<Player*>(obj))
-                            {                              
-                               
-                            }
-                            else
-                            {                               
-                               if (m_player->m_boundingBox.HandleIntersection(m_player->m_pos, gameObj->GetBoundingBox(),
-                                   m_player->GetPhysicsMask()->GetVelocity()))
-                               {                                 
-                                     if (m_player->GetPhysicsMask()->GetVelocity().y <= 0)
-                                     {
-                                        m_player->SetGrounded(true);
-                                        m_player->GetPhysicsMask()->SetVelocityY(0.f);                                
-                                     }
-                               }
-                           }
-                        }
-                    } 
-
-                    if (Player* player = dynamic_cast<Player*>(obj))
-                        player->GetPhysicsMask()->ComputeVelocity();
-                        
-                }
-    }
-
-    void Render()
-    {
-        if (m_objects.size())
-            for (IGameObject* obj : m_objects)
-                if (obj)
-                {
-                    obj->IRender();
-                }
-    }
+    void Render();
 
 #define GAMECONTEXT GameContext::Instance()
 };

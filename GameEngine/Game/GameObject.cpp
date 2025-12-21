@@ -3,6 +3,9 @@
 
 void GameObject::Update()
 {
+    if (m_phyMask)
+        m_phyMask->UpdatePhysics();
+
     m_boundingBox.UpdateWorldPos(GetPos());
 
     if (GameObject* parrent = dynamic_cast<GameObject*>(GetParrent()))
@@ -40,6 +43,14 @@ void GameObject::Init(char* mesh)
     m_boundingBox.ComputeMinMax();
 
     m_shader = new Shader("Shaders/vertex_shader.glsl", "Shaders/fragment_shader.glsl");
+}
+
+void GameObject::SetPos(glm::vec3 pos)
+{
+    if (m_parent)
+        SetRelativePos(pos);
+    else
+        m_pos = pos;
 }
 
 void GameObject::Render()

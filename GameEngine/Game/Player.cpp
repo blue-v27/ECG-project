@@ -134,7 +134,7 @@ void Player::Update()
 
 	ProcessInput(wnd, GAMECONTEXT.GetDeltaTime());
 
-	m_boundingBox.UpdateWorldPos(m_pos);
+	GameObject::Update();
 }
 
 void Player::Render()
