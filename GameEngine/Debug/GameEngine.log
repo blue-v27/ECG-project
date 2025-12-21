@@ -1,0 +1,11 @@
+﻿  GameObject.cpp
+  IGameObject.cpp
+  PhysicsMask.cpp
+H:\GraphicsProjecty\ProjectPart2\GameEngine2025\GameEngine2025\GameEngine\GameEngine\Game\PhysicsMask.cpp(15,23): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Player.cpp
+H:\GraphicsProjecty\ProjectPart2\GameEngine2025\GameEngine2025\GameEngine\GameEngine\Game\Player.cpp(125,14): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+H:\GraphicsProjecty\ProjectPart2\GameEngine2025\GameEngine2025\GameEngine\GameEngine\Game\Player.cpp(126,15): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  main.cpp
+H:\GraphicsProjecty\ProjectPart2\GameEngine2025\GameEngine2025\GameEngine\GameEngine\main.cpp(55,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+  GameEngine.vcxproj -> H:\GraphicsProjecty\ProjectPart2\GameEngine2025\GameEngine2025\GameEngine\Debug\GameEngine.exe
