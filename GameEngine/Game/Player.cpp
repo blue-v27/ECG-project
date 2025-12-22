@@ -96,6 +96,8 @@ void Player::ProcessInput(Window* window, float deltaTime)
 		Jump();
 	if (window->isPressed(GLFW_KEY_LEFT_CONTROL))
 		KeyboardMoveDown(speed);
+	if (window->isPressed(GLFW_KEY_X))
+		KeyboardMoveUp(speed);
 
 	double x, y;
 	window->getMousePos(x, y);
