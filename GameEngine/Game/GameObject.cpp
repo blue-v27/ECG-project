@@ -14,6 +14,9 @@ GameObject::GameObject()
 
 	m_parent = nullptr;
 	m_mass = 10;
+
+    m_fragmentShader = "Shaders/fragment_shader.glsl";
+    m_vertexShader   = "Shaders/vertex_shader.glsl";
 }
 
 void GameObject::Update()
@@ -57,7 +60,7 @@ void GameObject::Init(char* mesh)
     m_boundingBox.AddVertexArray(m_mesh.vertices);
     m_boundingBox.ComputeMinMax();
 
-    m_shader = new Shader("Shaders/vertex_shader.glsl", "Shaders/fragment_shader.glsl");
+    m_shader = new Shader(m_vertexShader, m_fragmentShader);
 }
 
 void GameObject::SetPos(glm::vec3 pos)
