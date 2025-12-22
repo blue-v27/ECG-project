@@ -52,9 +52,9 @@ void GameObject::Init(char* mesh)
     else
     {
         if (!m_textures.size())
-            m_mesh = m_loader.loadObj(CUBE);
+            m_mesh = m_loader.loadObj(MeshDefines::cube);
         else
-            m_mesh = m_loader.loadObj(CUBE, m_textures);
+            m_mesh = m_loader.loadObj(MeshDefines::cube, m_textures);
     }
 
     m_boundingBox.AddVertexArray(m_mesh.vertices);

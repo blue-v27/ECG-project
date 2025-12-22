@@ -3,9 +3,8 @@
 class MeshDefines
 {
 public:
-
-#define SPHERE "Resources/Models/sphere.obj"
-#define CUBE   "Resources/Models/cube.obj"
-#define PLANE  "Resources/Models/plane.obj"
-#define PLANE1  "Resources/Models/plane1.obj"
+	static constexpr char* sphere = "Resources/Models/sphere.obj";
+	static constexpr char* cube   = "Resources/Models/cube.obj";
+	static constexpr char* water  = "Resources/Models/plane1.obj";
+	static constexpr char* plane  = "Resources/Models/plane.obj";
 };
