@@ -3,63 +3,48 @@
 
 void Player::KeyboardMoveFront(float speed)
 {
-	glm::vec3 pos = GetPos();
-	glm::vec3 dir = GetDir();
-	pos.x += dir.x * speed;
-	pos.z += dir.z * speed;
-	SetPos(pos);
+	m_pos.x += m_viewDirection.x * speed;
+	m_pos.z += m_viewDirection.z * speed;
 }
 
 void Player::KeyboardMoveBack(float speed)
 {
-	glm::vec3 pos = GetPos();
-	pos.x -= GetDir().x * speed;
-	pos.z -= GetDir().z * speed;
-	SetPos(pos);
+	m_pos.x -= m_viewDirection.x * speed;
+	m_pos.z -= m_viewDirection.z * speed;
 }
 
 void Player::KeyboardMoveLeft(float speed)
 {
-	glm::vec3 pos = GetPos();
-	pos.x -= GetRight().x * speed;
-	pos.z -= GetRight().z * speed;
-	SetPos(pos);
+	m_pos.x -= m_right.x * speed;
+	m_pos.z -= m_right.z * speed;
 }
 
 void Player::KeyboardMoveRight(float speed)
 {
-	glm::vec3 pos = GetPos();
-	pos.x += GetRight().x * speed;
-	pos.z += GetRight().z * speed;
-	SetPos(pos);
+	m_pos.x += m_right.x * speed;
+	m_pos.z += m_right.z * speed;
 }
 
 void Player::KeyboardMoveUp(float speed)
 {
-	glm::vec3 pos = GetPos();
-	pos.y += GetUp().y * speed;
-	SetPos(pos);
+	m_pos.y += m_up.y * speed;
 }
 
 void Player::KeyboardMoveDown(float speed)
 {
-	glm::vec3 pos = GetPos();
-	pos.y -= GetUp().y * speed;
-	SetPos(pos);
+	m_pos.y -= m_up.y * speed;
 }
 
 void Player::UpdateVectors()
 {
 	glm::vec3 front;
-	float rotationOy = GetRotationOy();
-	float rotationOx = GetRotationOx();
-	front.x = cos(glm::radians(rotationOy) * cos(glm::radians(rotationOx)));
-	front.y = sin(glm::radians(rotationOx));
-	front.z = sin(glm::radians(rotationOy)) * cos(glm::radians(rotationOx));
+	front.x = cos(glm::radians(m_rotationOy) * cos(glm::radians(m_rotationOx)));
+	front.y = sin(glm::radians(m_rotationOx));
+	front.z = sin(glm::radians(m_rotationOy)) * cos(glm::radians(m_rotationOx));
 
 	SetDir  (glm::normalize(front));
-	SetRight(glm::normalize(glm::cross(GetDir(), glm::vec3(0, 1, 0))));
-	SetUp   (glm::normalize(glm::cross(GetRight(), GetDir())));
+	SetRight(glm::normalize(glm::cross(m_viewDirection, glm::vec3(0, 1, 0))));
+	SetUp   (glm::normalize(glm::cross(m_right, m_viewDirection)));
 
 	m_camera->UpdateVectors();
 }
