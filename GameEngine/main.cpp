@@ -38,10 +38,11 @@ int main()
 	GAMECONTEXT.AddObject(&camera);
 
 	GameObject* plane = new GameObject();
-	plane->SetTexture(ORANGE_TEXTURE);
+	plane->SetTexture(WATER_TEXTURE);
 	plane->SetFramentShader("Shaders/water_fragment_shader.glsl");
 	plane->SetVertexShader("Shaders/water_vertex_shader.glsl");
 	plane->Init(PLANE);
+	plane->SetScale(glm::vec3(100.f, 1.f, 100.f));
 	plane->SetPos(glm::vec3(0.f, 0.f, 0.f));
 	GAMECONTEXT.AddObject(plane);
 

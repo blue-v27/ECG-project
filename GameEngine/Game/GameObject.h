@@ -46,11 +46,12 @@ public:
 
 	GameObject();
 
-	void SetPos(glm::vec3 pos);
-
+	void	  SetPos(glm::vec3 pos);
 	glm::vec3 GetPos()						{ return m_pos; }
 	void	  SetRelativePos(glm::vec3 pos) { m_relativePos = pos; }
 	glm::vec3 GetRelativePos()				{ return m_relativePos; }
+
+	void SetScale(glm::vec3 scale) { m_scale = scale; }
 
 	void	  SetDir(glm::vec3 pos) { m_viewDirection = pos; }
 	glm::vec3 GetDir()				{ return m_viewDirection; }
