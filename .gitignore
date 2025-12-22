@@ -1,0 +1,10 @@
+/.vs
+*.exe
+*.pdb
+*.obj
+*.recipe
+/GameEngine/Debug
+/GameEngine/Debug
+/GameEngine/Debug
+/GameEngine/Debug
+/GameEngine/x64
