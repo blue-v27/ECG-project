@@ -14,15 +14,15 @@ uniform float time;
 
 float hash(vec2 p) 
 {
-    p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
-    return fract(sin(p.x + p.y) * 43758.5453123);
+    p = vec2(dot(p, vec2(127, 311)), dot(p, vec2(269, 183)));
+    return fract(sin(p.x + p.y) * 43758);
 }
 
 void main()
 {
 	textureCoord = texCoord;
 
-	float waveHeight = 1.f;
+	float waveHeight = sin(time) / 2;
 
 	vec2 waveDir = vec2(hash(pos.xz) * 2.0 - 1.0, hash(pos.xz + 1.0) * 2.0 - 1.0);
 	waveDir = normalize(waveDir);
