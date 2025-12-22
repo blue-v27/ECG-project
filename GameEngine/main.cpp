@@ -41,8 +41,8 @@ int main()
 	plane->SetTexture(WATER_TEXTURE);
 	plane->SetFramentShader("Shaders/water_fragment_shader.glsl");
 	plane->SetVertexShader("Shaders/water_vertex_shader.glsl");
-	plane->Init(PLANE);
-	plane->SetScale(glm::vec3(100.f, 1.f, 100.f));
+	plane->Init(PLANE1);
+	plane->SetScale(glm::vec3(1.f, 1.f, 1.f));
 	plane->SetPos(glm::vec3(0.f, 0.f, 0.f));
 	GAMECONTEXT.AddObject(plane);
 
