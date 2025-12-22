@@ -19,10 +19,6 @@ private:
 	GLuint m_tex = 0;
 	std::vector<Texture> m_textures;
 
-	MeshLoaderObj m_loader;
-	Mesh m_mesh;
-	Shader* m_shader = nullptr;
-
 	std::vector<GameObject*> m_children;
 	GameObject* m_parent = nullptr;
 
@@ -44,6 +40,10 @@ public:
 
 	float m_mass;
 
+	Mesh		  m_mesh;
+	MeshLoaderObj m_loader;
+	Shader*		  m_shader = nullptr;
+
 	GameObject();
 
 	void	  SetPos(glm::vec3 pos);
@@ -51,7 +51,7 @@ public:
 	void	  SetRelativePos(glm::vec3 pos) { m_relativePos = pos; }
 	glm::vec3 GetRelativePos()				{ return m_relativePos; }
 
-	void SetScale(glm::vec3 scale) { m_scale = scale; }
+	void	SetScale(glm::vec3 scale) { m_scale = scale; }
 
 	void	  SetDir(glm::vec3 pos) { m_viewDirection = pos; }
 	glm::vec3 GetDir()				{ return m_viewDirection; }
@@ -94,6 +94,8 @@ public:
 		m_textures[0].id = m_tex;
 		m_textures[0].type = "texture_diffuse";
 	}
+
+	std::vector<Texture> GetTexture() { return m_textures; }
 
 	void Render() override;
 	void Init(char* mesh = nullptr) override;

@@ -1,90 +1,43 @@
-#include "GameObject.h"
-#include "GameContext.h"
+#include "Water.h"
+#include "../Model Loading/TextureDefine.h"
 #include "../Model Loading/ShaderTypes.h"
+#include "../Model Loading/MeshDefines.h"
+#include "GameContext.h"
 
-GameObject::GameObject()
+Water::Water() : m_waveHeight(1.f), m_waveSpeed(1.f), m_waveLength(2.f)
 {
-    m_pos			= glm::vec3(0);
-	m_scale			= glm::vec3(1.f);
-	m_viewDirection = glm::vec3(0);
-	m_up			= glm::vec3(0);
-	m_right			= glm::vec3(0);
 
-	m_rotationOx = 0.0f;
-	m_rotationOy = -90.0f;
-
-	m_parent = nullptr;
-	m_mass = 10;
-
-    m_fragmentShader = ShaderTypes::basicFragment;
-    m_vertexShader   = ShaderTypes::basicVertex;
 }
 
-void GameObject::Update()
-{
-    if (m_phyMask)
-        m_phyMask->UpdatePhysics();
-
-    m_boundingBox.UpdateWorldPos(GetPos(), m_scale);
-
-    if (GameObject* parrent = dynamic_cast<GameObject*>(GetParrent()))
-    {
-        m_pos = parrent->m_pos + m_relativePos;
-    }
-}
-
-void GameObject::ProcessInput(Window* window, float deltaTime)
-{
-    
-}
-
-void GameObject::Init(char* mesh)
-{
-    if (Camera* cam = dynamic_cast<Camera*>(this))
-        return;
-
-    if (mesh)
-    {
-        if (!m_textures.size())
-            m_mesh = m_loader.loadObj(mesh);
-        else
-            m_mesh = m_loader.loadObj(mesh, m_textures);
-    }
-    else
-    {
-        if (!m_textures.size())
-            m_mesh = m_loader.loadObj(MeshDefines::cube);
-        else
-            m_mesh = m_loader.loadObj(MeshDefines::cube, m_textures);
-    }
+void Water::Init(char* mesh)
+{ 
+    SetTexture(TextureDefine::Water);
+    m_mesh = m_loader.loadObj(MeshDefines::water, GetTexture());
 
     m_boundingBox.AddVertexArray(m_mesh.vertices);
     m_boundingBox.ComputeMinMax();
 
-    m_shader = new Shader(m_vertexShader, m_fragmentShader);
+    m_shader = new Shader(ShaderTypes::waterVertex, ShaderTypes::waterFragment);
 }
 
-void GameObject::SetPos(glm::vec3 pos)
+void Water::Render()
 {
-    if (m_parent)
-        SetRelativePos(pos);
-    else
-        m_pos = pos;
-}
-
-void GameObject::Render()
-{
-    if (!m_shader) return;
+    if (!m_shader) 
+        return;
 
     m_shader->use();
     glUseProgram(m_shader->getId());
 
     Window* window = GAMECONTEXT.GetWindow();
     Camera* camera = GAMECONTEXT.GetCamera();
-    if (!window || !camera) return;
+    if (!window || !camera) 
+        return;
 
-    GLuint MatrixID2     = glGetUniformLocation(m_shader->getId(), "MVP");
+    GLuint MatrixID2 = glGetUniformLocation(m_shader->getId(), "MVP");
     GLuint ModelMatrixID = glGetUniformLocation(m_shader->getId(), "model");
+    GLuint time = glGetUniformLocation(m_shader->getId(), "time");
+    GLuint amplitude = glGetUniformLocation(m_shader->getId(), "amplitude");
+    GLuint waveLength = glGetUniformLocation(m_shader->getId(), "waveLength");
 
     glm::vec3 renderPos = glm::vec3(0);
 
@@ -98,6 +51,9 @@ void GameObject::Render()
 
     glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &MVP[0][0]);
     glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
+    glUniform1f(time, glfwGetTime());
+    glUniform1f(amplitude, m_scale.x);
+    glUniform1f(waveLength, m_scale.x);
 
     glm::vec4 lightColor = GAMECONTEXT.getLightColor();
     glm::vec3 lightPos = GAMECONTEXT.getLightPos();

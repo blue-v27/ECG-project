@@ -10,7 +10,9 @@ out vec3 fragPos;
 
 uniform mat4  MVP;
 uniform mat4  model;
+uniform float  waveLength;
 uniform float time;
+uniform float amplitude;
 
 float hash(vec2 p) 
 {
@@ -22,12 +24,12 @@ void main()
 {
 	textureCoord = texCoord;
 
-	float waveHeight = sin(time) / 2;
+	float waveHeight = amplitude * sin(time);
 
 	vec2 waveDir = vec2(hash(pos.xz) * 2.0 - 1.0, hash(pos.xz + 1.0) * 2.0 - 1.0);
 	waveDir = normalize(waveDir);
 
-	float length	 = 2.f;					// distance between the top of the waves
+	float length	 = 2.f * waveLength;					// distance between the top of the waves
 	float pi		 = 3.14159265359;
 	float waveFreq	 = 2 * pi / length;
 

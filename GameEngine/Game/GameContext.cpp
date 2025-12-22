@@ -2,20 +2,20 @@
 
 void GameContext::Update()
 {
+    PhysicsMask* mask = nullptr;
+
+    if(m_player)
+        mask = m_player->GetPhysicsMask();
+
+    if (mask)
+        mask->SetLastFramePos(m_player->m_pos);
+
     if (m_objects.size())
     {
         for (GameObject* obj : m_objects)
         {
             if (obj)
-            {
-                PhysicsMask* mask = nullptr;
-
-                if (m_player)
-                    mask = m_player->GetPhysicsMask();
-
-                if (mask)
-                    mask->SetLastFramePos(m_player->m_pos);
-
+            {        
                 obj->IUpdate();
 
                 if (m_player)
