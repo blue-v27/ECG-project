@@ -7,6 +7,7 @@
 #include "Model Loading\meshLoaderObj.h"
 #include "Game/GameContext.h"
 #include "Game/GameObject.h"
+#include "Model Loading/ShaderTypes.h"
 #include "Model Loading\TextureDefine.h"
 
 float deltaTime = 0.0f;	// time between current frame and last frame
@@ -38,20 +39,18 @@ int main()
 
 	GameObject* plane = new GameObject();
 	plane->SetTexture(TextureDefine::Water);
-	plane->SetFramentShader("Shaders/water_fragment_shader.glsl");
-	plane->SetVertexShader("Shaders/water_vertex_shader.glsl");
+	plane->SetFramentShader(ShaderTypes::waterFragment);
+	plane->SetVertexShader(ShaderTypes::waterVertex);
 	plane->Init(MeshDefines::water);
 	plane->SetScale(glm::vec3(1.f, 1.f, 1.f));
 	plane->SetPos(glm::vec3(0.f, 0.f, 0.f));
 	GAMECONTEXT.AddObject(plane);
 
-#if 0
 	GameObject* box = new GameObject();
-	box->SetTexture(WOOD_TEXTURE);
-	box->Init(CUBE);
+	box->SetTexture(TextureDefine::Wood);
+	box->Init(MeshDefines::cube);
 	box->SetPos(glm::vec3(0.f, 1.f, 0.f));
 	GAMECONTEXT.AddObject(box);
-#endif
 
 	while (!window.isPressed(GLFW_KEY_ESCAPE) && glfwWindowShouldClose(window.getWindow()) == 0)
 	{

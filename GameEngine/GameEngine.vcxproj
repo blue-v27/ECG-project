@@ -139,6 +139,7 @@
     <ClInclude Include="Game\IGameObject.h" />
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="Graphics\window.h" />
+    <ClInclude Include="Model Loading\ShaderTypes.h" />
     <ClInclude Include="Model Loading\TextureDefine.h" />
     <ClInclude Include="Model Loading\MeshDefines.h" />
     <ClInclude Include="Model Loading\meshLoaderObj.h" />

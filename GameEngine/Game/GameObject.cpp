@@ -1,10 +1,11 @@
 #include "GameObject.h"
 #include "GameContext.h"
+#include "../Model Loading/ShaderTypes.h"
 
 GameObject::GameObject()
 {
     m_pos			= glm::vec3(0);
-	m_scale			= glm::vec3(1);
+	m_scale			= glm::vec3(1.f);
 	m_viewDirection = glm::vec3(0);
 	m_up			= glm::vec3(0);
 	m_right			= glm::vec3(0);
@@ -15,8 +16,8 @@ GameObject::GameObject()
 	m_parent = nullptr;
 	m_mass = 10;
 
-    m_fragmentShader = "Shaders/fragment_shader.glsl";
-    m_vertexShader   = "Shaders/vertex_shader.glsl";
+    m_fragmentShader = ShaderTypes::basicFragment;
+    m_vertexShader   = ShaderTypes::basicVertex;
 }
 
 void GameObject::Update()

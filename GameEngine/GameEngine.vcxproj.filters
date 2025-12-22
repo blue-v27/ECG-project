@@ -101,6 +101,9 @@
     <ClInclude Include="Game\PhysicsMask.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Model Loading\ShaderTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\vertex_shader.glsl" />
