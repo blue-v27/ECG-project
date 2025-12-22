@@ -1,7 +1,14 @@
+# Visual Studio
 .vs/
-x64/
+
+# Build outputs
 Debug/
 Release/
+x86/
+x64/
+
+# C++ artifacts
 *.obj
 *.pdb
 *.ilk
+*.exe
