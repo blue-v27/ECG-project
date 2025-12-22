@@ -8,8 +8,13 @@ void GameContext::Update()
         {
             if (obj)
             {
+                PhysicsMask* mask = nullptr;
+
                 if (m_player)
-                    m_player->GetPhysicsMask()->SetLastFramePos(m_player->m_pos);
+                    mask = m_player->GetPhysicsMask();
+
+                if (mask)
+                    mask->SetLastFramePos(m_player->m_pos);
 
                 obj->IUpdate();
 
@@ -21,20 +26,25 @@ void GameContext::Update()
                     }
                     else
                     {
-                        if (m_player->m_boundingBox.HandleIntersection(m_player->m_pos, obj->GetBoundingBox(),
-                            m_player->GetPhysicsMask()->GetVelocity()))
+                        glm::vec3 velocity = glm::vec3(100);
+                                              
+                        if(mask)
+                            velocity = mask->GetVelocity();
+
+                        if (m_player->m_boundingBox.HandleIntersection(m_player->m_pos, obj->GetBoundingBox(), velocity))
                         {
-                            if (m_player->GetPhysicsMask()->GetVelocity().y <= 0)
+                            if (mask && mask->GetVelocity().y <= 0)
                             {
                                 m_player->SetGrounded(true);
-                                m_player->GetPhysicsMask()->SetVelocityY(0.f);
+                                mask->SetVelocityY(0.f);
                             }
                         }
                     }
                 }
 
                 if (Player* player = dynamic_cast<Player*>(obj))
-                    player->GetPhysicsMask()->ComputeVelocity();
+                    if(PhysicsMask* pMask = player->GetPhysicsMask())
+                        pMask->ComputeVelocity();
 
             }
         }
