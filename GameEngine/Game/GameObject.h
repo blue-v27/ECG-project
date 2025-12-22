@@ -41,7 +41,7 @@ public:
 
 	float m_mass;
 
-	GameObject() = default;
+	GameObject();
 
 	void SetPos(glm::vec3 pos);
 
