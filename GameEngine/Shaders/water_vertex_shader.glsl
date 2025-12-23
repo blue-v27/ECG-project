@@ -22,7 +22,7 @@ float hash(vec2 p)
 
 void main()
 {
-	textureCoord = texCoord;
+	textureCoord = texCoord + sin(time / 2) / 100.f;
 
 	float waveHeight = amplitude * sin(time);
 
@@ -30,7 +30,7 @@ void main()
 	waveDir = normalize(waveDir);
 
 	float length	 = 2.f * waveLength;					// distance between the top of the waves
-	float pi		 = 3.14159265359;
+	float pi		 = 3.14;
 	float waveFreq	 = 2 * pi / length;
 
 	//fragPos	= vec3(model * vec4(pos, 1.0f));
@@ -40,4 +40,4 @@ void main()
 	vec3  newPos = vec3(pos.x, newY, pos.z);
 
 	gl_Position = MVP * vec4(newPos, 1.0f);
-}
+} 
