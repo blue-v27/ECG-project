@@ -30,7 +30,8 @@ public:
 
 	void SetLastFramePos(glm::vec3 pos) { m_lastFramePos = pos; }
 
-	glm::vec3 GetVelocity()        { return m_velocity; }
-	void SetVelocityY(float value) { m_velocity.y = value;  }
+	glm::vec3 GetVelocity()         { return m_velocity; }
+	void SetVelocityY(float value)  { m_velocity.y = value;  }
+	void AddVelocity(glm::vec3 vel) { m_velocity += vel; }
 };
 

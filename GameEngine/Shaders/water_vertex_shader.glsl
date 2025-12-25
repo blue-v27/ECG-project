@@ -24,14 +24,14 @@ void main()
 {
 	textureCoord = texCoord + sin(time / 2) / 100.f;
 
-	float waveHeight = amplitude * sin(time);
+	float waveHeight = amplitude * sin(time) / 2;
 
 	vec2 waveDir = vec2(hash(pos.xz) * 2.0 - 1.0, hash(pos.xz + 1.0) * 2.0 - 1.0);
-	waveDir = normalize(waveDir);
+	waveDir		 = normalize(waveDir);
 
-	float length	 = 2.f * waveLength;					// distance between the top of the waves
-	float pi		 = 3.14;
-	float waveFreq	 = 2 * pi / length;
+	float length   = 2.f * waveLength; // distance between the top of the waves
+	float pi	   = 3.14;
+	float waveFreq = 2 * pi / length;
 
 	//fragPos	= vec3(model * vec4(pos, 1.0f));
 	//norm	= mat3(transpose(inverse(model)))*normals;

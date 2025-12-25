@@ -9,12 +9,19 @@ PhysicsMask::PhysicsMask(glm::vec3& pos)
 
 void PhysicsMask::UpdatePhysics()
 {
+	float dt = GAMECONTEXT.GetDeltaTime();
+
 	ApplyGravity();
+
+	float friction = 8.0f;
+	m_velocity.x -= m_velocity.x * friction * dt;
+	m_velocity.z -= m_velocity.z * friction * dt;
 
 	glm::vec3 vel = glm::vec3(m_velocity.x, 0, m_velocity.z);
 	m_speed = glm::length(vel);
 
-	printf("Speed: %d Velocity: %f %f %f\n", m_speed, glm::abs(m_velocity.x), glm::abs(m_velocity.y), glm::abs(m_velocity.z));
+	m_pos.x += m_velocity.x * dt; // dx / dt ^ 2
+	m_pos.z += m_velocity.z * dt; // dx / dt ^ 2
 }
 
 void PhysicsMask::ApplyGravity()

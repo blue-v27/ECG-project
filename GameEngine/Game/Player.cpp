@@ -3,26 +3,30 @@
 
 void Player::KeyboardMoveFront(float speed)
 {
-	m_pos.x += m_viewDirection.x * speed;
-	m_pos.z += m_viewDirection.z * speed;
+	PhysicsMask* mask = GetPhysicsMask();
+	glm::vec3 vel = glm::vec3(m_viewDirection.x, 0, m_viewDirection.z) * speed;
+	mask->AddVelocity(vel);
 }
 
 void Player::KeyboardMoveBack(float speed)
 {
-	m_pos.x -= m_viewDirection.x * speed;
-	m_pos.z -= m_viewDirection.z * speed;
+	PhysicsMask* mask = GetPhysicsMask();
+	glm::vec3 vel = glm::vec3(m_viewDirection.x, 0, m_viewDirection.z) * speed;
+	mask->AddVelocity(-vel);
 }
 
 void Player::KeyboardMoveLeft(float speed)
 {
-	m_pos.x -= m_right.x * speed;
-	m_pos.z -= m_right.z * speed;
+	PhysicsMask* mask = GetPhysicsMask();
+	glm::vec3 vel = glm::vec3(m_right.x, 0, m_right.z) * speed;
+	mask->AddVelocity(-vel);
 }
 
 void Player::KeyboardMoveRight(float speed)
 {
-	m_pos.x += m_right.x * speed;
-	m_pos.z += m_right.z * speed;
+	PhysicsMask* mask = GetPhysicsMask();
+	glm::vec3 vel = glm::vec3(m_right.x, 0, m_right.z) * speed;
+	mask->AddVelocity(vel);
 }
 
 void Player::KeyboardMoveUp(float speed)
@@ -81,11 +85,17 @@ void Player::RotateOy(float angle)
 
 void Player::ProcessInput(Window* window, float deltaTime)
 {
-	float speed = 30 * deltaTime;
+	float speed = 300 * deltaTime;
 
 	//translation
 	if (window->isPressed(GLFW_KEY_W))
-		KeyboardMoveFront(speed);
+	{
+		if(window->isPressed(GLFW_KEY_LEFT_SHIFT))
+			KeyboardMoveFront(1.5f * speed);
+		else
+			KeyboardMoveFront(speed);
+	}
+		
 	if (window->isPressed(GLFW_KEY_S))
 		KeyboardMoveBack(speed);
 	if (window->isPressed(GLFW_KEY_A))
@@ -98,6 +108,7 @@ void Player::ProcessInput(Window* window, float deltaTime)
 		KeyboardMoveDown(speed);
 	if (window->isPressed(GLFW_KEY_X))
 		KeyboardMoveUp(speed);
+		
 
 	double x, y;
 	window->getMousePos(x, y);

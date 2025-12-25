@@ -33,7 +33,7 @@ int main()
 	player->SetCamera(&camera);
 	player->GetCamera()->SetPos(glm::vec3(0.0f, 7.f, 2.4f));
 	player->Init(MeshDefines::cube);
-	//player->InitPhysics();
+	player->InitPhysics();
 	GAMECONTEXT.AddPlayer(player);
 	GAMECONTEXT.AddObject(player);
 	GAMECONTEXT.AddObject(&camera);
@@ -51,12 +51,14 @@ int main()
 	plane->SetPos(glm::vec3(0.f, 0.f, 0.f));
 	GAMECONTEXT.AddObject(plane);
 
+#if 0
 	GameObject* box = new GameObject();
 	box->SetTexture(TextureDefine::Wood);
 	box->Init(MeshDefines::cube);
 	box->SetScale(glm::vec3(1.f, 1.f, 1.f));
 	box->SetPos(glm::vec3(0.f, 1.f, 0.f));
 	GAMECONTEXT.AddObject(box);
+#endif
 
 	while (!window.isPressed(GLFW_KEY_ESCAPE) && glfwWindowShouldClose(window.getWindow()) == 0)
 	{
