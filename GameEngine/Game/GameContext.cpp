@@ -12,6 +12,9 @@ void GameContext::UpdateFov()
 
 void GameContext::Update()
 {
+    if (&CAMERA)
+        CAMERA.Update();
+
     PhysicsMask* mask = nullptr;
 
     if(m_player)

@@ -15,7 +15,6 @@ float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
 
 Window window("Game Engine", 800, 800);
-Camera camera;
 
 glm::vec3 lightColor = glm::vec3(1.0f);
 glm::vec3 lightPos   = glm::vec3(-180.0f, 100.0f, -200.0f);
@@ -26,17 +25,16 @@ int main()
 	glEnable(GL_DEPTH_TEST);
 
 	GAMECONTEXT.SetWindow(&window);
-	GAMECONTEXT.SetCamera(&camera);
+	GAMECONTEXT.SetCamera(&CAMERA);
 
 	Player* player = new Player();
 	player->SetPos(glm::vec3(0.f, 10.f, 0.f));
-	player->SetCamera(&camera);
+	player->SetCamera(&CAMERA);
 	player->GetCamera()->SetPos(glm::vec3(0.0f, 7.f, 2.4f));
 	player->Init(MeshDefines::cube);
 	player->InitPhysics();
 	GAMECONTEXT.AddPlayer(player);
 	GAMECONTEXT.AddObject(player);
-	GAMECONTEXT.AddObject(&camera);
 
 	GameObject* plane = new GameObject();
 	plane->SetTexture(TextureDefine::Rock);

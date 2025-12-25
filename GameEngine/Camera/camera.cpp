@@ -1,35 +1,5 @@
 #include "camera.h"
 
-Camera::Camera(glm::vec3 m_pos)
-{
-	this->m_viewDirection = glm::vec3(0.0f, 0.0f, -1.0f);
-	this->m_up = glm::vec3(0.0f, 1.0f, 0.0f);
-	this->m_right = glm::cross(m_viewDirection, m_up);
-	this->m_rotationOx = 0.0f;
-	this->m_rotationOy = -90.0f;
-}
-
-Camera::Camera()
-{
-	this ->m_viewDirection = glm::vec3(0.0f, 0.0f, -1.0f);
-	this ->m_up = glm::vec3(0.0f, 1.0f, 0.0f);
-	this->m_right = glm::cross(m_viewDirection, m_up);
-	this->m_rotationOx = 0.0f;
-	this->m_rotationOy = -90.0f;
-}
-
-Camera::Camera(glm::vec3 m_pos, glm::vec3 m_viewDirection, glm::vec3 m_up)
-{
-	this->m_pos = m_pos;
-	this->m_viewDirection = m_viewDirection;
-	this->m_up = m_up;
-	this->m_right = glm::cross(m_viewDirection, m_up);
-}
-
-Camera::~Camera()
-{
-}
-
 void Camera::keyboardMoveFront(float cameraSpeed)
 {
 	m_pos += m_viewDirection * cameraSpeed;
@@ -58,6 +28,14 @@ void Camera::keyboardMoveUp(float cameraSpeed)
 void Camera::keyboardMoveDown(float cameraSpeed)
 {
 	m_pos -= m_up * cameraSpeed;
+}
+
+void Camera::SetPos(glm::vec3 pos)
+{
+	if (m_targetObject)
+		m_relativePos = pos;
+	else
+		m_pos = pos;
 }
 
 void Camera::UpdateVectors()
@@ -89,6 +67,12 @@ void Camera::rotateOy (float angle)
 void Camera::MoveCamera(float angle)
 {
 	int xpos, ypos;
+}
+
+void Camera::Update()
+{
+	if (m_targetObject)
+		m_pos = m_targetObject->GetPos() + m_relativePos;
 }
 
 glm::mat4 Camera::getViewMatrix()

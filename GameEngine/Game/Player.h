@@ -18,7 +18,7 @@ public:
 
 	Player() = default;
 
-	void	SetCamera(Camera* cam) { m_camera = cam; SetChild(m_camera); }
+	void	SetCamera(Camera* cam) { m_camera = cam; cam->SetTarget(this); }
 	Camera* GetCamera()			   { return m_camera; }
 
 	void KeyboardMoveFront(float cameraSpeed, bool isSprinting = false);
