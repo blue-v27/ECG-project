@@ -90,7 +90,7 @@ void GameObject::Render()
 
     glm::mat4 ModelMatrix = glm::translate(glm::mat4(1.0f), m_pos);
     ModelMatrix *= glm::scale(glm::mat4(1.0f), m_scale);
-    glm::mat4 ProjectionMatrix = glm::perspective(90.0f, window->getWidth() * 1.0f / window->getHeight(), 0.1f, 10000.0f);
+    glm::mat4 ProjectionMatrix = glm::perspective(GAMECONTEXT.GetFov(), window->getWidth() * 1.0f / window->getHeight(), 0.1f, 10000.0f);
     glm::mat4 ViewMatrix = glm::lookAt(camera->getCameraPosition(),
         camera->getCameraPosition() + camera->getCameraViewDirection(),
         camera->getCameraUp());

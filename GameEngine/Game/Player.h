@@ -21,7 +21,7 @@ public:
 	void	SetCamera(Camera* cam) { m_camera = cam; SetChild(m_camera); }
 	Camera* GetCamera()			   { return m_camera; }
 
-	void KeyboardMoveFront(float cameraSpeed);
+	void KeyboardMoveFront(float cameraSpeed, bool isSprinting = false);
 	void KeyboardMoveBack(float cameraSpeed);
 	void KeyboardMoveLeft(float cameraSpeed);
 	void KeyboardMoveRight(float cameraSpeed);

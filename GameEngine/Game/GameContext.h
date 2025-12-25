@@ -30,6 +30,9 @@ private:
 
     float m_deltaTime = 0.f;
 
+    float m_fov       = 90.f;
+    float m_targetFov = m_fov;
+
     std::vector<GameObject*> m_objects;
 
     glm::vec3 m_lightPos;
@@ -53,6 +56,9 @@ public:
 
     void    SetCamera(Camera* camera) { m_camera = camera; }
     Camera* GetCamera()               { return m_camera; }
+
+    float GetFov()          { return m_fov;      }
+    void  SetFov(float fov) { m_fov = fov; }
 
     void SetLightColor(glm::vec4 col) { m_lightColor = col; }
     void SetLightPos(glm::vec3 pos)   { m_lightPos = pos; }
@@ -91,6 +97,7 @@ public:
     void SetDeltaTime(float time) { m_deltaTime = time; }
     float GetDeltaTime() { return m_deltaTime; }
     
+    void UpdateFov();
 
     void Update();
 

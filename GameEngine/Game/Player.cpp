@@ -1,9 +1,16 @@
 #include "Player.h"
 #include "GameContext.h"
 
-void Player::KeyboardMoveFront(float speed)
+void Player::KeyboardMoveFront(float speed, bool isSprinting)
 {
 	PhysicsMask* mask = GetPhysicsMask();
+
+	if (isSprinting)
+	{
+		speed *= 1.5f;
+		GAMECONTEXT.SetFov(95.f);
+	}
+
 	glm::vec3 vel = glm::vec3(m_viewDirection.x, 0, m_viewDirection.z) * speed;
 	mask->AddVelocity(vel);
 }
@@ -87,29 +94,33 @@ void Player::ProcessInput(Window* window, float deltaTime)
 {
 	float speed = 300 * deltaTime;
 
-	//translation
+	GAMECONTEXT.SetFov(90.f);
 	if (window->isPressed(GLFW_KEY_W))
 	{
 		if(window->isPressed(GLFW_KEY_LEFT_SHIFT))
-			KeyboardMoveFront(1.5f * speed);
+			KeyboardMoveFront(speed, true);
 		else
 			KeyboardMoveFront(speed);
 	}
 		
 	if (window->isPressed(GLFW_KEY_S))
 		KeyboardMoveBack(speed);
+
 	if (window->isPressed(GLFW_KEY_A))
 		KeyboardMoveLeft(speed);
+
 	if (window->isPressed(GLFW_KEY_D))
 		KeyboardMoveRight(speed);
+
 	if (window->isPressed(GLFW_KEY_SPACE))
 		Jump();
+
 	if (window->isPressed(GLFW_KEY_LEFT_CONTROL))
 		KeyboardMoveDown(speed);
+
 	if (window->isPressed(GLFW_KEY_X))
 		KeyboardMoveUp(speed);
 		
-
 	double x, y;
 	window->getMousePos(x, y);
 

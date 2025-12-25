@@ -38,20 +38,21 @@ int main()
 	GAMECONTEXT.AddObject(player);
 	GAMECONTEXT.AddObject(&camera);
 
+	GameObject* plane = new GameObject();
+	plane->SetTexture(TextureDefine::Rock);
+	plane->Init(MeshDefines::plane);
+	plane->SetScale(glm::vec3(10.f, 1.f, 10.f));
+	plane->SetPos(glm::vec3(0.f, 0.f, 0.f));
+	GAMECONTEXT.AddObject(plane);
+
+#if 0
+
 	Water* water = new Water();
 	water->Init();
 	water->SetScale(glm::vec3(1.f, 1.f, 1.f));
 	water->SetPos(glm::vec3(-450.f, 0.f, 0.f));
 	GAMECONTEXT.AddObject(water);
 
-	GameObject* plane = new GameObject();
-	plane->SetTexture(TextureDefine::Rock);
-	plane->Init(MeshDefines::plane);
-	plane->SetScale(glm::vec3(1.f, 1.f, 1.f));
-	plane->SetPos(glm::vec3(0.f, 0.f, 0.f));
-	GAMECONTEXT.AddObject(plane);
-
-#if 0
 	GameObject* box = new GameObject();
 	box->SetTexture(TextureDefine::Wood);
 	box->Init(MeshDefines::cube);

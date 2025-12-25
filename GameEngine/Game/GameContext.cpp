@@ -1,5 +1,15 @@
 #include "GameContext.h"
 
+void GameContext::UpdateFov()
+{
+    if (glm::abs(m_fov - m_targetFov) > 0.01f)
+        m_fov += 10.f * m_deltaTime;
+    if (glm::abs(m_fov - m_targetFov) < 0.01f);
+        m_fov -= 10.f * m_deltaTime;
+    if (m_fov != m_targetFov && glm::abs(m_fov - m_targetFov) <= 0.1f)
+        m_fov = m_targetFov;
+}
+
 void GameContext::Update()
 {
     PhysicsMask* mask = nullptr;
