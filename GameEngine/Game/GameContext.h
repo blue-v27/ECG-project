@@ -33,6 +33,8 @@ private:
     float m_fov       = 90.f;
     float m_targetFov = m_fov;
 
+    bool m_isEditorActive;
+
     std::vector<GameObject*> m_objects;
 
     glm::vec3 m_lightPos;
@@ -57,8 +59,8 @@ public:
     void    SetCamera(Camera* camera) { m_camera = camera; }
     Camera* GetCamera()               { return m_camera; }
 
-    float GetFov()          { return m_fov;      }
-    void  SetFov(float fov) { m_fov = fov; }
+    float GetFov()          { return m_fov; }
+    void  SetFov(float fov) { m_fov = fov;  }
 
     void SetLightColor(glm::vec4 col) { m_lightColor = col; }
     void SetLightPos(glm::vec3 pos)   { m_lightPos = pos; }

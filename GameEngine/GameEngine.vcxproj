@@ -128,6 +128,7 @@
     <ClCompile Include="Model Loading\meshLoaderObj.cpp" />
     <ClCompile Include="Model Loading\mesh.cpp" />
     <ClCompile Include="Game\PhysicsMask.cpp" />
+    <ClCompile Include="Game\ObjectPlacer.cpp" />
     <ClCompile Include="Shaders\shader.cpp" />
     <ClCompile Include="Model Loading\texture.cpp" />
     <ClCompile Include="Game\Water.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="Model Loading\mesh.h" />
     <ClInclude Include="Model Loading\stringTokenizer.h" />
     <ClInclude Include="Game\PhysicsMask.h" />
+    <ClInclude Include="Game\ObjectPlacer.h" />
     <ClInclude Include="Shaders\shader.h" />
     <ClInclude Include="Model Loading\texture.h" />
     <ClInclude Include="Game\Water.h" />

@@ -46,7 +46,6 @@ int main()
 	GAMECONTEXT.AddObject(plane);
 
 #if 0
-
 	Water* water = new Water();
 	water->Init();
 	water->SetScale(glm::vec3(1.f, 1.f, 1.f));
