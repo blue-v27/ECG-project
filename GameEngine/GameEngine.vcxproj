@@ -129,6 +129,7 @@
     <ClCompile Include="Model Loading\mesh.cpp" />
     <ClCompile Include="Game\PhysicsMask.cpp" />
     <ClCompile Include="Game\ObjectPlacer.cpp" />
+    <ClCompile Include="Game\SubModes\SceneEditorSubMode.cpp" />
     <ClCompile Include="Shaders\shader.cpp" />
     <ClCompile Include="Model Loading\texture.cpp" />
     <ClCompile Include="Game\Water.cpp" />
@@ -149,12 +150,15 @@
     <ClInclude Include="Model Loading\stringTokenizer.h" />
     <ClInclude Include="Game\PhysicsMask.h" />
     <ClInclude Include="Game\ObjectPlacer.h" />
+    <ClInclude Include="Game\SubModes\SceneEditorSubMode.h" />
     <ClInclude Include="Shaders\shader.h" />
     <ClInclude Include="Model Loading\texture.h" />
     <ClInclude Include="Game\Water.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragment_shader.glsl" />
+    <None Include="Shaders\ghost_fragment_shader.glsl" />
+    <None Include="Shaders\ghost_vertex_shader.glsl" />
     <None Include="Shaders\sun_fragment_shader.glsl" />
     <None Include="Shaders\sun_vertex_shader.glsl" />
     <None Include="Shaders\vertex_shader.glsl" />

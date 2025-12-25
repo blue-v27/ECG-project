@@ -60,6 +60,9 @@
     <ClCompile Include="Game\ObjectPlacer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\SubModes\SceneEditorSubMode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\window.h">
@@ -116,6 +119,9 @@
     <ClInclude Include="Game\ObjectPlacer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game\SubModes\SceneEditorSubMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\vertex_shader.glsl" />
@@ -124,6 +130,8 @@
     <None Include="Shaders\sun_vertex_shader.glsl" />
     <None Include="Shaders\water_fragment_shader.glsl" />
     <None Include="Shaders\water_vertex_shader.glsl" />
+    <None Include="Shaders\ghost_fragment_shader.glsl" />
+    <None Include="Shaders\ghost_vertex_shader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\wood.bmp">
