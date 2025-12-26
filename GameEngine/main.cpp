@@ -10,6 +10,7 @@
 #include "Model Loading/ShaderTypes.h"
 #include "Model Loading\TextureDefine.h"
 #include "Game/Water.h"
+#include "Game/SubModes/SceneEditorSubMode.h"
 
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;

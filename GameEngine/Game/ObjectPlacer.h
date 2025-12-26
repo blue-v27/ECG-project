@@ -15,6 +15,7 @@ private:
 
 public:
 	ObjectPlacer();
+	~ObjectPlacer();
 
 	void PlaceObject();
 	void RemoveObject();

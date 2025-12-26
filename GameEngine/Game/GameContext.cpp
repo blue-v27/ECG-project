@@ -1,4 +1,5 @@
 #include "GameContext.h"
+#include "SubModes/SceneEditorSubMode.h"
 
 void GameContext::UpdateFov()
 {
@@ -14,6 +15,9 @@ void GameContext::Update()
 {
     if (&CAMERA)
         CAMERA.Update();
+
+    if (m_window->isPressed(GLFW_KEY_ENTER))
+        SCENE_EDITOR.ToggleEditMode();
 
     PhysicsMask* mask = nullptr;
 

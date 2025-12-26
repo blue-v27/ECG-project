@@ -92,47 +92,50 @@ void Player::RotateOy(float angle)
 
 void Player::ProcessInput(Window* window, float deltaTime)
 {
-	float speed = 300 * deltaTime;
-
-	GAMECONTEXT.SetFov(90.f);
-	if (window->isPressed(GLFW_KEY_W))
+	if (!CAMERA.FreeCam())
 	{
-		if(window->isPressed(GLFW_KEY_LEFT_SHIFT))
-			KeyboardMoveFront(speed, true);
-		else
-			KeyboardMoveFront(speed);
+		float speed = 300 * deltaTime;
+
+		GAMECONTEXT.SetFov(90.f);
+		if (window->isPressed(GLFW_KEY_W))
+		{
+			if (window->isPressed(GLFW_KEY_LEFT_SHIFT))
+				KeyboardMoveFront(speed, true);
+			else
+				KeyboardMoveFront(speed);
+		}
+
+		if (window->isPressed(GLFW_KEY_S))
+			KeyboardMoveBack(speed);
+
+		if (window->isPressed(GLFW_KEY_A))
+			KeyboardMoveLeft(speed);
+
+		if (window->isPressed(GLFW_KEY_D))
+			KeyboardMoveRight(speed);
+
+		if (window->isPressed(GLFW_KEY_SPACE))
+			Jump();
+
+		if (window->isPressed(GLFW_KEY_LEFT_CONTROL))
+			KeyboardMoveDown(speed);
+
+		if (window->isPressed(GLFW_KEY_X))
+			KeyboardMoveUp(speed);
+
+		double x, y;
+		window->getMousePos(x, y);
+
+		double dx = x - GAMECONTEXT.GetMousePos().x;
+		double dy = y - GAMECONTEXT.GetMousePos().y;
+
+		GAMECONTEXT.SetMousePos(glm::vec2(x, y));
+
+		const float sensitivity = 0.25f;
+
+		RotateOy(dx * sensitivity);
+		RotateOx(-dy * sensitivity);
 	}
-		
-	if (window->isPressed(GLFW_KEY_S))
-		KeyboardMoveBack(speed);
-
-	if (window->isPressed(GLFW_KEY_A))
-		KeyboardMoveLeft(speed);
-
-	if (window->isPressed(GLFW_KEY_D))
-		KeyboardMoveRight(speed);
-
-	if (window->isPressed(GLFW_KEY_SPACE))
-		Jump();
-
-	if (window->isPressed(GLFW_KEY_LEFT_CONTROL))
-		KeyboardMoveDown(speed);
-
-	if (window->isPressed(GLFW_KEY_X))
-		KeyboardMoveUp(speed);
-		
-	double x, y;
-	window->getMousePos(x, y);
-
-	double dx = x - GAMECONTEXT.GetMousePos().x;
-	double dy = y - GAMECONTEXT.GetMousePos().y;
-
-	GAMECONTEXT.SetMousePos(glm::vec2(x, y));
-
-	const float sensitivity = 0.25f;
-
-	RotateOy(dx * sensitivity);
-	RotateOx(-dy * sensitivity);
 }
 
 void Player::Update()

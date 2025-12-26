@@ -23,6 +23,8 @@ private:
 	float m_rotationOx = 0.0f;
 	float m_rotationOy = -90.0f;
 	
+	bool m_freeCam = false;
+	
 	GameObject* m_targetObject = nullptr;
 
 	public:
@@ -43,6 +45,8 @@ private:
 		glm::vec3 getCameraViewDirection();
 		glm::vec3 getCameraUp();
 
+		void ProcessInput(Window* window, float deltaTime);
+
 		void keyboardMoveFront(float cameraSpeed);
 		void keyboardMoveBack(float cameraSpeed);
 		void keyboardMoveLeft(float cameraSpeed);
@@ -52,6 +56,9 @@ private:
 
 		void	  SetPos(glm::vec3 pos);
 		glm::vec3 GetPos()				{ return m_pos; }
+
+		bool FreeCam()		   { return m_freeCam; }
+		void FreeCam(bool val) { m_freeCam = val; }
 
 		void UpdateVectors();
 

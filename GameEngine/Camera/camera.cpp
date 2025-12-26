@@ -1,4 +1,5 @@
 #include "camera.h"
+#include "..\Game\GameContext.h"
 
 void Camera::keyboardMoveFront(float cameraSpeed)
 {
@@ -71,8 +72,13 @@ void Camera::MoveCamera(float angle)
 
 void Camera::Update()
 {
-	if (m_targetObject)
+	if (m_targetObject && !m_freeCam)
+	{
 		m_pos = m_targetObject->GetPos() + m_relativePos;
+	}
+
+	if (m_freeCam)
+		ProcessInput(GAMECONTEXT.GetWindow(), GAMECONTEXT.GetDeltaTime());
 }
 
 glm::mat4 Camera::getViewMatrix()
@@ -93,6 +99,43 @@ glm::vec3 Camera::getCameraViewDirection()
 glm::vec3 Camera::getCameraUp()
 {
 	return m_up;
+}
+
+void Camera::ProcessInput(Window* window, float deltaTime)
+{
+	float speed = 300 * deltaTime;
+
+	GAMECONTEXT.SetFov(90.f);
+	if (window->isPressed(GLFW_KEY_W))
+		keyboardMoveFront(speed);
+
+	if (window->isPressed(GLFW_KEY_S))
+		keyboardMoveBack(speed);
+
+	if (window->isPressed(GLFW_KEY_A))
+		keyboardMoveLeft(speed);
+
+	if (window->isPressed(GLFW_KEY_D))
+		keyboardMoveRight(speed);
+
+	if (window->isPressed(GLFW_KEY_LEFT_CONTROL))
+		keyboardMoveDown(speed);
+
+	if (window->isPressed(GLFW_KEY_X))
+		keyboardMoveUp(speed);
+
+	double x, y;
+	window->getMousePos(x, y);
+
+	double dx = x - GAMECONTEXT.GetMousePos().x;
+	double dy = y - GAMECONTEXT.GetMousePos().y;
+
+	GAMECONTEXT.SetMousePos(glm::vec2(x, y));
+
+	const float sensitivity = 0.25f;
+
+	rotateOy(dx * sensitivity);
+	rotateOx(-dy * sensitivity);
 }
 
 

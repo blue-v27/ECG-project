@@ -8,3 +8,9 @@ ObjectPlacer::ObjectPlacer()
 	m_meshes.push_back(MeshDefines::cube);
 	m_meshes.push_back(MeshDefines::sphere);
 }
+
+ObjectPlacer::~ObjectPlacer()
+{
+	delete m_objectToPlace;
+	m_objectToPlace = nullptr;
+}

@@ -8,6 +8,8 @@ private:
 	~SceneEditorSubMode() = default;
 
 	ObjectPlacer* m_objPlacer = nullptr;
+
+	bool m_isActive = false;
 public:
 
 	static SceneEditorSubMode& Instance()
@@ -21,7 +23,12 @@ public:
 	SceneEditorSubMode(SceneEditorSubMode&&) = delete;
 	SceneEditorSubMode& operator=(SceneEditorSubMode&&) = delete;
 
+	void IsActive(bool val) { m_isActive = val; }
+	bool IsActive()			{ return m_isActive; }
+
 	void Init();
+	void Stop();
+	void ToggleEditMode();
 
 #define SCENE_EDITOR SceneEditorSubMode::Instance()
 };
