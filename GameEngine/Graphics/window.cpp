@@ -95,9 +95,18 @@ int Window::getHeight()
 	return height;
 }
 
-void Window::setKey(int key, bool ok)
+void Window::setKey(int key, int action)
 {
-	this -> keys[key] = ok;
+	if(action == GLFW_PRESS)
+		this -> keys[key] = GLFW_PRESS;
+
+	if (action == GLFW_RELEASE)
+	{
+		if (this->keys[key] == GLFW_PRESS)
+			keys[key] = -1;
+		else
+			keys[key] = 0;
+	}
 }
 
 void Window::setMouseButton(int button, bool ok)
@@ -120,9 +129,19 @@ void Window::getMousePos(double &xpos, double &ypos)
 //Handling key pressed
 bool Window::isPressed(int key)
 {
-	return keys[key];
+	return keys[key] == GLFW_PRESS;
 }
 
+bool Window::isReleased(int key)
+{
+	if (keys[key] == -1)
+	{
+		keys[key] = 0;
+		return true;
+	};
+
+	return false;
+}
 //Handling mouse buttons pressed
 bool Window::isMousePressed(int button)
 {
@@ -134,10 +153,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 {
 	Window* wind = (Window*) glfwGetWindowUserPointer(window);
 
-	if (action != GLFW_RELEASE)
-		wind->setKey(key, true);
-	else
-		wind->setKey(key, false);
+	wind->setKey(key, action);
 }
 
 //Handling mouse actions

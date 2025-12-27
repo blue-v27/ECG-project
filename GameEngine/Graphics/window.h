@@ -18,7 +18,7 @@ class Window
 		int width, height;
 		GLFWwindow* window;
 
-		bool keys[MAX_KEYBOARD];
+		int keys[MAX_KEYBOARD];
 		bool mouseButtons[MAX_MOUSE];
 		double xpos;
 		double ypos;
@@ -32,11 +32,12 @@ class Window
 		void update();
 		void clear();
 
-		void setKey(int key, bool ok);
+		void setKey(int key, int action);
 		void setMouseButton(int button, bool ok);
 		void setMousePos(double xpos, double ypos);
 		void getMousePos(double &xpos, double &ypos);
 		bool isPressed(int key);
+		bool isReleased(int key);
 		bool isMousePressed(int button);
 
 		void setMouseMode(int mode);

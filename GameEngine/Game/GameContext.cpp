@@ -18,10 +18,8 @@ void GameContext::Update()
 
     SCENE_EDITOR.Update();
 
-    if (m_window->isPressed(GLFW_KEY_UP))
-        SCENE_EDITOR.Init();
-    if (m_window->isPressed(GLFW_KEY_DOWN))
-        SCENE_EDITOR.Stop();
+    if (m_window->isReleased(GLFW_KEY_ENTER))
+        SCENE_EDITOR.ToggleEditMode();
 
     PhysicsMask* mask = nullptr;
 

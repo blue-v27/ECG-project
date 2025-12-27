@@ -73,7 +73,7 @@ void ObjectPlacer::Update()
 		}
 	}
 
-	if (GAMECONTEXT.GetWindow()->isPressed(GLFW_KEY_P))
+	if (GAMECONTEXT.GetWindow()->isReleased(GLFW_KEY_P))
 	{
 		SwitchMesh(true);
 	}
