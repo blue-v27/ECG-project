@@ -6,8 +6,10 @@ Ray::Ray()
 	m_direction = CAMERA.getCameraViewDirection();
 }
 
-void Ray::RayCast(glm::vec3 origin, glm::vec3 direction, float range, BoundingBox other, glm::vec3& outHitPoint)
+bool Ray::RayCast(glm::vec3 origin, glm::vec3 direction, float range, GameObject* obj, glm::vec3& outHitPoint)
 {
+	BoundingBox other = obj->GetBoundingBox();
+
 	glm::vec3 otherMin = other.GetMin();
 	glm::vec3 otherMax = other.GetMax();
 
@@ -27,7 +29,7 @@ void Ray::RayCast(glm::vec3 origin, glm::vec3 direction, float range, BoundingBo
 		else
 		{
 			if (origin[i] < otherMin[i] || origin[i] > otherMax[i])
-				return;
+				return false;
 		}		
 	}
 
@@ -35,7 +37,8 @@ void Ray::RayCast(glm::vec3 origin, glm::vec3 direction, float range, BoundingBo
 	tmax = std::min(tmax, range);
 
 	if (tmin > tmax)
-		return;
+		return false;
 
+	
 	outHitPoint = origin + direction * tmin;
 }

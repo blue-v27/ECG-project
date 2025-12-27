@@ -9,6 +9,6 @@ public:
 
 	Ray();
 
-	void RayCast(glm::vec3 origin, glm::vec3 direction, float range, BoundingBox other, glm::vec3& outHitPoint);
+	bool RayCast(glm::vec3 origin, glm::vec3 direction, float range, GameObject* obj, glm::vec3& outHitPoint);
 };
 

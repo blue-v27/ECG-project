@@ -86,6 +86,13 @@ public:
         m_objects.push_back(obj);
     }
 
+    void RemoveObject(GameObject* obj)
+    {
+        m_objects.erase(std::remove(m_objects.begin(), m_objects.end(), obj), m_objects.end());
+        delete obj;
+        obj = nullptr;
+    }
+
     size_t GetObjectCount() const
     {
         return m_objects.size();

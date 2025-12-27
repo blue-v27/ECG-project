@@ -7,6 +7,7 @@ private:
 	GameObject* m_objectToPlace;
 
 	glm::vec3 m_placePos;
+	glm::vec4 m_placeColor;
 	glm::vec4 m_highlightColor;
 
 	MeshLoaderObj m_loader;
