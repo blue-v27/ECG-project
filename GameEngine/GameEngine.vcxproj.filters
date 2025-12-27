@@ -63,6 +63,9 @@
     <ClCompile Include="Game\SubModes\SceneEditorSubMode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Ray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\window.h">
@@ -120,6 +123,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\SubModes\SceneEditorSubMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Ray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

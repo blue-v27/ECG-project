@@ -1,9 +1,9 @@
 #pragma once
-#include "GameContext.h"
+#include "Ray.h"
 class ObjectPlacer
 {
 private:
-	std::vector<char*> m_meshes;
+	std::vector<Mesh> m_meshes;
 	GameObject* m_objectToPlace;
 
 	glm::vec3 m_placePos;
@@ -13,6 +13,8 @@ private:
 
 	bool m_isActive = false;
 	int  m_currentMesh = 0;
+
+	Ray m_ray;
 
 public:
 	ObjectPlacer();

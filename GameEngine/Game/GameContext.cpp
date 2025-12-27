@@ -16,7 +16,8 @@ void GameContext::Update()
     if (&CAMERA)
         CAMERA.Update();
 
-    SCENE_EDITOR.Update();
+    if(&SCENE_EDITOR)
+        SCENE_EDITOR.Update();
 
     if (m_window->isReleased(GLFW_KEY_ENTER))
         SCENE_EDITOR.ToggleEditMode();

@@ -71,6 +71,7 @@ public:
 
 	void SetFramentShader(char* path) { m_fragmentShader = path; }
 	void SetVertexShader(char* path)  { m_vertexShader = path; }
+	void InitShader()				  { m_shader = new Shader(m_vertexShader, m_fragmentShader); }
 
 	void		SetChild(GameObject* obj) { m_children.push_back(obj); obj->SetParent(this); }
 	size_t      GetChildCound()			  { return m_children.size(); }
@@ -85,6 +86,7 @@ public:
 	BoundingBox m_boundingBox;
 
 	BoundingBox GetBoundingBox() { return m_boundingBox; }
+	void ComputeBoundingBox();
 
 	void SetMesh(Mesh mesh) { m_mesh = mesh; }
 

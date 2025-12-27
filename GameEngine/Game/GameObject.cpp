@@ -71,10 +71,8 @@ void GameObject::Init(char* mesh)
             m_mesh = m_loader.loadObj(MeshDefines::cube, m_textures);
     }
 
-    m_boundingBox.AddVertexArray(m_mesh.vertices);
-    m_boundingBox.ComputeMinMax();
-
-    m_shader = new Shader(m_vertexShader, m_fragmentShader);
+    ComputeBoundingBox();
+    InitShader();
 }
 
 void GameObject::SetPos(glm::vec3 pos)
@@ -83,6 +81,12 @@ void GameObject::SetPos(glm::vec3 pos)
         SetRelativePos(pos);
     else
         m_pos = pos;
+}
+
+void GameObject::ComputeBoundingBox()
+{
+    m_boundingBox.AddVertexArray(m_mesh.vertices);
+    m_boundingBox.ComputeMinMax();
 }
 
 void GameObject::Render()

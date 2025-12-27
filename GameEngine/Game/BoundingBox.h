@@ -17,6 +17,7 @@ private:
 
 	glm::vec3 m_worldMin;
 	glm::vec3 m_worldMax;
+	glm::vec3 m_intersectionPoint;
 public:
 
 	BoundingBox() = default;
@@ -30,11 +31,12 @@ public:
 	glm::vec3 GetMax()			 { return m_worldMax; }
 
 	void   SetMin(Vertex min) { m_min = min; }
-	glm::vec3 GetMin()		     { return m_worldMin; }
+	glm::vec3 GetMin()		   { return m_worldMin; }
 
 	void ComputeMinMax();
 	bool IsIntersecting(BoundingBox other);
 	void UpdateWorldPos(glm::vec3 delta, glm::vec3 scale);
 	bool HandleIntersection(glm::vec3& pos, BoundingBox other, glm::vec3 velocity = glm::vec3(100));
+	glm::vec3 GetIntersectionPoint() { return m_intersectionPoint; }
 };
 

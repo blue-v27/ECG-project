@@ -4,10 +4,10 @@
 ObjectPlacer::ObjectPlacer() 
 	: m_objectToPlace(nullptr), m_placePos(glm::vec3(0)), m_currentMesh(0)
 {	
-	m_highlightColor = glm::vec4(255.f, 255.f, 255.f, 50.f);
+	m_highlightColor = glm::vec4(0.3f, 0.9f, 0.3f, 0.1f);
 
-	m_meshes.push_back(MeshDefines::cube);
-	m_meshes.push_back(MeshDefines::sphere);
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::cube));
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::sphere));
 }
 
 ObjectPlacer::~ObjectPlacer()
@@ -21,7 +21,9 @@ void ObjectPlacer::PlaceObject()
 	GameObject* obj = new GameObject(m_objectToPlace);
 	obj->SetFramentShader(ShaderTypes::basicFragment);
 	obj->SetVertexShader(ShaderTypes::basicVertex);
-	obj->Init(m_meshes.at(m_currentMesh));
+	obj->SetMesh(m_meshes.at(m_currentMesh));
+	obj->ComputeBoundingBox();
+	obj->InitShader();
 	GAMECONTEXT.AddObject(obj);
 }
 
@@ -33,8 +35,10 @@ void ObjectPlacer::SwitchMesh(bool right)
 
 		m_objectToPlace->SetVertexShader(ShaderTypes::ghostVertex);
 		m_objectToPlace->SetFramentShader(ShaderTypes::ghostFragment);
-		m_objectToPlace->Init(m_meshes[1]);
-		m_objectToPlace->SetPos(CAMERA.GetPos() + 200.f * CAMERA.getCameraViewDirection());
+		m_objectToPlace->SetMesh(m_meshes[m_currentMesh]);
+		m_objectToPlace->ComputeBoundingBox();
+		m_objectToPlace->InitShader();
+		m_objectToPlace->SetPos(m_placePos);
 	}
 	else
 	{
@@ -53,8 +57,7 @@ void ObjectPlacer::SwitchMesh(bool right)
 				m_currentMesh = m_meshes.size() - 1;
 		}
 
-		Mesh mesh = m_loader.loadObj(m_meshes.at(m_currentMesh));
-		m_objectToPlace->SetMesh(mesh);
+		m_objectToPlace->SetMesh(m_meshes[m_currentMesh]);
 	}
 	
 }
@@ -65,7 +68,15 @@ void ObjectPlacer::Update()
 
 	if (m_objectToPlace)
 	{
-		m_objectToPlace->SetPos(CAMERA.GetPos() + 200.f * CAMERA.getCameraViewDirection());
+		int numObj = GAMECONTEXT.GetObjectCount();
+
+		for (int i = 0; i < numObj; ++i)
+		{
+			BoundingBox bb = GAMECONTEXT.GetObject(i)->GetBoundingBox();
+			m_ray.RayCast(CAMERA.GetPos(), CAMERA.getCameraViewDirection(), 500.f, bb, m_placePos);
+		}
+
+		m_objectToPlace->SetPos(m_placePos);
 		
 		if (GAMECONTEXT.GetWindow()->isMousePressed(GLFW_MOUSE_BUTTON_1))
 		{
@@ -82,5 +93,10 @@ void ObjectPlacer::Update()
 void ObjectPlacer::RenderGhost()
 {
 	if (m_objectToPlace)
+	{
 		m_objectToPlace->Render();
+		GLuint color = glGetUniformLocation(m_objectToPlace->m_shader->getId(), "color");
+		glUniform4fv(color, 1, glm::value_ptr(m_highlightColor));		
+	}
+		
 }
