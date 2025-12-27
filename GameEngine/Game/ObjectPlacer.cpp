@@ -84,13 +84,13 @@ void ObjectPlacer::Update()
 
 		m_objectToPlace->SetPos(m_placePos);
 		
-		if (GAMECONTEXT.GetWindow()->isMousePressed(GLFW_MOUSE_BUTTON_1))
+		if (GAMECONTEXT.GetWindow()->IsMouseReleased(GLFW_MOUSE_BUTTON_1))
 		{
 			PlaceObject();
 			obj = nullptr;
 		}
 
-		if (GAMECONTEXT.GetWindow()->isMousePressed(GLFW_MOUSE_BUTTON_2))
+		if (GAMECONTEXT.GetWindow()->IsMouseReleased(GLFW_MOUSE_BUTTON_2))
 		{
 			if (Player* player = dynamic_cast<Player*>(obj))
 			{
@@ -104,7 +104,7 @@ void ObjectPlacer::Update()
 		}
 	}
 
-	if (GAMECONTEXT.GetWindow()->isReleased(GLFW_KEY_P))
+	if (GAMECONTEXT.GetWindow()->IsReleased(GLFW_KEY_P))
 	{
 		SwitchMesh(true);
 	}

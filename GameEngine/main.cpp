@@ -59,7 +59,7 @@ int main()
 	GAMECONTEXT.AddObject(box);
 #endif
 
-	while (!window.isPressed(GLFW_KEY_ESCAPE) && glfwWindowShouldClose(window.getWindow()) == 0)
+	while (!window.IsReleased(GLFW_KEY_ESCAPE) && glfwWindowShouldClose(window.getWindow()) == 0)
 	{
 		window.clear();
 
