@@ -45,6 +45,7 @@ public:
 	Shader*		  m_shader = nullptr;
 
 	GameObject();
+	GameObject(GameObject* obj);
 
 	void	  SetPos(glm::vec3 pos);
 	glm::vec3 GetPos()						{ return m_pos; }

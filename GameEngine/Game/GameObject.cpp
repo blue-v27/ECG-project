@@ -20,6 +20,19 @@ GameObject::GameObject()
     m_vertexShader   = ShaderTypes::basicVertex;
 }
 
+GameObject::GameObject(GameObject* obj)
+{
+    m_fragmentShader = obj->m_fragmentShader;
+    m_vertexShader = obj->m_vertexShader;
+    m_pos = obj->m_pos;
+    m_mesh = obj->m_mesh;
+    m_textures = obj->m_textures;
+    m_scale = obj->m_scale;
+    m_mass = obj->m_mass;
+    m_rotationOx = obj->m_rotationOx;
+    m_rotationOy = obj->m_rotationOy;
+}
+
 void GameObject::Update()
 {
     if (m_phyMask)

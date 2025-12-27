@@ -16,8 +16,12 @@ void GameContext::Update()
     if (&CAMERA)
         CAMERA.Update();
 
-    if (m_window->isPressed(GLFW_KEY_ENTER))
-        SCENE_EDITOR.ToggleEditMode();
+    SCENE_EDITOR.Update();
+
+    if (m_window->isPressed(GLFW_KEY_UP))
+        SCENE_EDITOR.Init();
+    if (m_window->isPressed(GLFW_KEY_DOWN))
+        SCENE_EDITOR.Stop();
 
     PhysicsMask* mask = nullptr;
 
@@ -62,7 +66,6 @@ void GameContext::Update()
                 if (Player* player = dynamic_cast<Player*>(obj))
                     if(PhysicsMask* pMask = player->GetPhysicsMask())
                         pMask->ComputeVelocity();
-
             }
         }
     }

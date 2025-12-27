@@ -22,3 +22,21 @@ void SceneEditorSubMode::ToggleEditMode()
 	else
 		Stop();
 }
+
+void SceneEditorSubMode::Update()
+{
+	if (m_isActive)
+	{
+		RenderGhost();
+		m_objPlacer->Update();
+	}
+}
+
+void SceneEditorSubMode::RenderGhost()
+{
+	if (m_isActive)
+	{
+		if (m_objPlacer)
+			m_objPlacer->RenderGhost();
+	}
+}

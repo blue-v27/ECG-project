@@ -29,6 +29,8 @@ public:
 	void Init();
 	void Stop();
 	void ToggleEditMode();
+	void Update();
+	void RenderGhost();
 
 #define SCENE_EDITOR SceneEditorSubMode::Instance()
 };

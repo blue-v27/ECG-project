@@ -55,7 +55,7 @@ private:
 		void keyboardMoveDown(float cameraSpeed);
 
 		void	  SetPos(glm::vec3 pos);
-		glm::vec3 GetPos()				{ return m_pos; }
+		glm::vec3 GetPos() { return m_pos; }
 
 		bool FreeCam()		   { return m_freeCam; }
 		void FreeCam(bool val) { m_freeCam = val; }

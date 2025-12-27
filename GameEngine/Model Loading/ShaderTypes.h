@@ -11,4 +11,7 @@ public:
 
 	static constexpr char* sunVertex   = "Shaders/sun_vertex_shader.glsl";
 	static constexpr char* sunFragment = "Shaders/sun_fragment_shader.glsl";
+
+	static constexpr char* ghostVertex   = "Shaders/ghost_vertex_shader.glsl";
+	static constexpr char* ghostFragment = "Shaders/ghost_fragment_shader.glsl";
 };

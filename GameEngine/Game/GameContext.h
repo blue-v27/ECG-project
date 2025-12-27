@@ -33,7 +33,7 @@ private:
     float m_fov       = 90.f;
     float m_targetFov = m_fov;
 
-    bool m_isEditorActive;
+    bool m_isEditorActive = false;
 
     std::vector<GameObject*> m_objects;
 

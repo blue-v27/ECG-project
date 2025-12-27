@@ -12,6 +12,7 @@ private:
 	MeshLoaderObj m_loader;
 
 	bool m_isActive = false;
+	int  m_currentMesh = 0;
 
 public:
 	ObjectPlacer();
@@ -19,8 +20,11 @@ public:
 
 	void PlaceObject();
 	void RemoveObject();
-	void SwitchMesh();
+	void SwitchMesh(bool right = true);
 	void SwitchTexture();
+
+	void Update();
+	void RenderGhost();
 
 	void isActive(bool val) { m_isActive = val; }
 	bool isActive()			{ return m_isActive; }
