@@ -26,6 +26,7 @@ void SaveManager::WriteObjectInfo(GameObject* obj)
 		return;
 
 	fprintf(m_objects, "{\n");
+
 	{
 		glm::vec3 pos = obj->m_pos;
 		fprintf(m_objects, "\tm_pos:%f %f %f\n", pos.x, pos.y, pos.z);
@@ -42,6 +43,9 @@ void SaveManager::WriteObjectInfo(GameObject* obj)
 void SaveManager::LoadObjects()
 {
 	m_objects = fopen("sceneObjects.txt", "r");
+
+	if (!m_objects)
+		return;
 
 	char line[256];
 	float x, y, z;

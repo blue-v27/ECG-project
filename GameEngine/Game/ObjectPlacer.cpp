@@ -10,6 +10,7 @@ ObjectPlacer::ObjectPlacer()
 	m_meshes.push_back(m_loader.loadObj(MeshDefines::cube));
 	m_meshes.push_back(m_loader.loadObj(MeshDefines::sphere));
 	m_meshes.push_back(m_loader.loadObj(MeshDefines::plane));
+	//m_meshes.push_back(m_loader.loadObj(MeshDefines::rock0));
 }
 
 ObjectPlacer::~ObjectPlacer()

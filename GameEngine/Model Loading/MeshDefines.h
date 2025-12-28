@@ -7,4 +7,6 @@ public:
 	static constexpr char* cube   = "Resources/Models/cube.obj";
 	static constexpr char* water  = "Resources/Models/plane1.obj";
 	static constexpr char* plane  = "Resources/Models/plane.obj";
+
+	static constexpr char* rock0 = "Resources/Models/rocks_01_model.obj";
 };
