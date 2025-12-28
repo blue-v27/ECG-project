@@ -152,6 +152,8 @@ Mesh MeshLoaderObj::loadObj(const std::string &filename)
 
 	Mesh mesh(vertices, indices);
 
+	mesh.SetPath(filename.c_str());
+
 	return mesh;
 }
 
@@ -159,6 +161,7 @@ Mesh MeshLoaderObj::loadObj(const std::string &filename, std::vector<Texture> te
 {
 	Mesh mesh = loadObj(filename);
 	mesh.setTextures(textures);
+	mesh.SetPath(filename.c_str());
 
 	return mesh;
 }

@@ -24,8 +24,8 @@ private:
 
 	PhysicsMask* m_phyMask = nullptr;
 
-	char* m_fragmentShader = nullptr;
-	char* m_vertexShader   = nullptr;
+	char m_fragmentShader[128] = {0};
+	char m_vertexShader[128]   = {0};
 public:
 	glm::vec3 m_pos;
 	glm::vec3 m_relativePos;
@@ -69,9 +69,11 @@ public:
 	void  SetRotationOy(float rot) { m_rotationOy = rot; }
 	float GetRotationOy()		   { return m_rotationOy; }
 
-	void SetFramentShader(char* path) { m_fragmentShader = path; }
-	void SetVertexShader(char* path)  { m_vertexShader = path; }
-	void InitShader()				  { m_shader = new Shader(m_vertexShader, m_fragmentShader); }
+	void  SetFramentShader(char* path) { sprintf(m_fragmentShader, "%s", path); }
+	void  SetVertexShader(char* path)  { sprintf(m_vertexShader, "%s", path); }
+	char* GetFragmentShader()		   { return m_fragmentShader; }
+	char* getVertexShader()			   { return m_vertexShader; }
+	void  InitShader()				   { m_shader = new Shader(m_vertexShader, m_fragmentShader); }
 
 	void		SetChild(GameObject* obj) { m_children.push_back(obj); obj->SetParent(this); }
 	size_t      GetChildCound()			  { return m_children.size(); }

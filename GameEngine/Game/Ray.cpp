@@ -41,4 +41,5 @@ bool Ray::RayCast(glm::vec3 origin, glm::vec3 direction, float range, GameObject
 
 	
 	outHitPoint = origin + direction * tmin;
+	return true;
 }

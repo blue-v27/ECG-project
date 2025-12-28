@@ -1,4 +1,5 @@
 #include "SceneEditorSubMode.h"
+#include "../SaveManager.h"
 
 void SceneEditorSubMode::Init()
 {
@@ -29,6 +30,9 @@ void SceneEditorSubMode::Update()
 	{
 		RenderGhost();
 		m_objPlacer->Update();
+
+		if (GAMECONTEXT.GetWindow()->IsReleased(GLFW_KEY_UP))
+			SAVE_MANAGER.SaveObjects();
 	}
 }
 

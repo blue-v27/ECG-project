@@ -108,6 +108,8 @@ public:
     
     void UpdateFov();
 
+    void Start();
+
     void Update();
 
     void Render();

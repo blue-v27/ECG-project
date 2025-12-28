@@ -70,6 +70,7 @@ class Mesh
 		std::vector<Vertex> vertices;
 		std::vector<int> indices;
 		std::vector<Texture> textures;
+		char* m_path = nullptr;
 
 		unsigned int vao, vbo, ibo;
 
@@ -82,5 +83,8 @@ class Mesh
 		void setup();
 		void setup2();
 		void draw(Shader shader);
+
+		void  SetPath(const char* path) { m_path = _strdup(path); }
+		char* GetPath()				    { return m_path; }
 };
 

@@ -37,13 +37,13 @@ int main()
 	GAMECONTEXT.AddPlayer(player);
 	GAMECONTEXT.AddObject(player);
 
+
 	GameObject* plane = new GameObject();
 	plane->SetTexture(TextureDefine::Rock);
 	plane->Init(MeshDefines::plane);
 	plane->SetScale(glm::vec3(10.f, 1.f, 10.f));
 	plane->SetPos(glm::vec3(0.f, 0.f, 0.f));
 	GAMECONTEXT.AddObject(plane);
-
 #if 0
 	Water* water = new Water();
 	water->Init();
@@ -58,6 +58,8 @@ int main()
 	box->SetPos(glm::vec3(0.f, 1.f, 0.f));
 	GAMECONTEXT.AddObject(box);
 #endif
+
+	GAMECONTEXT.Start();
 
 	while (!window.IsReleased(GLFW_KEY_ESCAPE) && glfwWindowShouldClose(window.getWindow()) == 0)
 	{

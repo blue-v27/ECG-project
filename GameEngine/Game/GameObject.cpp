@@ -16,14 +16,14 @@ GameObject::GameObject()
 	m_parent = nullptr;
 	m_mass = 10;
 
-    m_fragmentShader = ShaderTypes::basicFragment;
-    m_vertexShader   = ShaderTypes::basicVertex;
+    snprintf(m_fragmentShader, 128, "%s", ShaderTypes::basicFragment);
+    snprintf(m_vertexShader, 128, "%s", ShaderTypes::basicVertex);
 }
 
 GameObject::GameObject(GameObject* obj)
 {
-    m_fragmentShader = obj->m_fragmentShader;
-    m_vertexShader = obj->m_vertexShader;
+    snprintf(m_fragmentShader, 128, "%s", obj->m_fragmentShader);
+    snprintf(m_vertexShader, 128, "%s", obj->m_vertexShader);
     m_pos = obj->m_pos;
     m_mesh = obj->m_mesh;
     m_textures = obj->m_textures;

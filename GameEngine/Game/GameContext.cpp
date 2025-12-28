@@ -1,5 +1,6 @@
 #include "GameContext.h"
 #include "SubModes/SceneEditorSubMode.h"
+#include "SaveManager.h"
 
 void GameContext::UpdateFov()
 {
@@ -11,6 +12,12 @@ void GameContext::UpdateFov()
         m_fov = m_targetFov;
 }
 
+void GameContext::Start()
+{
+    if (&SAVE_MANAGER)
+        SAVE_MANAGER.LoadObjects();
+}
+
 void GameContext::Update()
 {
     if (&CAMERA)
@@ -20,7 +27,7 @@ void GameContext::Update()
         SCENE_EDITOR.Update();
 
     if (m_window->IsReleased(GLFW_KEY_ENTER))
-        SCENE_EDITOR.ToggleEditMode();
+        SCENE_EDITOR.ToggleEditMode();   
 
     PhysicsMask* mask = nullptr;
 

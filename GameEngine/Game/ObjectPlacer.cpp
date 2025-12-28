@@ -78,8 +78,11 @@ void ObjectPlacer::Update()
 		{
 			if (Player* player = dynamic_cast<Player*>(GAMECONTEXT.GetObject(i)))
 				continue;
-			if(m_ray.RayCast(CAMERA.GetPos(), CAMERA.getCameraViewDirection(), 500.f, GAMECONTEXT.GetObject(i), m_placePos));
+			if (m_ray.RayCast(CAMERA.GetPos(), CAMERA.getCameraViewDirection(), 500.f, GAMECONTEXT.GetObject(i), m_placePos))
+			{
 				obj = GAMECONTEXT.GetObject(i);
+				break;
+			}
 		}
 
 		m_objectToPlace->SetPos(m_placePos);
@@ -90,7 +93,7 @@ void ObjectPlacer::Update()
 			obj = nullptr;
 		}
 
-		if (GAMECONTEXT.GetWindow()->IsMouseReleased(GLFW_MOUSE_BUTTON_2))
+		if (obj && GAMECONTEXT.GetWindow()->IsMouseReleased(GLFW_MOUSE_BUTTON_2))
 		{
 			if (Player* player = dynamic_cast<Player*>(obj))
 			{

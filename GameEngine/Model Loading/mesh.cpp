@@ -6,6 +6,7 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<int> indices)
 {
 	this->vertices = vertices;
 	this->indices = indices;
+	this->m_path = nullptr;
 
 	setup2();
 }
