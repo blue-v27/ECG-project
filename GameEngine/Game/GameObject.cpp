@@ -51,24 +51,18 @@ void GameObject::ProcessInput(Window* window, float deltaTime)
     
 }
 
-void GameObject::Init(char* mesh)
+void GameObject::Init(Mesh* mesh)
 {
     if (Camera* cam = dynamic_cast<Camera*>(this))
         return;
 
     if (mesh)
     {
-        if (!m_textures.size())
-            m_mesh = m_loader.loadObj(mesh);
-        else
-            m_mesh = m_loader.loadObj(mesh, m_textures);
+        m_mesh = *mesh;
     }
     else
     {
-        if (!m_textures.size())
-            m_mesh = m_loader.loadObj(MeshDefines::cube);
-        else
-            m_mesh = m_loader.loadObj(MeshDefines::cube, m_textures);
+        m_mesh = MESH_DEFINES.GetMesh(CUBE);
     }
 
     ComputeBoundingBox();

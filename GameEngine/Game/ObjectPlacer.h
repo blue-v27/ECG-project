@@ -3,14 +3,11 @@
 class ObjectPlacer
 {
 private:
-	std::vector<Mesh> m_meshes;
 	GameObject* m_objectToPlace;
 
 	glm::vec3 m_placePos;
 	glm::vec4 m_placeColor;
 	glm::vec4 m_highlightColor;
-
-	MeshLoaderObj m_loader;
 
 	bool m_isActive = false;
 	int  m_currentMesh = 0;

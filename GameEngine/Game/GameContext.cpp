@@ -1,6 +1,7 @@
 #include "GameContext.h"
 #include "SubModes/SceneEditorSubMode.h"
 #include "SaveManager.h"
+#include "../Model Loading/MeshDefines.h"
 
 void GameContext::UpdateFov()
 {
@@ -14,6 +15,9 @@ void GameContext::UpdateFov()
 
 void GameContext::Start()
 {
+    if (&MESH_DEFINES)
+        MESH_DEFINES.Start();
+
     if (&SAVE_MANAGER)
         SAVE_MANAGER.LoadObjects();
 }

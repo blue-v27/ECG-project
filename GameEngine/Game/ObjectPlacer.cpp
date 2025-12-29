@@ -1,16 +1,12 @@
 #include "ObjectPlacer.h"
 #include "../Model Loading/ShaderTypes.h"
+#include "../Model Loading/MeshDefines.h"
 
 ObjectPlacer::ObjectPlacer() 
 	: m_objectToPlace(nullptr), m_placePos(glm::vec3(0)), m_currentMesh(0)
 {	
 	m_placeColor	 = glm::vec4(1.0f, 1.0f, 1.0f, 0.1f);
 	m_highlightColor = glm::vec4(0.3f, 0.9f, 0.3f, 0.1f);
-
-	m_meshes.push_back(m_loader.loadObj(MeshDefines::cube));
-	m_meshes.push_back(m_loader.loadObj(MeshDefines::sphere));
-	m_meshes.push_back(m_loader.loadObj(MeshDefines::plane));
-	//m_meshes.push_back(m_loader.loadObj(MeshDefines::rock0));
 }
 
 ObjectPlacer::~ObjectPlacer()
@@ -24,7 +20,7 @@ void ObjectPlacer::PlaceObject()
 	GameObject* obj = new GameObject(m_objectToPlace);
 	obj->SetFramentShader(ShaderTypes::basicFragment);
 	obj->SetVertexShader(ShaderTypes::basicVertex);
-	obj->SetMesh(m_meshes.at(m_currentMesh));
+	obj->SetMesh(MESH_DEFINES.GetMesh(m_currentMesh));
 	obj->ComputeBoundingBox();
 	obj->InitShader();
 	GAMECONTEXT.AddObject(obj);
@@ -38,16 +34,17 @@ void ObjectPlacer::SwitchMesh(bool right)
 
 		m_objectToPlace->SetVertexShader(ShaderTypes::ghostVertex);
 		m_objectToPlace->SetFramentShader(ShaderTypes::ghostFragment);
-		m_objectToPlace->SetMesh(m_meshes[m_currentMesh]);
+		m_objectToPlace->SetMesh(MESH_DEFINES.GetMesh(m_currentMesh));
 		m_objectToPlace->ComputeBoundingBox();
 		m_objectToPlace->InitShader();
 		m_objectToPlace->SetPos(m_placePos);
 	}
 	else
 	{
+		int meshNumber = MESH_DEFINES.GetMeshCount();
 		if (right)
 		{
-			if (m_currentMesh < m_meshes.size() - 1)
+			if (m_currentMesh < meshNumber - 1)
 				m_currentMesh++;
 			else
 				m_currentMesh = 0;
@@ -57,10 +54,10 @@ void ObjectPlacer::SwitchMesh(bool right)
 			if (m_currentMesh > 0)
 				m_currentMesh--;
 			else
-				m_currentMesh = m_meshes.size() - 1;
+				m_currentMesh = meshNumber - 1;
 		}
 
-		m_objectToPlace->SetMesh(m_meshes[m_currentMesh]);
+		m_objectToPlace->SetMesh(MESH_DEFINES.GetMesh(m_currentMesh));
 	}
 	
 }

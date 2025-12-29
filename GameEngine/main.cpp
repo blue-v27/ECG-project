@@ -28,38 +28,36 @@ int main()
 	GAMECONTEXT.SetWindow(&window);
 	GAMECONTEXT.SetCamera(&CAMERA);
 
+	GAMECONTEXT.Start();
+
 	Player* player = new Player();
 	player->SetPos(glm::vec3(0.f, 10.f, 0.f));
 	player->SetCamera(&CAMERA);
 	player->GetCamera()->SetPos(glm::vec3(0.0f, 7.f, 2.4f));
-	player->Init(MeshDefines::cube);
+	player->Init(&MESH_DEFINES.GetMesh(CUBE));
 	player->InitPhysics();
 	GAMECONTEXT.AddPlayer(player);
 	GAMECONTEXT.AddObject(player);
 
+	GameObject* ground = new GameObject();
+	ground->Init(&MESH_DEFINES.GetMesh(GROUND));
+	ground->SetScale(glm::vec3(10.f, 1.f, 10.f));
+	ground->SetPos(glm::vec3(0.f, 0.f, 0.f));
+	GAMECONTEXT.AddObject(ground);
 
-	GameObject* plane = new GameObject();
-	plane->SetTexture(TextureDefine::Rock);
-	plane->Init(MeshDefines::plane);
-	plane->SetScale(glm::vec3(10.f, 1.f, 10.f));
-	plane->SetPos(glm::vec3(0.f, 0.f, 0.f));
-	GAMECONTEXT.AddObject(plane);
+	GameObject* box = new GameObject();
+	box->Init(&MESH_DEFINES.GetMesh(BOX));
+	box->SetScale(glm::vec3(1.f, 1.f, 1.f));
+	box->SetPos(glm::vec3(0.f, 1.f, 0.f));
+	GAMECONTEXT.AddObject(box);
+
 #if 0
 	Water* water = new Water();
 	water->Init();
 	water->SetScale(glm::vec3(1.f, 1.f, 1.f));
 	water->SetPos(glm::vec3(-450.f, 0.f, 0.f));
-	GAMECONTEXT.AddObject(water);
-
-	GameObject* box = new GameObject();
-	box->SetTexture(TextureDefine::Wood);
-	box->Init(MeshDefines::cube);
-	box->SetScale(glm::vec3(1.f, 1.f, 1.f));
-	box->SetPos(glm::vec3(0.f, 1.f, 0.f));
-	GAMECONTEXT.AddObject(box);
+	GAMECONTEXT.AddObject(water);	
 #endif
-
-	GAMECONTEXT.Start();
 
 	while (!window.IsReleased(GLFW_KEY_ESCAPE) && glfwWindowShouldClose(window.getWindow()) == 0)
 	{

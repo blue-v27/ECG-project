@@ -9,10 +9,9 @@ Water::Water() : m_waveHeight(1.f), m_waveSpeed(1.f), m_waveLength(2.f)
 
 }
 
-void Water::Init(char* mesh)
+void Water::Init(Mesh* mesh)
 { 
-    SetTexture(TextureDefine::Water);
-    m_mesh = m_loader.loadObj(MeshDefines::water, GetTexture());
+    m_mesh = MESH_DEFINES.GetMesh(WATER);
 
     m_boundingBox.AddVertexArray(m_mesh.vertices);
     m_boundingBox.ComputeMinMax();

@@ -11,9 +11,8 @@ private:
 public:
 
 	Water();
-
 	
-	void Init(char* mesh = nullptr) override;
+	void Init(Mesh* mesh = nullptr) override;
 	void Render() override;
 
 };

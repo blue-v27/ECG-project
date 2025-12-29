@@ -23,11 +23,11 @@ public:
 
 	virtual void ProcessInput(Window* window, float deltaTime) = 0;
 	virtual void Update() = 0;
-	virtual void Init(char* mesh = nullptr) = 0;
+	virtual void Init(Mesh* mesh = nullptr) = 0;
 	virtual void Render() = 0;
 
 	void IProcessInput(Window* window, float deltaTime);
 	void IUpdate();
-	void IInit(char* mesh = nullptr);
+	void IInit(Mesh* mesh = nullptr);
 	void IRender();
 };

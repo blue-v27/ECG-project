@@ -15,7 +15,7 @@ void IGameObject::IUpdate()
 	Update();
 }
 
-void IGameObject::IInit(char* mesh)
+void IGameObject::IInit(Mesh* mesh)
 {
 	Init(mesh);
 }

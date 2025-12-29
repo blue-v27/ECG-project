@@ -103,7 +103,7 @@ public:
 	std::vector<Texture> GetTexture() { return m_textures; }
 
 	void Render() override;
-	void Init(char* mesh = nullptr) override;
+	void Init(Mesh* mesh = nullptr) override;
 	void Update() override;
 	void ProcessInput(Window* window, float deltaTime) override;
 };

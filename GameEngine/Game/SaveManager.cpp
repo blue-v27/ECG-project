@@ -32,7 +32,7 @@ void SaveManager::WriteObjectInfo(GameObject* obj)
 		fprintf(m_objects, "\tm_pos:%f %f %f\n", pos.x, pos.y, pos.z);
 		fprintf(m_objects, "\tm_vertexShader:%s\n", obj->getVertexShader());
 		fprintf(m_objects, "\tm_fragmentShader:%s\n", obj->GetFragmentShader());
-		fprintf(m_objects, "\tm_mesh:%s\n", obj->m_mesh.GetPath());
+		fprintf(m_objects, "\tm_mesh:%d\n", MESH_DEFINES.GetMeshIndex(obj->m_mesh));
 		glm::vec3 scale = obj->m_scale;
 		fprintf(m_objects, "\tm_scale:%f %f %f\n", scale.x, scale.y, scale.z);
 	}
@@ -49,6 +49,7 @@ void SaveManager::LoadObjects()
 
 	char line[256];
 	float x, y, z;
+	int ind;
 	char name[128];
 
 	GameObject* obj = nullptr;
@@ -84,9 +85,9 @@ void SaveManager::LoadObjects()
 		{
 			obj->SetFramentShader(name);
 		}
-		else if (sscanf(line, " m_mesh:%127s", name) == 1)
+		else if (sscanf(line, " m_mesh:%d", &ind) == 1)
 		{
-			obj->SetMesh(obj->m_loader.loadObj(name));
+			obj->SetMesh(MESH_DEFINES.GetMesh(ind));
 		}
 		if (sscanf(line, " m_scale:%f %f %f", &x, &y, &z) == 3)
 		{
