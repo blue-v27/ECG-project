@@ -15,13 +15,10 @@
 #include "..\Camera\camera.h"    
 #include "InteractiveGameObject.h"
 #include "Player.h"
+#include "fSingleton.h"
 
-class GameContext
+class GameContext : public fSingleton<GameContext>
 {
-private:
-    GameContext() = default;
-    ~GameContext() = default;
-
 private:
     Window* m_window = nullptr;
     Camera* m_camera = nullptr;
@@ -44,16 +41,6 @@ private:
     
     Player* m_player = nullptr;
 public:
-    static GameContext& Instance()
-    {
-        static GameContext instance; 
-        return instance;
-    }
-
-    GameContext(const GameContext&) = delete;
-    GameContext& operator=(const GameContext&) = delete;
-    GameContext(GameContext&&) = delete;
-    GameContext& operator=(GameContext&&) = delete;
 
     void    SetWindow(Window* wnd) { m_window = wnd; }
     Window* GetWindow() const      { return m_window; }

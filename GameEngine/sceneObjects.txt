@@ -1,0 +1,99 @@
+Length: 12
+
+
+{
+	m_pos:0.000000 0.000000 0.000000
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_mesh:5
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_pos:10.000000 1.000000 0.000000
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_mesh:3
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_pos:-19.821297 0.000000 17.110510
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_mesh:0
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_pos:-28.894030 0.000000 36.278053
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_mesh:0
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_pos:6.231606 0.000000 26.566313
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_mesh:0
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_pos:47.209599 0.000000 -49.213497
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_mesh:1
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_pos:-2.722191 0.000000 -53.879738
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_mesh:3
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_pos:-22.503935 4.684351 21.252396
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_mesh:3
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_pos:-25.186573 9.391044 24.097431
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_mesh:3
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_pos:-27.869211 14.031266 28.547953
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_mesh:3
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_pos:-30.551849 18.110325 32.871674
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_mesh:3
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_pos:-33.234489 22.042273 37.740307
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_mesh:3
+	m_scale:1.000000 1.000000 1.000000
+}
+

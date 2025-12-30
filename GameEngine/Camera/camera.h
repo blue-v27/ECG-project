@@ -6,13 +6,10 @@
 #include <gtc\type_ptr.hpp>
 #include "..\Graphics\window.h"
 #include "..\Game\GameObject.h"
+#include "..\Game\fSingleton.h"
 
-class Camera
+class Camera : public fSingleton<Camera>
 {
-private:
-	Camera() = default;
-	~Camera() = default;
-
 private:
 	glm::vec3 m_viewDirection = glm::vec3(0.0f, 0.0f, -1.0f);
 	glm::vec3 m_up			  = glm::vec3(0.0f, 1.0f, 0.0f);
@@ -28,18 +25,6 @@ private:
 	GameObject* m_targetObject = nullptr;
 
 	public:
-
-		static Camera& Instance()
-		{
-			static Camera instance;
-			return instance;
-		}
-
-		Camera(const Camera&) = delete;
-		Camera& operator=(const Camera&) = delete;
-		Camera(Camera&&) = delete;
-		Camera& operator=(Camera&&) = delete;
-
 		glm::mat4 getViewMatrix();
 		glm::vec3 getCameraPosition();
 		glm::vec3 getCameraViewDirection();

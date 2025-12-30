@@ -128,6 +128,7 @@
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="Graphics\window.cpp" />
     <ClCompile Include="Game\InteractiveGameObject.cpp" />
+    <ClCompile Include="Game\GUI\GUIManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model Loading\MeshDefines.cpp" />
     <ClCompile Include="Model Loading\meshLoaderObj.cpp" />
@@ -142,14 +143,17 @@
     <ClCompile Include="Game\Water.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\fSingleton.h" />
     <ClInclude Include="Game\GameObject.h" />
     <ClInclude Include="Game\BoundingBox.h" />
     <ClInclude Include="Camera\camera.h" />
     <ClInclude Include="Game\GameContext.h" />
+    <ClInclude Include="Game\GUI\stb_easy_font.h" />
     <ClInclude Include="Game\IGameObject.h" />
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="Graphics\window.h" />
     <ClInclude Include="Game\InteractiveGameObject.h" />
+    <ClInclude Include="Game\GUI\GUIManager.h" />
     <ClInclude Include="Model Loading\ShaderTypes.h" />
     <ClInclude Include="Model Loading\TextureDefine.h" />
     <ClInclude Include="Model Loading\MeshDefines.h" />
