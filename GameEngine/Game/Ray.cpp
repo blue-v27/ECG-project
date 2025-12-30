@@ -38,7 +38,6 @@ bool Ray::RayCast(glm::vec3 origin, glm::vec3 direction, float range, GameObject
 
 	if (tmin > tmax)
 		return false;
-
 	
 	outHitPoint = origin + direction * tmin;
 	return true;

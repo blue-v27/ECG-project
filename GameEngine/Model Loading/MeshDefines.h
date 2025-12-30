@@ -40,6 +40,7 @@ public:
 	bool IsActive()			{ return m_isActive; }
 
 #define MESH_DEFINES MeshDefines::Instance()
+
 #define CUBE   0
 #define SPHERE 1
 #define PLANE  2

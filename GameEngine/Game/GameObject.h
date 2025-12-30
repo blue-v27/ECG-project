@@ -41,7 +41,6 @@ public:
 	float m_mass;
 
 	Mesh		  m_mesh;
-	MeshLoaderObj m_loader;
 	Shader*		  m_shader = nullptr;
 
 	GameObject();
@@ -101,6 +100,8 @@ public:
 	}
 
 	std::vector<Texture> GetTexture() { return m_textures; }
+
+	GameObject* AsGameObject() { return this; }
 
 	void Render() override;
 	void Init(Mesh* mesh = nullptr) override;

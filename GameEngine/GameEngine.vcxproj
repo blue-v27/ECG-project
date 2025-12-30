@@ -127,6 +127,7 @@
     <ClCompile Include="Game\IGameObject.cpp" />
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="Graphics\window.cpp" />
+    <ClCompile Include="Game\InteractiveGameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model Loading\MeshDefines.cpp" />
     <ClCompile Include="Model Loading\meshLoaderObj.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Game\IGameObject.h" />
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="Graphics\window.h" />
+    <ClInclude Include="Game\InteractiveGameObject.h" />
     <ClInclude Include="Model Loading\ShaderTypes.h" />
     <ClInclude Include="Model Loading\TextureDefine.h" />
     <ClInclude Include="Model Loading\MeshDefines.h" />

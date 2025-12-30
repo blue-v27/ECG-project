@@ -13,6 +13,7 @@
 #include "..\Shaders\shader.h"
 #include "GameObject.h"
 #include "..\Camera\camera.h"    
+#include "InteractiveGameObject.h"
 #include "Player.h"
 
 class GameContext
@@ -36,6 +37,7 @@ private:
     bool m_isEditorActive = false;
 
     std::vector<GameObject*> m_objects;
+    std::vector<InteractiveGameObject*> m_interactiveObjects;
 
     glm::vec3 m_lightPos;
     glm::vec4 m_lightColor;

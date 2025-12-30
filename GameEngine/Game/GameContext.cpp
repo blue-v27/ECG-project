@@ -46,11 +46,18 @@ void GameContext::Update()
         for (GameObject* obj : m_objects)
         {
             if (obj)
-            {        
-                obj->IUpdate();
-
+            {                       
                 if (m_player)
                 {
+
+                    BoundingBox bb = obj->GetBoundingBox();
+                    if (glm::distance(m_player->m_pos, bb.GetMax()) > 100.f &&
+                        glm::distance(m_player->m_pos, obj->m_pos) > 100.f &&
+                        glm::distance(m_player->m_pos, bb.GetMin()) > 100.f)
+                        continue;
+
+                    obj->IUpdate();
+
                     if (Player* player = dynamic_cast<Player*>(obj))
                     {
 
@@ -79,6 +86,44 @@ void GameContext::Update()
             }
         }
     }
+
+    if (m_interactiveObjects.size())
+    {
+        for (InteractiveGameObject* iobj : m_interactiveObjects)
+        {          
+            if (m_player)
+            {
+                BoundingBox bb = iobj->GetBoundingBox();
+                if (glm::distance(m_player->m_pos, bb.GetMax()) > 100.f &&
+                    glm::distance(m_player->m_pos, iobj->m_pos) > 100.f &&
+                    glm::distance(m_player->m_pos, bb.GetMin()) > 100.f)
+                    continue;
+
+                iobj->Update();
+
+                if (iobj->GetParrent() != m_player->AsGameObject())
+                {
+                }
+                else
+                {
+                    glm::vec3 velocity = glm::vec3(100);
+
+                    if (mask)
+                        velocity = mask->GetVelocity();
+
+                    if (m_player->m_boundingBox.HandleIntersection(m_player->m_pos, iobj->GetBoundingBox(), velocity))
+                    {
+                        if (mask && mask->GetVelocity().y <= 0)
+                        {
+                            m_player->SetGrounded(true);
+                            mask->SetVelocityY(0.f);
+                        }
+                    }
+                }
+
+            }
+        }
+    }
 }
 
 void GameContext::Render()
@@ -89,8 +134,22 @@ void GameContext::Render()
         {
             if (obj)
             {
+                BoundingBox bb = obj->GetBoundingBox();
+                if (glm::distance(CAMERA.GetPos(), bb.GetMax()) > 750.f &&
+                    glm::distance(CAMERA.GetPos(), obj->m_pos) > 750.f &&
+                    glm::distance(CAMERA.GetPos(), bb.GetMin()) > 750.f)
+                    continue;
+
                 obj->IRender();
             }
+        }
+    }
+
+    if (m_interactiveObjects.size())
+    {
+        for (InteractiveGameObject* iobj : m_interactiveObjects)
+        {
+            iobj->Render();
         }
     }
 }

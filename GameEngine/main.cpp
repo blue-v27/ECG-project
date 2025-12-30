@@ -41,7 +41,7 @@ int main()
 
 	GameObject* ground = new GameObject();
 	ground->Init(&MESH_DEFINES.GetMesh(GROUND));
-	ground->SetScale(glm::vec3(10.f, 1.f, 10.f));
+	ground->SetScale(glm::vec3(1.f, 1.f, 1.f));
 	ground->SetPos(glm::vec3(0.f, 0.f, 0.f));
 	GAMECONTEXT.AddObject(ground);
 
@@ -54,8 +54,8 @@ int main()
 #if 0
 	Water* water = new Water();
 	water->Init();
-	water->SetScale(glm::vec3(1.f, 1.f, 1.f));
-	water->SetPos(glm::vec3(-450.f, 0.f, 0.f));
+	water->SetScale(glm::vec3(1.f, 10.f, 1.f));
+	water->SetPos(glm::vec3(0.f, -20.f, 0.f));
 	GAMECONTEXT.AddObject(water);	
 #endif
 
