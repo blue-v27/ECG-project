@@ -84,4 +84,11 @@ int main()
 
 		window.update();
 	}
+
+	// Delete all objects from memory
+	while(GAMECONTEXT.GetObjectCount())
+	{
+		if(GameObject* obj = GAMECONTEXT.GetObject(0))
+			GAMECONTEXT.RemoveObject(obj);
+	}
 }

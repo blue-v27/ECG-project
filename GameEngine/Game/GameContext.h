@@ -105,11 +105,8 @@ public:
     float GetDeltaTime() { return m_deltaTime; }
     
     void UpdateFov();
-
     void Start();
-
     void Update();
-
     void Render();
 
 #define GAMECONTEXT GameContext::Instance()

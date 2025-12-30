@@ -48,6 +48,7 @@ public:
 
 	GameObject();
 	GameObject(GameObject* obj);
+	~GameObject();
 
 	void	  SetPos(glm::vec3 pos);
 	glm::vec3 GetPos()						{ return m_pos; }

@@ -37,6 +37,14 @@ GameObject::GameObject(GameObject* obj)
     m_id = 0;
 }
 
+GameObject::~GameObject()
+{
+    delete m_phyMask;
+    m_phyMask = nullptr;
+    delete m_shader;
+    m_phyMask = nullptr;
+}
+
 void GameObject::Update()
 {
     if (m_phyMask)
