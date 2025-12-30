@@ -101,8 +101,9 @@ void GameContext::Update()
 
                 iobj->Update();
 
-                if (iobj->GetParrent() != m_player->AsGameObject())
+                if (iobj->GetParrent() == m_player->AsGameObject())
                 {
+
                 }
                 else
                 {
@@ -111,7 +112,7 @@ void GameContext::Update()
                     if (mask)
                         velocity = mask->GetVelocity();
 
-                    if (m_player->m_boundingBox.HandleIntersection(m_player->m_pos, iobj->GetBoundingBox(), velocity))
+                    if (iobj->HandleIntersection(m_player->AsGameObject(), velocity))
                     {
                         if (mask && mask->GetVelocity().y <= 0)
                         {
@@ -149,6 +150,12 @@ void GameContext::Render()
     {
         for (InteractiveGameObject* iobj : m_interactiveObjects)
         {
+            BoundingBox bb = iobj->GetBoundingBox();
+            if (glm::distance(CAMERA.GetPos(), bb.GetMax()) > 750.f &&
+                glm::distance(CAMERA.GetPos(), iobj->m_pos) > 750.f &&
+                glm::distance(CAMERA.GetPos(), bb.GetMin()) > 750.f)
+                continue;
+
             iobj->Render();
         }
     }

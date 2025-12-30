@@ -34,9 +34,12 @@ public:
 	glm::vec3 m_viewDirection;
 	glm::vec3 m_up;
 	glm::vec3 m_right;
+	int m_id;
 
 	float m_rotationOx;
 	float m_rotationOy;
+
+	bool m_isActive = true;
 
 	float m_mass;
 

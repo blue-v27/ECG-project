@@ -86,6 +86,15 @@ public:
     void AddObject(GameObject* obj)
     {
         m_objects.push_back(obj);
+        if (m_objects.size() > 1)
+            obj->m_id = m_objects.at(m_objects.size() - 1)->m_id + 1;
+    }
+
+    void AddInteractiveGameObject(InteractiveGameObject* iobj)
+    {
+        m_interactiveObjects.push_back(iobj);
+        if (m_objects.size() > 1)
+            iobj->m_id = m_interactiveObjects.at(m_interactiveObjects.size() - 1)->m_id + 1;
     }
 
     void RemoveObject(GameObject* obj)

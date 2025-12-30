@@ -15,6 +15,8 @@ GameObject::GameObject()
 
 	m_parent = nullptr;
 	m_mass = 10;
+    m_isActive = true;
+    m_id = 0;
 
     snprintf(m_fragmentShader, 128, "%s", ShaderTypes::basicFragment);
     snprintf(m_vertexShader, 128, "%s", ShaderTypes::basicVertex);
@@ -31,6 +33,8 @@ GameObject::GameObject(GameObject* obj)
     m_mass = obj->m_mass;
     m_rotationOx = obj->m_rotationOx;
     m_rotationOy = obj->m_rotationOy;
+    m_isActive = true;
+    m_id = 0;
 }
 
 void GameObject::Update()

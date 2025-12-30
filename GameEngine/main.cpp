@@ -10,6 +10,7 @@
 #include "Model Loading/ShaderTypes.h"
 #include "Model Loading\TextureDefine.h"
 #include "Game/Water.h"
+#include "Game/InteractiveGameObject.h"
 #include "Game/SubModes/SceneEditorSubMode.h"
 
 float deltaTime = 0.0f;	// time between current frame and last frame
@@ -48,8 +49,15 @@ int main()
 	GameObject* box = new GameObject();
 	box->Init(&MESH_DEFINES.GetMesh(BOX));
 	box->SetScale(glm::vec3(1.f, 1.f, 1.f));
-	box->SetPos(glm::vec3(0.f, 1.f, 0.f));
+	box->SetPos(glm::vec3(10.f, 1.f, 0.f));
 	GAMECONTEXT.AddObject(box);
+
+	InteractiveGameObject* little = new InteractiveGameObject();
+	little->Init(&MESH_DEFINES.GetMesh(BOX));
+	little->SetScale(glm::vec3(1.f, 1.f, 1.f));
+	little->SetPos(glm::vec3(-10.f, 1.f, 0.f));
+	little->IsPickable(true);
+	GAMECONTEXT.AddInteractiveGameObject(little);
 
 #if 0
 	Water* water = new Water();
