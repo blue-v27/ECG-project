@@ -40,33 +40,6 @@ int main()
 	GAMECONTEXT.AddPlayer(player);
 	GAMECONTEXT.AddObject(player);
 
-	GameObject* ground = new GameObject();
-	ground->Init(&MESH_DEFINES.GetMesh(GROUND));
-	ground->SetScale(glm::vec3(1.f, 1.f, 1.f));
-	ground->SetPos(glm::vec3(0.f, 0.f, 0.f));
-	GAMECONTEXT.AddObject(ground);
-
-	GameObject* box = new GameObject();
-	box->Init(&MESH_DEFINES.GetMesh(BOX));
-	box->SetScale(glm::vec3(1.f, 1.f, 1.f));
-	box->SetPos(glm::vec3(10.f, 1.f, 0.f));
-	GAMECONTEXT.AddObject(box);
-
-	InteractiveGameObject* little = new InteractiveGameObject();
-	little->Init(&MESH_DEFINES.GetMesh(BOX));
-	little->SetScale(glm::vec3(1.f, 1.f, 1.f));
-	little->SetPos(glm::vec3(-10.f, 1.f, 0.f));
-	little->IsPickable(true);
-	GAMECONTEXT.AddInteractiveGameObject(little);
-
-#if 0
-	Water* water = new Water();
-	water->Init();
-	water->SetScale(glm::vec3(1.f, 10.f, 1.f));
-	water->SetPos(glm::vec3(0.f, -20.f, 0.f));
-	GAMECONTEXT.AddObject(water);	
-#endif
-
 	while (!window.IsReleased(GLFW_KEY_ESCAPE) && glfwWindowShouldClose(window.getWindow()) == 0)
 	{
 		window.clear();
@@ -84,6 +57,8 @@ int main()
 
 		window.update();
 	}
+
+	
 
 	// Delete all objects from memory
 	while(GAMECONTEXT.GetObjectCount())
