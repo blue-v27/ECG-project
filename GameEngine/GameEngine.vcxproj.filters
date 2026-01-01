@@ -78,6 +78,9 @@
     <ClCompile Include="Game\GUI\GUIManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Inventory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\window.h">
@@ -155,6 +158,15 @@
     <ClInclude Include="Game\fSingleton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Inventory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GUI\stb_truetype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GUI\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\vertex_shader.glsl" />
@@ -165,6 +177,8 @@
     <None Include="Shaders\water_vertex_shader.glsl" />
     <None Include="Shaders\ghost_fragment_shader.glsl" />
     <None Include="Shaders\ghost_vertex_shader.glsl" />
+    <None Include="Shaders\text_fragment_shader.glsl" />
+    <None Include="Shaders\text_vertex_shader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\wood.bmp">
@@ -173,8 +187,14 @@
     <Image Include="Resources\Textures\rock.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Resources\Images\test.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Object Include="Resources\Models\sphere.obj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Resources\Fonts\ARIAL.TTF" />
   </ItemGroup>
 </Project>

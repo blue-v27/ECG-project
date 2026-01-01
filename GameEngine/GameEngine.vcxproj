@@ -129,6 +129,7 @@
     <ClCompile Include="Graphics\window.cpp" />
     <ClCompile Include="Game\InteractiveGameObject.cpp" />
     <ClCompile Include="Game\GUI\GUIManager.cpp" />
+    <ClCompile Include="Game\Inventory.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model Loading\MeshDefines.cpp" />
     <ClCompile Include="Model Loading\meshLoaderObj.cpp" />
@@ -149,11 +150,14 @@
     <ClInclude Include="Camera\camera.h" />
     <ClInclude Include="Game\GameContext.h" />
     <ClInclude Include="Game\GUI\stb_easy_font.h" />
+    <ClInclude Include="Game\GUI\stb_image.h" />
+    <ClInclude Include="Game\GUI\stb_truetype.h" />
     <ClInclude Include="Game\IGameObject.h" />
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="Graphics\window.h" />
     <ClInclude Include="Game\InteractiveGameObject.h" />
     <ClInclude Include="Game\GUI\GUIManager.h" />
+    <ClInclude Include="Game\Inventory.h" />
     <ClInclude Include="Model Loading\ShaderTypes.h" />
     <ClInclude Include="Model Loading\TextureDefine.h" />
     <ClInclude Include="Model Loading\MeshDefines.h" />
@@ -175,11 +179,14 @@
     <None Include="Shaders\ghost_vertex_shader.glsl" />
     <None Include="Shaders\sun_fragment_shader.glsl" />
     <None Include="Shaders\sun_vertex_shader.glsl" />
+    <None Include="Shaders\text_fragment_shader.glsl" />
+    <None Include="Shaders\text_vertex_shader.glsl" />
     <None Include="Shaders\vertex_shader.glsl" />
     <None Include="Shaders\water_fragment_shader.glsl" />
     <None Include="Shaders\water_vertex_shader.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\Images\test.png" />
     <Image Include="Resources\Textures\rock.bmp" />
     <Image Include="Resources\Textures\wood.bmp" />
   </ItemGroup>
@@ -187,6 +194,9 @@
     <Object Include="Resources\Models\sphere.obj">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </Object>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Resources\Fonts\ARIAL.TTF" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

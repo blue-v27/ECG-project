@@ -12,6 +12,7 @@
 #include "Game/Water.h"
 #include "Game/InteractiveGameObject.h"
 #include "Game/SubModes/SceneEditorSubMode.h"
+#include "Game/GUI/GUIManager.h"
 
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
@@ -40,6 +41,8 @@ int main()
 	GAMECONTEXT.AddPlayer(player);
 	GAMECONTEXT.AddObject(player);
 
+	GUI.Init();
+
 	while (!window.IsReleased(GLFW_KEY_ESCAPE) && glfwWindowShouldClose(window.getWindow()) == 0)
 	{
 		window.clear();
@@ -55,7 +58,11 @@ int main()
 		GAMECONTEXT.Update();
 		GAMECONTEXT.Render();
 
+		GUI.DrawText("HELLO WORLD!", 50.0f, 750.0f, 1.0f, glm::vec3(1.0f, 1.0f, 0.0f)); 		
+		GUI.DrawImage("Resources/Images/test.png", 150.0f, 730.0f, 1.0f);
+
 		window.update();
+
 	}
 
 	

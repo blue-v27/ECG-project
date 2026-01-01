@@ -42,6 +42,8 @@ private:
     Player* m_player = nullptr;
 public:
 
+    float getHeight() { return m_window->getHeight(); }
+
     void    SetWindow(Window* wnd) { m_window = wnd; }
     Window* GetWindow() const      { return m_window; }
 
