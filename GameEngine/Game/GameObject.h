@@ -37,6 +37,7 @@ public:
 	int m_id;
 
 	glm::quat m_rot;
+	glm::quat m_relativeRot;
 
 	float m_rotationOx;
 	float m_rotationOy;

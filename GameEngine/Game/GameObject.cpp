@@ -53,10 +53,10 @@ void GameObject::Update()
 
     m_boundingBox.UpdateWorldPos(GetPos(), m_scale);
 
-    if (GameObject* parrent = dynamic_cast<GameObject*>(GetParrent()))
+    if (GameObject* parent = dynamic_cast<GameObject*>(GetParrent()))
     {
-        m_pos = parrent->m_pos + m_relativePos;
-        m_rot = parrent->m_rot;
+        m_rot = parent->m_rot * m_relativeRot;
+        m_pos = parent->m_pos + (parent->m_rot * m_relativePos);
     }
 }
 

@@ -44,7 +44,8 @@ int main()
 
 	Weapon* knife = new Weapon(10.f, 0.5f, 500.f);
 	player->SetChild(knife);
-	knife->SetPos(glm::vec3(0.0f, 7.f, 5.f));
+	knife->SetPos(glm::vec3(0.0f, 7.f, 1.f));
+	knife->SetScale(glm::vec3(0.25f));
 	knife->Init(&MESH_DEFINES.GetMesh(KNIFE));
 	GAMECONTEXT.AddObject(knife);
 	GUI.Init();
