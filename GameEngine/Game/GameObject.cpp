@@ -17,6 +17,7 @@ GameObject::GameObject()
 	m_mass = 10;
     m_isActive = true;
     m_id = 0;
+    m_health = 100.f;
 
     snprintf(m_fragmentShader, 128, "%s", ShaderTypes::basicFragment);
     snprintf(m_vertexShader, 128, "%s", ShaderTypes::basicVertex);
@@ -55,6 +56,7 @@ void GameObject::Update()
     if (GameObject* parrent = dynamic_cast<GameObject*>(GetParrent()))
     {
         m_pos = parrent->m_pos + m_relativePos;
+        m_rot = parrent->m_rot;
     }
 }
 
@@ -112,7 +114,9 @@ void GameObject::Render()
     glm::vec3 renderPos = glm::vec3(0);
 
     glm::mat4 ModelMatrix = glm::translate(glm::mat4(1.0f), m_pos);
+    ModelMatrix *= glm::mat4_cast(m_rot);
     ModelMatrix *= glm::scale(glm::mat4(1.0f), m_scale);
+
     glm::mat4 ProjectionMatrix = glm::perspective(GAMECONTEXT.GetFov(), window->getWidth() * 1.0f / window->getHeight(), 0.1f, 10000.0f);
     glm::mat4 ViewMatrix = glm::lookAt(camera->getCameraPosition(),
         camera->getCameraPosition() + camera->getCameraViewDirection(),

@@ -17,6 +17,7 @@ public:
 	static constexpr char* cube   = "Resources/Models/cube.obj";
 	static constexpr char* water  = "Resources/Models/plane1.obj";
 	static constexpr char* plane  = "Resources/Models/plane.obj";
+	static constexpr char* knife  = "Resources/Models/m9bayo2.obj";
 
 	static MeshDefines& Instance()
 	{
@@ -47,4 +48,5 @@ public:
 #define BOX	   3
 #define WATER  4
 #define GROUND 5
+#define KNIFE  6
 };

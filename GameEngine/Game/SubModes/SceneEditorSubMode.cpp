@@ -4,6 +4,7 @@
 void SceneEditorSubMode::Init()
 {
 	m_objPlacer = new ObjectPlacer();
+	m_cameraRot = CAMERA.GetRotation();
 	CAMERA.FreeCam(true);
 	m_isActive = true;
 }
@@ -11,6 +12,9 @@ void SceneEditorSubMode::Init()
 void SceneEditorSubMode::Stop()
 {
 	CAMERA.FreeCam(false);
+	CAMERA.SetRotatation(m_cameraRot);
+	CAMERA.SetRotatation(GAMECONTEXT.GetPlayer()->m_rotationOx, GAMECONTEXT.GetPlayer()->m_rotationOy);
+	CAMERA.UpdateVectors();
 	m_isActive = false;
 	delete m_objPlacer;
 	m_objPlacer = nullptr;

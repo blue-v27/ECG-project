@@ -13,6 +13,7 @@
 #include "Game/InteractiveGameObject.h"
 #include "Game/SubModes/SceneEditorSubMode.h"
 #include "Game/GUI/GUIManager.h"
+#include "Game/Weapon.h"
 
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
@@ -41,6 +42,11 @@ int main()
 	GAMECONTEXT.AddPlayer(player);
 	GAMECONTEXT.AddObject(player);
 
+	Weapon* knife = new Weapon(10.f, 0.5f, 500.f);
+	player->SetChild(knife);
+	knife->SetPos(glm::vec3(0.0f, 7.f, 5.f));
+	knife->Init(&MESH_DEFINES.GetMesh(KNIFE));
+	GAMECONTEXT.AddObject(knife);
 	GUI.Init();
 
 	while (!window.IsReleased(GLFW_KEY_ESCAPE) && glfwWindowShouldClose(window.getWindow()) == 0)

@@ -41,21 +41,29 @@ void Camera::SetPos(glm::vec3 pos)
 
 void Camera::UpdateVectors()
 {
-	glm::vec3 front;
-	front.x = cos(glm::radians(m_rotationOy)) * cos(glm::radians(m_rotationOx));
-	front.y = sin(glm::radians(m_rotationOx));
-	front.z = sin(glm::radians(m_rotationOy)) * cos(glm::radians(m_rotationOx));
+	float yaw   = glm::radians(m_rotationOy);
+	float pitch = glm::radians(m_rotationOx);
+
+	glm::quat qYaw   = glm::angleAxis(yaw, glm::vec3(0, 1, 0));
+	glm::quat qPitch = glm::angleAxis(pitch, glm::vec3(1, 0, 0));
+
+	m_rot = qYaw * qPitch;
+	m_rot = glm::normalize(m_rot);
+
+	glm::vec3 front = m_rot * glm::vec3(0, 0, -1);
+	glm::vec3 right = m_rot * glm::vec3(1, 0, 0);
+	glm::vec3 up    = m_rot * glm::vec3(0, 1, 0);
 
 	m_viewDirection = glm::normalize(front);
-	m_right = glm::normalize(glm::cross(m_viewDirection, glm::vec3(0, 1,0) ));
-	m_up = glm::normalize(glm::cross(m_right, m_viewDirection));
+	m_right = glm::normalize(right);
+	m_up = glm::normalize(up);
 }
 
 
 void Camera::rotateOx(float angle)
 {	
 	m_rotationOx += angle;
-	m_rotationOx = glm::clamp(m_rotationOx, -89.0f, 89.0f);
+//	m_rotationOx = glm::clamp(m_rotationOx, -89.0f, 89.0f);
 	UpdateVectors();
 }
 
@@ -75,6 +83,7 @@ void Camera::Update()
 	if (m_targetObject && !m_freeCam)
 	{
 		m_pos = m_targetObject->GetPos() + m_relativePos;
+		m_rot = m_targetObject->m_rot;
 	}
 
 	if (m_freeCam)
@@ -132,9 +141,9 @@ void Camera::ProcessInput(Window* window, float deltaTime)
 
 	GAMECONTEXT.SetMousePos(glm::vec2(x, y));
 
-	const float sensitivity = 0.25f;
+	const float sensitivity = 2.5f;
 
-	rotateOy(dx * sensitivity);
+	rotateOy(-dx * sensitivity);
 	rotateOx(-dy * sensitivity);
 }
 

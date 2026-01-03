@@ -19,6 +19,8 @@ private:
 
 	float m_rotationOx = 0.0f;
 	float m_rotationOy = -90.0f;
+
+	glm::quat m_rot;
 	
 	bool m_freeCam = false;
 	
@@ -41,6 +43,10 @@ private:
 
 		void	  SetPos(glm::vec3 pos);
 		glm::vec3 GetPos() { return m_pos; }
+
+		void      SetRotatation(glm::quat rot)		{ m_rot = rot; }
+		void      SetRotatation(float ox, float oy) { m_rotationOx = ox; m_rotationOy = oy; }
+		glm::quat GetRotation()						{ return m_rot; }
 
 		bool FreeCam()		   { return m_freeCam; }
 		void FreeCam(bool val) { m_freeCam = val; }

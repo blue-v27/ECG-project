@@ -143,6 +143,7 @@
     <ClCompile Include="Shaders\shader.cpp" />
     <ClCompile Include="Model Loading\texture.cpp" />
     <ClCompile Include="Game\Water.cpp" />
+    <ClCompile Include="Game\Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\fSingleton.h" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Shaders\shader.h" />
     <ClInclude Include="Model Loading\texture.h" />
     <ClInclude Include="Game\Water.h" />
+    <ClInclude Include="Game\Weapon.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragment_shader.glsl" />

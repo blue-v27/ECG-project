@@ -36,12 +36,15 @@ public:
 	glm::vec3 m_right;
 	int m_id;
 
+	glm::quat m_rot;
+
 	float m_rotationOx;
 	float m_rotationOy;
 
 	bool m_isActive = true;
 
 	float m_mass;
+	float m_health = 100.f;
 
 	Mesh		  m_mesh;
 	Shader*		  m_shader = nullptr;
@@ -55,7 +58,11 @@ public:
 	void	  SetRelativePos(glm::vec3 pos) { m_relativePos = pos; }
 	glm::vec3 GetRelativePos()				{ return m_relativePos; }
 
-	void	SetScale(glm::vec3 scale) { m_scale = scale; }
+	void	  SetRotation(glm::quat rot) { m_rot = rot; };
+	glm::quat GetRotation()			     { return m_rot; }
+
+	void	  SetScale(glm::vec3 scale) { m_scale = scale; }
+	glm::vec3 GetScale()				{ return m_scale; }
 
 	void	  SetDir(glm::vec3 pos) { m_viewDirection = pos; }
 	glm::vec3 GetDir()				{ return m_viewDirection; }
@@ -104,6 +111,8 @@ public:
 	}
 
 	std::vector<Texture> GetTexture() { return m_textures; }
+
+	void GetDamage(float damage) { m_health -= damage; }
 
 	GameObject* AsGameObject() { return this; }
 

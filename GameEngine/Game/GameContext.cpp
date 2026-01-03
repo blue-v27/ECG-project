@@ -4,6 +4,30 @@
 #include "../Model Loading/MeshDefines.h"
 #include "GUI/Hud.h"
 
+std::vector<GameObject*> GameContext::GetObjectsInRange(glm::vec3 pos, float range)
+{
+    std::vector<GameObject*> arr;
+
+    if (m_objects.size())
+    {
+        for (GameObject* obj : m_objects)
+        {
+            if (obj)
+            {
+                BoundingBox bb = obj->GetBoundingBox();
+                if (glm::distance(pos, bb.GetMax()) > range &&
+                    glm::distance(pos, obj->m_pos) > range &&
+                    glm::distance(pos, bb.GetMin()) > range)
+                    continue;
+
+                arr.push_back(obj);
+            }
+        }
+    }
+
+    return arr;
+}
+
 void GameContext::Start()
 {
     if (&MESH_DEFINES)

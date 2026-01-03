@@ -53,6 +53,8 @@ public:
     float GetFov()          { return m_fov; }
     void  SetFov(float fov) { m_fov = fov;  }
 
+    Player* GetPlayer() { return m_player; }
+
     void SetLightColor(glm::vec4 col) { m_lightColor = col; }
     void SetLightPos(glm::vec3 pos)   { m_lightPos = pos; }
 
@@ -97,6 +99,8 @@ public:
     {
         return m_objects.size();
     }
+
+    std::vector<GameObject*> GetObjectsInRange(glm::vec3 pos, float range);
 
     GameObject* GetObject(size_t index)
     {
