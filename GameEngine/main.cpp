@@ -17,7 +17,7 @@
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
 
-Window window("Game Engine", 800, 800);
+Window window("Game Engine", 1280, 720);
 
 glm::vec3 lightColor = glm::vec3(1.0f);
 glm::vec3 lightPos   = glm::vec3(-180.0f, 100.0f, -200.0f);
@@ -56,13 +56,9 @@ int main()
 		GAMECONTEXT.SetLightPos(lightPos);
 		GAMECONTEXT.SetLightColor(glm::vec4(lightColor, 1));
 		GAMECONTEXT.Update();
-		GAMECONTEXT.Render();
-
-		GUI.DrawText("HELLO WORLD!", 50.0f, 750.0f, 1.0f, glm::vec3(1.0f, 1.0f, 0.0f)); 		
-		GUI.DrawImage("Resources/Images/test.png", 150.0f, 730.0f, 1.0f);
+		GAMECONTEXT.Render();	
 
 		window.update();
-
 	}
 
 	

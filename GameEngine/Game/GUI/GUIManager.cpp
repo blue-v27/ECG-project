@@ -7,8 +7,14 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+#include "../GameContext.h"
+
 void GUIManager::Init()
 {
+
+    Window* wnd = GAMECONTEXT.GetWindow();
+    m_projection = glm::ortho(0.0f, (float)wnd->getWidth(), 0.0f, (float)wnd->getHeight());
+
     std::string fontPath = "Resources/Fonts/ARIAL.TTF";
 
     unsigned char* ttf_buffer = new unsigned char[1 << 20];
@@ -21,8 +27,8 @@ void GUIManager::Init()
     fread(ttf_buffer, 1, 1 << 20, f);
     fclose(f);
 
-    m_atlasWidth = 512;
-    m_atlasHeight = 512;
+    m_atlasWidth = 720;
+    m_atlasHeight = 1280;
 
     unsigned char* bitmap = new unsigned char[m_atlasWidth * m_atlasHeight];
 
@@ -139,7 +145,8 @@ GLuint GUIManager::LoadTexture(const std::string& path)
 
     int w, h, channels;
     unsigned char* data = stbi_load(path.c_str(), &w, &h, &channels, 4);  // Force RGBA
-    if (!data) {
+    if (!data) 
+    {
         printf("Failed to load image: %s\n", path.c_str());
         return 0;
     }
@@ -182,7 +189,8 @@ void GUIManager::DrawImage(GLuint textureID, float x, float y, float width, floa
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-    std::vector<float> vertices = {
+    std::vector<float> vertices = 
+    {
         x,         y + height, 0.0f, 0.0f,  // top-left
         x + width, y + height, 1.0f, 0.0f,  // top-right
         x,         y,          0.0f, 1.0f,  // bottom-left

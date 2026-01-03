@@ -106,7 +106,15 @@ public:
     void SetDeltaTime(float time) { m_deltaTime = time; }
     float GetDeltaTime() { return m_deltaTime; }
     
-    void UpdateFov();
+    void UpdateFov()
+    {
+        if (glm::abs(m_fov - m_targetFov) > 0.01f)
+            m_fov += 10.f * m_deltaTime;
+        if (glm::abs(m_fov - m_targetFov) < 0.01f);
+        m_fov -= 10.f * m_deltaTime;
+        if (m_fov != m_targetFov && glm::abs(m_fov - m_targetFov) <= 0.1f)
+            m_fov = m_targetFov;
+    }
     void Start();
     void Update();
     void Render();

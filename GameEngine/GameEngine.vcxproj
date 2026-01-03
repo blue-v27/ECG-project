@@ -130,6 +130,7 @@
     <ClCompile Include="Game\InteractiveGameObject.cpp" />
     <ClCompile Include="Game\GUI\GUIManager.cpp" />
     <ClCompile Include="Game\Inventory.cpp" />
+    <ClCompile Include="Game\GUI\Hud.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model Loading\MeshDefines.cpp" />
     <ClCompile Include="Model Loading\meshLoaderObj.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="Game\InteractiveGameObject.h" />
     <ClInclude Include="Game\GUI\GUIManager.h" />
     <ClInclude Include="Game\Inventory.h" />
+    <ClInclude Include="Game\GUI\Hud.h" />
     <ClInclude Include="Model Loading\ShaderTypes.h" />
     <ClInclude Include="Model Loading\TextureDefine.h" />
     <ClInclude Include="Model Loading\MeshDefines.h" />

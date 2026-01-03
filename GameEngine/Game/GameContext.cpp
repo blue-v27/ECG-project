@@ -2,16 +2,7 @@
 #include "SubModes/SceneEditorSubMode.h"
 #include "SaveManager.h"
 #include "../Model Loading/MeshDefines.h"
-
-void GameContext::UpdateFov()
-{
-    if (glm::abs(m_fov - m_targetFov) > 0.01f)
-        m_fov += 10.f * m_deltaTime;
-    if (glm::abs(m_fov - m_targetFov) < 0.01f);
-        m_fov -= 10.f * m_deltaTime;
-    if (m_fov != m_targetFov && glm::abs(m_fov - m_targetFov) <= 0.1f)
-        m_fov = m_targetFov;
-}
+#include "GUI/Hud.h"
 
 void GameContext::Start()
 {
@@ -159,4 +150,7 @@ void GameContext::Render()
             iobj->Render();
         }
     }
+
+    if (&HUD)
+        HUD.Render();
 }

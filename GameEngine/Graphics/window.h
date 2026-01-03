@@ -46,4 +46,6 @@ class Window
 
 		int getWidth();
 		int getHeight();
+		void SetWidth();
+		void GetWifth();
 };
