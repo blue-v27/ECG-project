@@ -42,7 +42,8 @@ public:
 	float m_rotationOx;
 	float m_rotationOy;
 
-	bool m_isActive = true;
+	bool m_isActive   = true;
+	bool m_usePhysics = false;
 
 	float m_mass;
 	float m_health = 100.f;
@@ -96,9 +97,13 @@ public:
 
 	void		SetParent(GameObject* obj) { m_parent = obj; }
 	GameObject* GetParrent()			   { return m_parent; }
+	void		RemoveParrentLink();
+	void		RemoveChild(GameObject* obj);
 
-	void		 InitPhysics()	  { m_phyMask = new PhysicsMask(m_pos); }
-	PhysicsMask* GetPhysicsMask() { return m_phyMask; }
+	void		 InitPhysics()	   { m_phyMask = new PhysicsMask(m_pos); m_usePhysics = true; }
+	PhysicsMask* GetPhysicsMask()  { return m_phyMask; }
+	bool		 IsPhysicsEnable() { if (PhysicsMask* mask = m_phyMask) return true; return false; }
+	void		 DisablePhysics();
 
 	BoundingBox m_boundingBox;
 

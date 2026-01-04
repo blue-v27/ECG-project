@@ -35,6 +35,16 @@ void Weapon::Attack()
 	}
 }
 
+void Weapon::Drop()
+{
+	if (GetParrent())
+	{
+		RemoveParrentLink();
+		IsPickable(true);
+		InitPhysics();
+	}
+}
+
 void Weapon::Update()
 {
 	if (!m_canAttack)
@@ -55,4 +65,6 @@ void Weapon::ProcessInput(Window* wnd, float dt)
 {
 	if (wnd->IsMouseReleased(1))
 		Attack();
+	if (wnd->IsReleased(GLFW_KEY_Q))
+		Drop();
 }

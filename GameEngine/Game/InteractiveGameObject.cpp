@@ -2,6 +2,8 @@
 
 InteractiveGameObject::InteractiveGameObject()
 {
+	m_pickable = false;
+	m_shoudlBePicked = false;
 	GameObject::GameObject();
 }
 
@@ -24,7 +26,7 @@ bool InteractiveGameObject::HandleIntersection(GameObject* other, glm::vec3& vel
 	if (other->m_boundingBox.HandleIntersection(other->m_pos, this->m_boundingBox, velocity))
 	{
 		if (m_pickable)
-			m_shoudlBePicked = true;
+			PickUp(other);
 
 		return true;
 	}
@@ -32,9 +34,17 @@ bool InteractiveGameObject::HandleIntersection(GameObject* other, glm::vec3& vel
 	return false;
 }
 
+void InteractiveGameObject::PickUp(GameObject* other)
+{
+	if (m_pickable)
+	{
+		DisablePhysics();
+		other->SetChild(this->AsGameObject());
+		m_pickable = false;
+	}
+}
+
 void InteractiveGameObject::Update()
 {
-	if (m_shoudlBePicked)
-		m_scale = glm::vec3(0.f);
 	GameObject::Update();
 }

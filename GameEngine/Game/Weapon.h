@@ -13,6 +13,7 @@ public:
 	~Weapon();
 	
 	void Attack();
+	void Drop();
 	void Update() override;
 	void ProcessInput(Window* wnd, float dt) override;
 };

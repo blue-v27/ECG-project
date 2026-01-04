@@ -56,4 +56,6 @@ void RangedWeapon::ProcessInput(Window* wnd, float dt)
 {
 	if (wnd->IsMouseReleased(0))
 		Shoot();
+	if (wnd->IsReleased(GLFW_KEY_Q))
+		Drop();
 }

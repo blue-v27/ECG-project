@@ -116,7 +116,22 @@ void GameContext::Update()
                         continue;
                 }
 
-                iobj->Update();
+                iobj->Update();           
+
+                if (iobj->IsPhysicsEnable())
+                {
+                    for (GameObject* obj : m_objects)
+                    {
+                        if (iobj->m_id == obj->m_id)
+                            continue;
+
+                        if (iobj->m_boundingBox.HandleIntersection(iobj->m_pos, obj->GetBoundingBox()))
+                        {
+                            iobj->GetPhysicsMask()->SetVelocityY(0.f);
+                            break;
+                        }
+                    }                 
+                }
 
                 if (iobj->GetParrent() == m_player->AsGameObject())
                 {

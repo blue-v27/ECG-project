@@ -10,8 +10,7 @@ public:
 
 	void IsPickable(bool val);
 	bool IsPickable()		  { return m_pickable; }
-
-	bool ShouldBePickedUp(bool val) { m_shoudlBePicked = val; }
+	void PickUp(GameObject* other);
 
 	bool HandleIntersection(GameObject* other, glm::vec3&velocity = glm::vec3(100.f));
 

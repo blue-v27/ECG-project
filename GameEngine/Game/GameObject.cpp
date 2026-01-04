@@ -124,6 +124,28 @@ void GameObject::RotateZ(float angle)
         m_rot = m_rot * glm::angleAxis(angle, glm::vec3(0, 0, 1));
 }
 
+void GameObject::RemoveParrentLink()
+{
+    if (m_parent)
+    {
+        m_parent->RemoveChild(this);
+        m_parent = nullptr;
+    }
+        
+}
+
+void GameObject::RemoveChild(GameObject* obj)
+{
+    m_children.erase(std::remove(m_children.begin(), m_children.end(), obj), m_children.end());
+}
+
+void GameObject::DisablePhysics()
+{
+    delete m_phyMask;
+    m_phyMask = nullptr;
+    m_usePhysics = false;
+}
+
 void GameObject::ComputeBoundingBox()
 {
     m_boundingBox.AddVertexArray(m_mesh.vertices);
