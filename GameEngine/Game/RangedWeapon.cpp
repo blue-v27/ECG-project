@@ -20,7 +20,7 @@ void RangedWeapon::Shoot()
 	Ray ray;
 	std::vector<GameObject*> arr = GAMECONTEXT.GetObjectsInRange(CAMERA.GetPos(), 2 * m_range);
 
-	Bullet* bullet = new Bullet(m_shotPoint, CAMERA.getCameraViewDirection(), 10.f * GAMECONTEXT.GetDeltaTime());
+	Bullet* bullet = new Bullet(m_pos, CAMERA.getCameraViewDirection(), 100.f * GAMECONTEXT.GetDeltaTime());
 	GAMECONTEXT.AddObject(bullet);
 
 	for (GameObject* obj : arr)
@@ -29,7 +29,7 @@ void RangedWeapon::Shoot()
 		if (ray.RayCast(CAMERA.GetPos() + glm::vec3(0.0f, 0.0f, 2.0f), CAMERA.getCameraViewDirection(), m_range, obj, hitPoint))
 		{
 			obj->GetDamage(m_damage);
-			//GAMECONTEXT.RemoveObject(bullet);
+			GAMECONTEXT.RemoveObject(bullet);
 			break;
 		}
 	}
@@ -54,6 +54,6 @@ void RangedWeapon::Update()
 
 void RangedWeapon::ProcessInput(Window* wnd, float dt)
 {
-	if (wnd->IsMouseReleased(1))
+	if (wnd->IsMouseReleased(0))
 		Shoot();
 }

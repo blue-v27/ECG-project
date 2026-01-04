@@ -1,12 +1,11 @@
 #pragma once
 
 #include "meshLoaderObj.h"
+#include "../Game/fSingleton.h"
 
-class MeshDefines
+class MeshDefines : public fSingleton<MeshDefines>
 {
 private:
-	MeshDefines() = default;
-	~MeshDefines() = default;
 
 	MeshLoaderObj m_loader;
 	std::vector<Mesh> m_meshes;
@@ -19,17 +18,6 @@ public:
 	static constexpr char* plane  = "Resources/Models/plane.obj";
 	static constexpr char* knife  = "Resources/Models/m9bayo2.obj";
 	static constexpr char* pistol = "Resources/Models/M9.obj";
-
-	static MeshDefines& Instance()
-	{
-		static MeshDefines instance;
-		return instance;
-	}
-
-	MeshDefines(const MeshDefines&) = delete;
-	MeshDefines& operator=(const MeshDefines&) = delete;
-	MeshDefines(MeshDefines&&) = delete;
-	MeshDefines& operator=(MeshDefines&&) = delete;
 
 	void Start();
 	Mesh GetMesh(int index) { return m_meshes.at(index); }

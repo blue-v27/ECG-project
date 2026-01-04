@@ -56,10 +56,11 @@ int main()
 	RangedWeapon* weapon = new RangedWeapon(10.f, 0.5f, 300.f);
 	player->SetChild(weapon);
 	weapon->SetPos(glm::vec3(0.0f, 7.f, 1.f));
-	//knife->SetRotation(glm::quat(0.70710678f, 0.70710678f, 0.0f, 0.0f));
+	weapon->RotateX(90.f);
+	weapon->RotateZ(-90.f);
 	weapon->SetScale(glm::vec3(0.25f));
 	weapon->Init(&MESH_DEFINES.GetMesh(PISTOL));
-	GAMECONTEXT.AddObject(weapon);
+	GAMECONTEXT.AddInteractiveGameObject(weapon);
 
 	GUI.Init();
 

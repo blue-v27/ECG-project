@@ -100,6 +100,30 @@ void GameObject::SetRotation(glm::quat rot)
         m_rot = rot;
 }
 
+void GameObject::RotateX(float angle)
+{
+    if (m_parent)
+        m_relativeRot = m_relativeRot * glm::angleAxis(angle, glm::vec3(1, 0, 0));
+    else
+        m_rot = m_rot * glm::angleAxis(angle, glm::vec3(1, 0, 0));
+}
+
+void GameObject::RotateY(float angle)
+{
+    if (m_parent)
+        m_relativeRot = m_relativeRot * glm::angleAxis(angle, glm::vec3(0, 1, 0));
+    else
+        m_rot = m_rot * glm::angleAxis(angle, glm::vec3(0, 1, 0));
+}
+
+void GameObject::RotateZ(float angle)
+{
+    if (m_parent)
+        m_relativeRot = m_relativeRot * glm::angleAxis(angle, glm::vec3(0, 0, 1));
+    else
+        m_rot = m_rot * glm::angleAxis(angle, glm::vec3(0, 0, 1));
+}
+
 void GameObject::ComputeBoundingBox()
 {
     m_boundingBox.AddVertexArray(m_mesh.vertices);

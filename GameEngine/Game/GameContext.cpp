@@ -107,11 +107,14 @@ void GameContext::Update()
         {          
             if (m_player)
             {
-                BoundingBox bb = iobj->GetBoundingBox();
-                if (glm::distance(m_player->m_pos, bb.GetMax()) > 100.f &&
-                    glm::distance(m_player->m_pos, iobj->m_pos) > 100.f &&
-                    glm::distance(m_player->m_pos, bb.GetMin()) > 100.f)
-                    continue;
+                if (iobj->GetParrent() != m_player)
+                {
+                    BoundingBox bb = iobj->GetBoundingBox();
+                    if (glm::distance(m_player->m_pos, bb.GetMax()) > 100.f &&
+                        glm::distance(m_player->m_pos, iobj->m_pos) > 100.f &&
+                        glm::distance(m_player->m_pos, bb.GetMin()) > 100.f)
+                        continue;
+                }
 
                 iobj->Update();
 

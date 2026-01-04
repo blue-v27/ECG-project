@@ -15,7 +15,7 @@ Bullet::Bullet(glm::vec3 origin, glm::vec3 dir, float speed)
 
 void Bullet::Update()
 {
-	//m_pos += m_direction * m_speed;
+	m_pos += m_direction * m_speed;
 
 	InteractiveGameObject::Update();
 }

@@ -61,6 +61,10 @@ public:
 
 	void	  SetRotation(glm::quat rot);
 	glm::quat GetRotation()			     { return m_rot; }
+	
+	void RotateX(float angle);
+	void RotateY(float angle);
+	void RotateZ(float angle);
 
 	void	  SetScale(glm::vec3 scale) { m_scale = scale; }
 	glm::vec3 GetScale()				{ return m_scale; }
