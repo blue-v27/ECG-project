@@ -3,6 +3,7 @@
 #include "SaveManager.h"
 #include "../Model Loading/MeshDefines.h"
 #include "GUI/Hud.h"
+#include "GUI/GUIManager.h"
 
 std::vector<GameObject*> GameContext::GetObjectsInRange(glm::vec3 pos, float range)
 {
@@ -128,7 +129,6 @@ void GameContext::Update()
                         if (iobj->m_boundingBox.HandleIntersection(iobj->m_pos, obj->GetBoundingBox()))
                         {
                             iobj->GetPhysicsMask()->SetVelocityY(0.f);
-                            break;
                         }
                     }                 
                 }
@@ -189,6 +189,19 @@ void GameContext::Render()
                 continue;
 
             iobj->Render();
+
+            Ray ray;
+            glm::vec3 hitPoint;
+            if (ray.RayCast(CAMERA.GetPos(), CAMERA.getCameraViewDirection(), 200.f, iobj, hitPoint))
+            {
+                if (iobj->IsPickable())
+                {
+                    GUI.DrawText("PRESS E TO PICKUP", 400.f, 600.f, 1.f);
+                    if (GAMECONTEXT.GetWindow()->IsReleased(GLFW_KEY_E))
+                        iobj->PickUp(m_player);
+                }
+                    
+            }
         }
     }
 
