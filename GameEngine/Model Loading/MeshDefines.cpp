@@ -33,6 +33,7 @@ void MeshDefines::Start()
 	m_textures.clear();
 
 	m_meshes.push_back(m_loader.loadObj(MeshDefines::knife));
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::pistol));
 }
 
 int MeshDefines::GetMeshIndex(Mesh mesh)

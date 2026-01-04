@@ -120,6 +120,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game\Bullet.cpp" />
     <ClCompile Include="Game\GameContext.cpp" />
     <ClCompile Include="Game\GameObject.cpp" />
     <ClCompile Include="Game\BoundingBox.cpp" />
@@ -140,12 +141,14 @@
     <ClCompile Include="Game\SubModes\SceneEditorSubMode.cpp" />
     <ClCompile Include="Game\Ray.cpp" />
     <ClCompile Include="Game\SaveManager.cpp" />
+    <ClCompile Include="Game\RangedWeapon.cpp" />
     <ClCompile Include="Shaders\shader.cpp" />
     <ClCompile Include="Model Loading\texture.cpp" />
     <ClCompile Include="Game\Water.cpp" />
     <ClCompile Include="Game\Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\Bullet.h" />
     <ClInclude Include="Game\fSingleton.h" />
     <ClInclude Include="Game\GameObject.h" />
     <ClInclude Include="Game\BoundingBox.h" />
@@ -172,6 +175,7 @@
     <ClInclude Include="Game\SubModes\SceneEditorSubMode.h" />
     <ClInclude Include="Game\Ray.h" />
     <ClInclude Include="Game\SaveManager.h" />
+    <ClInclude Include="Game\RangedWeapon.h" />
     <ClInclude Include="Shaders\shader.h" />
     <ClInclude Include="Model Loading\texture.h" />
     <ClInclude Include="Game\Water.h" />

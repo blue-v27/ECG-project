@@ -64,7 +64,6 @@ void GameContext::Update()
             {                       
                 if (m_player)
                 {
-
                     BoundingBox bb = obj->GetBoundingBox();
                     if (glm::distance(m_player->m_pos, bb.GetMax()) > 100.f &&
                         glm::distance(m_player->m_pos, obj->m_pos) > 100.f &&

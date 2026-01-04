@@ -59,7 +59,7 @@ public:
 	void	  SetRelativePos(glm::vec3 pos) { m_relativePos = pos; }
 	glm::vec3 GetRelativePos()				{ return m_relativePos; }
 
-	void	  SetRotation(glm::quat rot) { m_rot = rot; };
+	void	  SetRotation(glm::quat rot);
 	glm::quat GetRotation()			     { return m_rot; }
 
 	void	  SetScale(glm::vec3 scale) { m_scale = scale; }

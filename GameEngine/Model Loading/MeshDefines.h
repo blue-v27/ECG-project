@@ -18,6 +18,7 @@ public:
 	static constexpr char* water  = "Resources/Models/plane1.obj";
 	static constexpr char* plane  = "Resources/Models/plane.obj";
 	static constexpr char* knife  = "Resources/Models/m9bayo2.obj";
+	static constexpr char* pistol = "Resources/Models/M9.obj";
 
 	static MeshDefines& Instance()
 	{
@@ -42,11 +43,12 @@ public:
 
 #define MESH_DEFINES MeshDefines::Instance()
 
-#define CUBE   0
-#define SPHERE 1
-#define PLANE  2
-#define BOX	   3
-#define WATER  4
-#define GROUND 5
-#define KNIFE  6
+#define CUBE    0
+#define SPHERE  1
+#define PLANE   2
+#define BOX	    3
+#define WATER   4
+#define GROUND  5
+#define KNIFE   6
+#define PISTOL  7
 };

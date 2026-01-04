@@ -14,6 +14,7 @@
 #include "Game/SubModes/SceneEditorSubMode.h"
 #include "Game/GUI/GUIManager.h"
 #include "Game/Weapon.h"
+#include "Game/RangedWeapon.h"
 
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
@@ -42,12 +43,24 @@ int main()
 	GAMECONTEXT.AddPlayer(player);
 	GAMECONTEXT.AddObject(player);
 
+#if 0
 	Weapon* knife = new Weapon(10.f, 0.5f, 500.f);
 	player->SetChild(knife);
 	knife->SetPos(glm::vec3(0.0f, 7.f, 1.f));
+	knife->SetRotation(glm::quat(0.70710678f, 0.70710678f, 0.0f, 0.0f));
 	knife->SetScale(glm::vec3(0.25f));
 	knife->Init(&MESH_DEFINES.GetMesh(KNIFE));
 	GAMECONTEXT.AddObject(knife);
+#endif
+
+	RangedWeapon* weapon = new RangedWeapon(10.f, 0.5f, 300.f);
+	player->SetChild(weapon);
+	weapon->SetPos(glm::vec3(0.0f, 7.f, 1.f));
+	//knife->SetRotation(glm::quat(0.70710678f, 0.70710678f, 0.0f, 0.0f));
+	weapon->SetScale(glm::vec3(0.25f));
+	weapon->Init(&MESH_DEFINES.GetMesh(PISTOL));
+	GAMECONTEXT.AddObject(weapon);
+
 	GUI.Init();
 
 	while (!window.IsReleased(GLFW_KEY_ESCAPE) && glfwWindowShouldClose(window.getWindow()) == 0)
@@ -67,8 +80,6 @@ int main()
 
 		window.update();
 	}
-
-	
 
 	// Delete all objects from memory
 	while(GAMECONTEXT.GetObjectCount())

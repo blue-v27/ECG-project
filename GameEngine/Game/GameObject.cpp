@@ -56,6 +56,7 @@ void GameObject::Update()
     if (GameObject* parent = dynamic_cast<GameObject*>(GetParrent()))
     {
         m_rot = parent->m_rot * m_relativeRot;
+
         m_pos = parent->m_pos + (parent->m_rot * m_relativePos);
     }
 }
@@ -89,6 +90,14 @@ void GameObject::SetPos(glm::vec3 pos)
         SetRelativePos(pos);
     else
         m_pos = pos;
+}
+
+void GameObject::SetRotation(glm::quat rot)
+{
+    if (m_parent)
+        m_relativeRot = rot;
+    else
+        m_rot = rot;
 }
 
 void GameObject::ComputeBoundingBox()
