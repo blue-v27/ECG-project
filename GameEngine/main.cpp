@@ -81,20 +81,24 @@ int main()
 	anchor2->IsAnchor(true);
 	GAMECONTEXT.AddObject(anchor2);
 
+	GameObject* light = new GameObject();
+	light->SetPos(glm::vec3(0.f, 200.f, 0.f));
+	light->Init(&MESH_DEFINES.GetMesh(SUN));
+	light->SetColor(glm::vec4(1.f, 1.f, 1.f, 1.f));
+	GAMECONTEXT.SetLight(light);
+
 	GUI.Init();
 
 	while (!window.IsReleased(GLFW_KEY_ESCAPE) && glfwWindowShouldClose(window.getWindow()) == 0)
 	{
 		window.clear();
-
+	
 		float currentFrame = glfwGetTime();
 		if(lastFrame)
 			deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
 		GAMECONTEXT.SetDeltaTime(deltaTime);
-		GAMECONTEXT.SetLightPos(lightPos);
-		GAMECONTEXT.SetLightColor(glm::vec4(lightColor, 1));
 		GAMECONTEXT.Update();
 		GAMECONTEXT.Render();	
 

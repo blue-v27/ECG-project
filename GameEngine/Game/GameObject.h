@@ -30,6 +30,7 @@ public:
 	glm::vec3 m_pos;
 	glm::vec3 m_relativePos;
 	glm::vec3 m_scale;
+	glm::vec4 m_color;
 
 	glm::vec3 m_viewDirection;
 	glm::vec3 m_up;
@@ -61,6 +62,9 @@ public:
 	glm::vec3 GetPos()						{ return m_pos; }
 	void	  SetRelativePos(glm::vec3 pos) { m_relativePos = pos; }
 	glm::vec3 GetRelativePos()				{ return m_relativePos; }
+
+	void	  SetColor(glm::vec4 col) { m_color = col; }
+	glm::vec4 GetColor()			  { return m_color; }
 
 	void	  SetRotation(glm::quat rot);
 	glm::quat GetRotation()			     { return m_rot; }
@@ -113,7 +117,7 @@ public:
 	BoundingBox m_boundingBox;
 
 	BoundingBox GetBoundingBox() { return m_boundingBox; }
-	void ComputeBoundingBox();
+	void ComputeBoundingBox(float height = 100.f);
 
 	void SetMesh(Mesh mesh) { m_mesh = mesh; }
 

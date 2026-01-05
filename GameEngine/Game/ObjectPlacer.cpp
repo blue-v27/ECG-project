@@ -21,6 +21,7 @@ void ObjectPlacer::PlaceObject()
 	obj->SetFramentShader(ShaderTypes::basicFragment);
 	obj->SetVertexShader(ShaderTypes::basicVertex);
 	obj->SetMesh(MESH_DEFINES.GetMesh(m_currentMesh));
+	if(m_currentMesh != TREE)
 	obj->ComputeBoundingBox();
 	obj->InitShader();
 	GAMECONTEXT.AddObject(obj);
@@ -57,7 +58,15 @@ void ObjectPlacer::SwitchMesh(bool right)
 				m_currentMesh = meshNumber - 1;
 		}
 
+		if (m_currentMesh == PISTOL) return SwitchMesh(right);
+		if (m_currentMesh == KNIFE) return SwitchMesh(right);
+
 		m_objectToPlace->SetMesh(MESH_DEFINES.GetMesh(m_currentMesh));
+		
+		if (m_currentMesh == GRASS)
+			m_objectToPlace->SetScale(glm::vec3(0.01f));
+		else
+			m_objectToPlace->SetScale(glm::vec3(1.f));
 	}
 	
 }
@@ -109,6 +118,12 @@ void ObjectPlacer::Update()
 	{
 		SwitchMesh(true);
 	}
+	
+	if (GAMECONTEXT.GetWindow()->IsReleased(GLFW_KEY_O))
+	{
+		SwitchMesh(false);
+	}
+
 }
 
 void ObjectPlacer::RenderGhost()

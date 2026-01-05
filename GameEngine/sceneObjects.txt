@@ -1,4 +1,4 @@
-Length: 1
+Length: 72
 
 {
 	m_mesh:5
@@ -7,3 +7,573 @@ Length: 1
 	m_fragmentShader:Shaders/fragment_shader.glsl
 	m_scale:1.000000 1.000000 1.000000
 }
+
+{
+	m_mesh:3
+	m_pos:0.000000 70.000000 0.000000
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_mesh:3
+	m_pos:50.000000 70.000000 0.000000
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_mesh:3
+	m_pos:100.000000 70.000000 0.000000
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_mesh:8
+	m_pos:-47.257805 0.000000 -64.001305
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.010013 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-38.810459 0.000000 -64.128059
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.015636 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-28.879654 0.000002 -55.375977
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.011933 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-40.805119 0.000000 -53.755829
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.018087 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-53.062351 0.000000 -59.422432
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.015850 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-37.939556 0.000000 -40.438774
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.014799 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-47.450935 0.000000 -49.267208
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.013503 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-3.480156 0.000000 -42.542782
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.018960 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-18.697325 0.000000 -46.682125
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.018228 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-17.696211 -0.000002 -55.244522
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.017466 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-28.548298 0.000000 -43.881813
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.011741 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-30.996317 0.000000 -47.017803
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.018589 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-33.094990 0.000000 -51.893433
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.017105 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-34.914116 -0.000002 -52.714882
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.015135 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-36.045395 0.000000 -56.465462
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.013040 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-36.144527 0.000000 -57.360100
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.010150 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-38.581268 0.000000 -58.850693
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.010914 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-41.387512 0.000000 -59.183212
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.013645 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-45.094494 0.000000 -58.206661
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.011473 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-45.837315 0.000000 -53.433258
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.011659 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-38.445488 0.000000 -42.590111
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.019885 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-34.576820 0.000000 -39.650745
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.014457 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-33.548508 -0.000002 -45.585686
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.011191 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-41.514210 -0.000002 -51.556755
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.010047 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-43.826195 -0.000002 -48.822681
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.010089 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-42.470169 0.000000 -40.686058
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.013779 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-42.885857 0.000000 -41.429317
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.015317 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-47.463329 -0.000002 -44.371410
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.015712 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-53.063393 0.000000 -47.853035
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.016018 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-54.948185 0.000002 -51.595291
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.016072 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-52.362732 0.000002 -53.169296
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.011662 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-41.494640 0.000000 -47.591518
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.016630 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-37.385117 0.000002 -44.195820
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.014508 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-36.963310 0.000000 -47.680107
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.013521 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-38.185238 0.000000 -48.811371
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.010570 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-23.358700 0.000000 -48.359840
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.016077 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-16.666718 0.000000 -59.039730
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.017833 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-27.913334 0.000000 -69.053032
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.018026 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-35.100250 0.000000 -64.453712
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.015199 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-24.277637 0.000000 -51.982765
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.013020 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-19.762239 0.000000 -64.798485
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.018760 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-27.719826 0.000000 -65.073990
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.017267 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-31.722179 0.000000 -63.594345
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.019559 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-23.604017 0.000000 -60.504448
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.019257 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-28.091961 0.000000 -62.703987
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.015394 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-35.550518 0.000000 -63.455090
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.011423 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-40.790833 0.000000 -68.920586
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.014621 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-43.906967 0.000000 -68.076630
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.012353 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-50.159134 0.000000 -67.694221
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.018622 0.010000
+}
+
+{
+	m_mesh:8
+	m_pos:-58.240891 0.000000 -65.406967
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:0.010000 0.012096 0.010000
+}
+
+{
+	m_mesh:3
+	m_pos:0.000000 70.000000 0.000000
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_mesh:3
+	m_pos:50.000000 70.000000 0.000000
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_mesh:3
+	m_pos:100.000000 70.000000 0.000000
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_mesh:4
+	m_pos:-3.552105 -2.000000 -5.486652
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_mesh:3
+	m_pos:0.000000 70.000000 0.000000
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_mesh:3
+	m_pos:50.000000 70.000000 0.000000
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_mesh:3
+	m_pos:100.000000 70.000000 0.000000
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_mesh:10
+	m_pos:88.765503 0.000000 -73.642174
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_mesh:10
+	m_pos:-10.103168 0.000000 -38.503880
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_mesh:10
+	m_pos:-56.815140 0.000000 -32.312382
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_mesh:10
+	m_pos:-66.568535 0.000000 -56.472176
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_mesh:10
+	m_pos:-14.823983 0.000000 -72.078407
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:1.000000 1.000000 1.000000
+}
+
+
+{
+	m_mesh:3
+	m_pos:0.000000 70.000000 0.000000
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_mesh:3
+	m_pos:50.000000 70.000000 0.000000
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_mesh:3
+	m_pos:100.000000 70.000000 0.000000
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_mesh:11
+	m_pos:-10.131461 0.000000 -38.443981
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_mesh:11
+	m_pos:-56.833366 0.000000 -32.284149
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:1.000000 1.000000 1.000000
+}
+
+{
+	m_mesh:11
+	m_pos:88.712357 0.000000 -73.572670
+	m_vertexShader:Shaders/vertex_shader.glsl
+	m_fragmentShader:Shaders/fragment_shader.glsl
+	m_scale:1.000000 1.000000 1.000000
+}
+

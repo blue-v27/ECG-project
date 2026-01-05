@@ -28,7 +28,7 @@ private:
 
     float m_deltaTime = 0.f;
 
-    float m_fov       = 90.f;
+    float m_fov = 90.f;
     float m_targetFov = m_fov;
 
     bool m_isEditorActive = false;
@@ -36,30 +36,26 @@ private:
     std::vector<GameObject*> m_objects;
     std::vector<InteractiveGameObject*> m_interactiveObjects;
 
-    glm::vec3 m_lightPos;
-    glm::vec4 m_lightColor;
-    
     Player* m_player = nullptr;
+
+    GameObject* m_light = nullptr;
 public:
 
     float getHeight() { return m_window->getHeight(); }
 
     void    SetWindow(Window* wnd) { m_window = wnd; }
-    Window* GetWindow() const      { return m_window; }
+    Window* GetWindow() const { return m_window; }
 
     void    SetCamera(Camera* camera) { m_camera = camera; }
-    Camera* GetCamera()               { return m_camera; }
+    Camera* GetCamera() { return m_camera; }
 
-    float GetFov()          { return m_fov; }
-    void  SetFov(float fov) { m_fov = fov;  }
+    float GetFov() { return m_fov; }
+    void  SetFov(float fov) { m_fov = fov; }
 
     Player* GetPlayer() { return m_player; }
 
-    void SetLightColor(glm::vec4 col) { m_lightColor = col; }
-    void SetLightPos(glm::vec3 pos)   { m_lightPos = pos; }
-
-    glm::vec3 getLightPos()   { return m_lightPos; }
-    glm::vec4 getLightColor() { return m_lightColor; }
+    void        SetLight(GameObject* obj) { m_light = obj; }
+    GameObject* GetLight()                { return m_light; }
 
     glm::vec2 GetMousePos() const { return glm::vec2(m_mousePosX, m_mousePosY);}
 

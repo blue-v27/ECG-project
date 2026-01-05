@@ -33,7 +33,7 @@ public:
 	void   SetMin(Vertex min) { m_min = min; }
 	glm::vec3 GetMin()		   { return m_worldMin; }
 
-	void ComputeMinMax();
+	void ComputeMinMax(float height);
 	bool IsIntersecting(BoundingBox other);
 	void UpdateWorldPos(glm::vec3 delta, glm::vec3 scale);
 	bool HandleIntersection(glm::vec3& pos, BoundingBox other, glm::vec3 velocity = glm::vec3(100));

@@ -25,7 +25,7 @@ void MeshDefines::Start()
 	m_meshes.push_back(m_loader.loadObj(MeshDefines::water, m_textures));
 	m_textures.clear();
 
-	m_tex = loadBMP(TextureDefine::Rock);
+	m_tex = loadBMP(TextureDefine::Dirt);
 	m_textures.push_back(Texture());
 	m_textures[0].id = m_tex;
 	m_textures[0].type = "texture_diffuse";
@@ -34,6 +34,41 @@ void MeshDefines::Start()
 
 	m_meshes.push_back(m_loader.loadObj(MeshDefines::knife));
 	m_meshes.push_back(m_loader.loadObj(MeshDefines::pistol));
+
+	m_tex = loadBMP(TextureDefine::Grass);
+	m_textures.push_back(Texture());
+	m_textures[0].id = m_tex;
+	m_textures[0].type = "texture_diffuse";
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::grass, m_textures));
+	m_textures.clear();
+
+	m_tex = loadBMP(TextureDefine::Rock);
+	m_textures.push_back(Texture());
+	m_textures[0].id = m_tex;
+	m_textures[0].type = "texture_diffuse";
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::rock, m_textures));
+	m_textures.clear();
+
+	m_tex = loadBMP(TextureDefine::treeStem);
+	m_textures.push_back(Texture());
+	m_textures[0].id = m_tex;
+	m_textures[0].type = "texture_diffuse";
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::treeStem, m_textures));
+	m_textures.clear();
+
+	m_tex = loadBMP(TextureDefine::Grass);
+	m_textures.push_back(Texture());
+	m_textures[0].id = m_tex;
+	m_textures[0].type = "texture_diffuse";
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::treeLeaves, m_textures));
+	m_textures.clear();
+
+	m_tex = loadBMP(TextureDefine::Rock);
+	m_textures.push_back(Texture());
+	m_textures[0].id = m_tex;
+	m_textures[0].type = "texture_diffuse";
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::sphere, m_textures));
+	m_textures.clear();
 }
 
 int MeshDefines::GetMeshIndex(Mesh mesh)

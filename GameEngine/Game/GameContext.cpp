@@ -164,6 +164,8 @@ void GameContext::Update()
 
 void GameContext::Render()
 {
+    m_light->Render();
+
     if (m_objects.size())
     {
         for (GameObject* obj : m_objects)
@@ -210,4 +212,9 @@ void GameContext::Render()
 
     if (&HUD)
         HUD.Render();
+
+    char fpsS[100] = { 0 };
+    float fps = 1.f / m_deltaTime;
+    sprintf(fpsS, "%d", (int)fps);
+    GUI.DrawText(fpsS, 20.f * 2, 700.f * 2, .5f);
 }

@@ -2,6 +2,30 @@
 #include "Water.h"
 #include "GameContext.h"
 
+float randomFloat()
+{
+	return (float)(rand()) / (float)(RAND_MAX);
+}
+
+int randomInt(int a, int b)
+{
+	if (a > b)
+		return randomInt(b, a);
+	if (a == b)
+		return a;
+	return a + (rand() % (b - a));
+}
+
+float randomFloat(float a, float b)
+{
+	if (a > b)
+		return randomFloat(b, a);
+	if (a == b)
+		return a;
+
+	return (float)randomInt(a, b) + randomFloat();
+}
+
 void SaveManager::SaveObjects()
 {
 	m_objects = fopen("sceneObjects.txt", "w");
@@ -70,9 +94,18 @@ void SaveManager::LoadObjects()
 			}
 			else
 			{
-				obj->ComputeBoundingBox();
+				if (ind != GRASS && ind != FULLTRE && ind != TREE)
+				{
+					obj->ComputeBoundingBox();
+				}
+					
 				obj->InitShader();
+
+				if (ind == GRASS)
+					obj->m_scale.y = randomFloat(1.0f, 1.1f) /100.f;
+
 				GAMECONTEXT.AddObject(obj);
+
 				obj = nullptr;
 			}
 			continue;

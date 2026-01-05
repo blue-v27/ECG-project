@@ -13,8 +13,8 @@ void Water::Init(Mesh* mesh)
 { 
     m_mesh = MESH_DEFINES.GetMesh(WATER);
 
-    m_boundingBox.AddVertexArray(m_mesh.vertices);
-    m_boundingBox.ComputeMinMax();
+    //m_boundingBox.AddVertexArray(m_mesh.vertices);
+   // m_boundingBox.ComputeMinMax();
 
     m_shader = new Shader(ShaderTypes::waterVertex, ShaderTypes::waterFragment);
 }
@@ -32,8 +32,8 @@ void Water::Render()
     if (!window || !camera) 
         return;
 
-    GLuint time = glGetUniformLocation(m_shader->getId(), "time");
-    GLuint amplitude = glGetUniformLocation(m_shader->getId(), "amplitude");
+    GLuint time       = glGetUniformLocation(m_shader->getId(), "time");
+    GLuint amplitude  = glGetUniformLocation(m_shader->getId(), "amplitude");
     GLuint waveLength = glGetUniformLocation(m_shader->getId(), "waveLength");
     glUniform1f(time, glfwGetTime());
     glUniform1f(amplitude, m_scale.x);

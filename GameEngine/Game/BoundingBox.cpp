@@ -1,6 +1,6 @@
 #include "BoundingBox.h"
 
-void BoundingBox::ComputeMinMax()
+void BoundingBox::ComputeMinMax(float height)
 {
 	size_t len = m_vertices.size();
 
@@ -10,6 +10,9 @@ void BoundingBox::ComputeMinMax()
 	for (int i = 0; i < len; ++i)
 	{
 		glm::vec3 vert = m_vertices.at(i).pos;
+
+		if (vert.y > height)
+			continue;
 
 		min = glm::vec3(vert.x < min.x ? vert.x : min.x,
 						vert.y < min.y ? vert.y : min.y,

@@ -9,7 +9,8 @@ GameObject::GameObject()
 	m_viewDirection = glm::vec3(0);
 	m_up			= glm::vec3(0);
 	m_right			= glm::vec3(0);
-
+    m_color         = glm::vec4(1);
+        
 	m_rotationOx = 0.0f;
 	m_rotationOy = -90.0f;
 
@@ -146,10 +147,10 @@ void GameObject::DisablePhysics()
     m_usePhysics = false;
 }
 
-void GameObject::ComputeBoundingBox()
+void GameObject::ComputeBoundingBox(float height)
 {
     m_boundingBox.AddVertexArray(m_mesh.vertices);
-    m_boundingBox.ComputeMinMax();
+    m_boundingBox.ComputeMinMax(height);
 }
 
 void GameObject::Render()
@@ -181,8 +182,8 @@ void GameObject::Render()
     glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &MVP[0][0]);
     glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
 
-    glm::vec4 lightColor = GAMECONTEXT.getLightColor();
-    glm::vec3 lightPos = GAMECONTEXT.getLightPos();
+    glm::vec4 lightColor = GAMECONTEXT.GetLight()->GetColor();
+    glm::vec3 lightPos   = GAMECONTEXT.GetLight()->GetPos();
     glUniform3f(glGetUniformLocation(m_shader->getId(), "lightColor"), lightColor.x, lightColor.y, lightColor.z);
     glUniform3f(glGetUniformLocation(m_shader->getId(), "lightPos"), lightPos.x, lightPos.y, lightPos.z);
     glUniform3f(glGetUniformLocation(m_shader->getId(), "viewPos"),

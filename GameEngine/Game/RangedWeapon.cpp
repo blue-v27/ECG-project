@@ -2,6 +2,7 @@
 #include "GameContext.h"
 #include "Ray.h"
 #include "../Model Loading/ShaderTypes.h"
+
 RangedWeapon::RangedWeapon(float damange, float delay, float range) : Weapon(damange, delay, range)
 {
 	m_lineShader = new Shader(ShaderTypes::lineVertex, ShaderTypes::lineFragment);
@@ -75,20 +76,23 @@ void RangedWeapon::Update()
 
 void RangedWeapon::ProcessInput(Window* wnd, float dt)
 {
-	if (wnd->IsMouseReleased(0))
-		Shoot();
-	if (wnd->IsReleased(GLFW_KEY_Q))
-		Drop();
-	if (wnd->isMousePressed(1))
+	if (GameObject* obj = GetParrent())
 	{
-		if (!GetParrent()->GetPhysicsMask()->isSwinging())
+		if (wnd->IsMouseReleased(0))
+			Shoot();
+		if (wnd->IsReleased(GLFW_KEY_Q))
+			Drop();
+		if (wnd->isMousePressed(1))
 		{
-			GrabAnchor();
+			if (!GetParrent()->GetPhysicsMask()->isSwinging())
+			{
+				GrabAnchor();
+			}
 		}
+		if (wnd->IsMouseReleased(1))
+			if (GetParrent()->GetPhysicsMask()->isSwinging())
+				GetParrent()->GetPhysicsMask()->StopSwinging();
 	}
-	if (wnd->IsMouseReleased(1))
-		if (GetParrent()->GetPhysicsMask()->isSwinging())
-			GetParrent()->GetPhysicsMask()->StopSwinging();
 }
 
 void RangedWeapon::RenderLine()
@@ -143,9 +147,12 @@ void RangedWeapon::RenderLine()
 
 void RangedWeapon::Render()
 {
-	if (GetParrent()->GetPhysicsMask()->isSwinging())
+	if (GameObject* obj = GetParrent())
 	{
-		RenderLine();
+		if (obj->GetPhysicsMask()->isSwinging())
+		{
+			RenderLine();
+		}
 	}
 
 	InteractiveGameObject::Render();	
