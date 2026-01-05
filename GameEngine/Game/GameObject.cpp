@@ -55,9 +55,8 @@ void GameObject::Update()
 
     if (GameObject* parent = dynamic_cast<GameObject*>(GetParrent()))
     {
-        m_rot = parent->m_rot * m_relativeRot;
-
-        m_pos = parent->m_pos + (parent->m_rot * m_relativePos);
+        m_pos = CAMERA.getCameraPosition() + CAMERA.getCameraViewDirection() * m_relativePos;
+        m_rot = CAMERA.GetRotation() * m_relativeRot;
     }
 }
 

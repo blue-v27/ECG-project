@@ -29,7 +29,7 @@ void RangedWeapon::Shoot()
 		if (ray.RayCast(CAMERA.GetPos() + glm::vec3(0.0f, 0.0f, 2.0f), CAMERA.getCameraViewDirection(), m_range, obj, hitPoint))
 		{
 			obj->GetDamage(m_damage);
-			GAMECONTEXT.RemoveObject(bullet);
+			//GAMECONTEXT.RemoveObject(bullet);
 			break;
 		}
 	}

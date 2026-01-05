@@ -55,7 +55,7 @@ int main()
 
 	RangedWeapon* weapon = new RangedWeapon(10.f, 0.5f, 300.f);
 	player->SetChild(weapon);
-	weapon->SetPos(glm::vec3(0.0f, 7.f, 1.f));
+	weapon->SetPos(glm::vec3(0.0f, -1.f, 4.f));
 	weapon->RotateX(90.f);
 	weapon->RotateZ(-90.f);
 	weapon->SetScale(glm::vec3(0.25f));

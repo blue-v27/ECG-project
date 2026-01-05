@@ -7,7 +7,7 @@ Bullet::Bullet(glm::vec3 origin, glm::vec3 dir, float speed)
 	m_direction = dir;
 	m_speed = speed;
 
-	m_scale = glm::vec3(0.1f);
+	m_scale = glm::vec3(0.01f);
 
 	Init(&MESH_DEFINES.GetMesh(SPHERE));
 	GAMECONTEXT.AddObject(this);

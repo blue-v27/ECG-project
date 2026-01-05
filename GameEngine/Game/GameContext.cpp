@@ -126,6 +126,9 @@ void GameContext::Update()
                         if (iobj->m_id == obj->m_id)
                             continue;
 
+                        if (m_player->AsGameObject() == iobj->GetParrent())
+                            continue;
+
                         if (iobj->m_boundingBox.HandleIntersection(iobj->m_pos, obj->GetBoundingBox()))
                         {
                             iobj->GetPhysicsMask()->SetVelocityY(0.f);
