@@ -15,8 +15,11 @@ private:
 	int   m_speed;
 	float m_mass;
 	float m_acc = 10;
-
 	float m_gravity;
+
+	bool	  m_isSwinging;
+	float	  m_ropeLength;
+	glm::vec3 m_anchor;
 
 
 public:
@@ -33,5 +36,14 @@ public:
 	glm::vec3 GetVelocity()         { return m_velocity; }
 	void SetVelocityY(float value)  { m_velocity.y = value;  }
 	void AddVelocity(glm::vec3 vel) { m_velocity += vel; }
+
+	void StartSwing(glm::vec3 anchor);
+	void StopSwinging();
+	void Swing();
+	void AddSwingInput(const glm::vec3& inputDir, float force);
+	glm::vec3 GetAnchor() { return m_anchor; }
+	bool isSwinging() { return m_isSwinging; }
+
+
 };
 

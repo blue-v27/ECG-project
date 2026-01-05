@@ -48,6 +48,8 @@ public:
 	float m_mass;
 	float m_health = 100.f;
 
+	float m_isAnchor;
+
 	Mesh		  m_mesh;
 	Shader*		  m_shader = nullptr;
 
@@ -78,6 +80,9 @@ public:
 
 	void	  SetRight(glm::vec3 pos) { m_right = pos; }
 	glm::vec3 GetRight()			  { return m_right; }
+
+	void IsAnchor(bool val) { m_isAnchor = val; }
+	bool IsAnchor()			{ return m_isAnchor; }
 
 	void  SetRotationOx(float rot) { m_rotationOx = rot; }
 	float GetRotationOx()		   { return m_rotationOx; }

@@ -18,6 +18,7 @@ GameObject::GameObject()
     m_isActive = true;
     m_id = 0;
     m_health = 100.f;
+    m_isAnchor = false;
 
     snprintf(m_fragmentShader, 128, "%s", ShaderTypes::basicFragment);
     snprintf(m_vertexShader, 128, "%s", ShaderTypes::basicVertex);

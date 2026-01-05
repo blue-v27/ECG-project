@@ -6,6 +6,9 @@ public:
 	static constexpr char* waterVertex   = "Shaders/water_vertex_shader.glsl";
 	static constexpr char* waterFragment = "Shaders/water_fragment_shader.glsl";
 
+	static constexpr char* lineVertex   = "Shaders/line_vertex_shader.glsl";
+	static constexpr char* lineFragment = "Shaders/line_fragment_shader.glsl";
+
 	static constexpr char* textVertex   = "Shaders/text_vertex_shader.glsl";
 	static constexpr char* textFragment = "Shaders/text_fragment_shader.glsl";
 

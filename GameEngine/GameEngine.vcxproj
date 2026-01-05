@@ -185,6 +185,8 @@
     <None Include="Shaders\fragment_shader.glsl" />
     <None Include="Shaders\ghost_fragment_shader.glsl" />
     <None Include="Shaders\ghost_vertex_shader.glsl" />
+    <None Include="Shaders\line_fragment_shader.glsl" />
+    <None Include="Shaders\line_vertex_shader.glsl" />
     <None Include="Shaders\sun_fragment_shader.glsl" />
     <None Include="Shaders\sun_vertex_shader.glsl" />
     <None Include="Shaders\text_fragment_shader.glsl" />

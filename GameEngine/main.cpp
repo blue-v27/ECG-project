@@ -62,6 +62,25 @@ int main()
 	weapon->Init(&MESH_DEFINES.GetMesh(PISTOL));
 	GAMECONTEXT.AddInteractiveGameObject(weapon);
 
+
+	GameObject* anchor = new GameObject();
+	anchor->SetPos(glm::vec3(0.f, 70.f, 0.f));
+	anchor->Init(&MESH_DEFINES.GetMesh(BOX));
+	anchor->IsAnchor(true);
+	GAMECONTEXT.AddObject(anchor);
+
+	GameObject* anchor1 = new GameObject();
+	anchor1->SetPos(glm::vec3(50.f, 70.f, 0.f));
+	anchor1->Init(&MESH_DEFINES.GetMesh(BOX));
+	anchor1->IsAnchor(true);
+	GAMECONTEXT.AddObject(anchor1);
+
+	GameObject* anchor2 = new GameObject();
+	anchor2->SetPos(glm::vec3(100.f, 70.f, 0.f));
+	anchor2->Init(&MESH_DEFINES.GetMesh(BOX));
+	anchor2->IsAnchor(true);
+	GAMECONTEXT.AddObject(anchor2);
+
 	GUI.Init();
 
 	while (!window.IsReleased(GLFW_KEY_ESCAPE) && glfwWindowShouldClose(window.getWindow()) == 0)

@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "GameContext.h"
+#include "Ray.h"	
 
 void Player::KeyboardMoveFront(float speed, bool isSprinting)
 {
