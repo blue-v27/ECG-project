@@ -182,10 +182,28 @@ void GameObject::Render()
     glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &MVP[0][0]);
     glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
 
-    glm::vec4 lightColor = GAMECONTEXT.GetLight()->GetColor();
-    glm::vec3 lightPos   = GAMECONTEXT.GetLight()->GetPos();
-    glUniform3f(glGetUniformLocation(m_shader->getId(), "lightColor"), lightColor.x, lightColor.y, lightColor.z);
-    glUniform3f(glGetUniformLocation(m_shader->getId(), "lightPos"), lightPos.x, lightPos.y, lightPos.z);
+    int numLights = GAMECONTEXT.GetLightCount();
+   
+    glUniform1i(glGetUniformLocation(m_shader->getId(), "numLights"), numLights);
+
+    for (int i = 0; i < numLights; ++i)
+    {
+        if (Light* light = GAMECONTEXT.GetLight(i))
+        {
+            glm::vec4 lightColor = light->GetLightColor();
+            glm::vec3 lightPos = light->GetPos();
+
+            std::string colorName = "lights[" + std::to_string(i) + "].color";
+            std::string posName   = "lights[" + std::to_string(i) + "].position";
+
+            glUniform3f(glGetUniformLocation(m_shader->getId(), colorName.c_str()),lightColor.x, lightColor.y, lightColor.z);
+            glUniform3f(glGetUniformLocation(m_shader->getId(), posName.c_str()),lightPos.x, lightPos.y, lightPos.z);
+            glUniform1f(glGetUniformLocation(m_shader->getId(), ("lights[" + std::to_string(i) + "].ka").c_str()), light->GetIntensity());
+            glUniform1f(glGetUniformLocation(m_shader->getId(), ("lights[" + std::to_string(i) + "].kd").c_str()), light->GetDifCoef());
+            glUniform1f(glGetUniformLocation(m_shader->getId(), ("lights[" + std::to_string(i) + "].ks").c_str()), light->GetSpecIntensity());
+        }
+    }
+
     glUniform3f(glGetUniformLocation(m_shader->getId(), "viewPos"),
         camera->getCameraPosition().x,
         camera->getCameraPosition().y,
