@@ -16,6 +16,7 @@
 #include "InteractiveGameObject.h"
 #include "Player.h"
 #include "fSingleton.h"
+#include "Light.h"
 
 class GameContext : public fSingleton<GameContext>
 {
@@ -35,10 +36,10 @@ private:
 
     std::vector<GameObject*> m_objects;
     std::vector<InteractiveGameObject*> m_interactiveObjects;
+    std::vector<Light*> m_lights;
 
     Player* m_player = nullptr;
-
-    GameObject* m_light = nullptr;
+  
 public:
 
     float getHeight() { return m_window->getHeight(); }
@@ -54,8 +55,9 @@ public:
 
     Player* GetPlayer() { return m_player; }
 
-    void        SetLight(GameObject* obj) { m_light = obj; }
-    GameObject* GetLight()                { return m_light; }
+    void   SetLight(Light* obj)  { m_lights.push_back(obj); }
+    size_t GetLightCount() const { return m_lights.size(); }
+    Light* GetLight(int index)   { return m_lights.at(index); }
 
     glm::vec2 GetMousePos() const { return glm::vec2(m_mousePosX, m_mousePosY);}
 

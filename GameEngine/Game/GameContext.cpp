@@ -164,7 +164,11 @@ void GameContext::Update()
 
 void GameContext::Render()
 {
-    m_light->Render();
+    if (m_lights.size())
+    {
+        for (Light* light : m_lights)
+            light->Render();
+    }
 
     if (m_objects.size())
     {

@@ -81,11 +81,17 @@ int main()
 	anchor2->IsAnchor(true);
 	GAMECONTEXT.AddObject(anchor2);
 
-	GameObject* light = new GameObject();
+	Light* light = new Light();
 	light->SetPos(glm::vec3(0.f, 200.f, 0.f));
 	light->Init(&MESH_DEFINES.GetMesh(SUN));
 	light->SetColor(glm::vec4(1.f, 1.f, 1.f, 1.f));
 	GAMECONTEXT.SetLight(light);
+
+	Light* light2 = new Light();
+	light2->SetPos(glm::vec3(100.f, 75.f, 0.f));
+	light2->Init(&MESH_DEFINES.GetMesh(SUN));
+	light2->SetColor(glm::vec4(1.f, 1.f, 1.f, 1.f));
+	GAMECONTEXT.SetLight(light2);
 
 	GUI.Init();
 
