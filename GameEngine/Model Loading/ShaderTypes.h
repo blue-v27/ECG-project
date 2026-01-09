@@ -20,4 +20,7 @@ public:
 
 	static constexpr char* ghostVertex   = "Shaders/ghost_vertex_shader.glsl";
 	static constexpr char* ghostFragment = "Shaders/ghost_fragment_shader.glsl";
+
+	static constexpr char* skyVertex   = "Shaders/sky_vertex_shader.glsl";
+	static constexpr char* skyFragment = "Shaders/sky_fragment_shader.glsl";
 };

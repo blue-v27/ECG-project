@@ -48,4 +48,5 @@ public:
 #define TREE	10
 #define FULLTRE 11
 #define SUN		12
+#define SKY		13
 };

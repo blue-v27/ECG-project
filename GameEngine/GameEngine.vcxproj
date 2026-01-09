@@ -147,6 +147,7 @@
     <ClCompile Include="Model Loading\texture.cpp" />
     <ClCompile Include="Game\Water.cpp" />
     <ClCompile Include="Game\Weapon.cpp" />
+    <ClCompile Include="Game\Sky.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Bullet.h" />
@@ -182,6 +183,7 @@
     <ClInclude Include="Model Loading\texture.h" />
     <ClInclude Include="Game\Water.h" />
     <ClInclude Include="Game\Weapon.h" />
+    <ClInclude Include="Game\Sky.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragment_shader.glsl" />
@@ -189,6 +191,8 @@
     <None Include="Shaders\ghost_vertex_shader.glsl" />
     <None Include="Shaders\line_fragment_shader.glsl" />
     <None Include="Shaders\line_vertex_shader.glsl" />
+    <None Include="Shaders\sky_fragment_shader.glsl" />
+    <None Include="Shaders\sky_vertex_shader.glsl" />
     <None Include="Shaders\sun_fragment_shader.glsl" />
     <None Include="Shaders\sun_vertex_shader.glsl" />
     <None Include="Shaders\text_fragment_shader.glsl" />

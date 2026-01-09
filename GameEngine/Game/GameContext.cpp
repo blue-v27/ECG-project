@@ -4,6 +4,7 @@
 #include "../Model Loading/MeshDefines.h"
 #include "GUI/Hud.h"
 #include "GUI/GUIManager.h"
+#include "Sky.h"
 
 std::vector<GameObject*> GameContext::GetObjectsInRange(glm::vec3 pos, float range)
 {
@@ -36,6 +37,9 @@ void GameContext::Start()
 
     if (&SAVE_MANAGER)
         SAVE_MANAGER.LoadObjects();
+
+    if (&SKYBOX)
+        SKYBOX.Start();
 }
 
 void GameContext::Update()
@@ -160,10 +164,20 @@ void GameContext::Update()
             }
         }
     }
+
+    if (m_lights.size())
+    {
+        for (Light* light : m_lights)
+        {
+            light->Update();
+        }
+    }
 }
 
 void GameContext::Render()
 {
+    SKYBOX.Render();
+
     if (m_lights.size())
     {
         for (Light* light : m_lights)
@@ -214,6 +228,8 @@ void GameContext::Render()
         }
     }
 
+   
+
     if (&HUD)
         HUD.Render();
 
@@ -221,4 +237,8 @@ void GameContext::Render()
     float fps = 1.f / m_deltaTime;
     sprintf(fpsS, "%d", (int)fps);
     GUI.DrawText(fpsS, 20.f * 2, 700.f * 2, .5f);
+
+    char dir[50] = { 0 };
+    sprintf(dir, "%f, %f, %f", CAMERA.getCameraViewDirection().x, CAMERA.getCameraViewDirection().y, CAMERA.getCameraViewDirection().z);
+    GUI.DrawText(dir, 500, 500, .5f);
 }

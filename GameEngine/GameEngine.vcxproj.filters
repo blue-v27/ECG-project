@@ -96,6 +96,9 @@
     <ClCompile Include="Game\Light.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Sky.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\window.h">
@@ -197,6 +200,9 @@
     <ClInclude Include="Game\Light.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Sky.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\vertex_shader.glsl" />
@@ -211,6 +217,8 @@
     <None Include="Shaders\text_vertex_shader.glsl" />
     <None Include="Shaders\line_fragment_shader.glsl" />
     <None Include="Shaders\line_vertex_shader.glsl" />
+    <None Include="Shaders\sky_fragment_shader.glsl" />
+    <None Include="Shaders\sky_vertex_shader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\wood.bmp">

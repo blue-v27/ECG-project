@@ -4,10 +4,11 @@
 class Light : public InteractiveGameObject
 {
 private:
-	float m_intensity;
-	float m_difCoef;
-	float m_specIntensity;
+	float	  m_intensity;
+	float	  m_difCoef;
+	float	  m_specIntensity;
 	glm::vec4 m_lightColor;
+	bool	  m_isSun = false;
 public:
 	Light();
 	~Light() = default;
@@ -24,5 +25,9 @@ public:
 	void	  SetLightColor(glm::vec4 col) { m_lightColor = col; }
 	glm::vec4 GetLightColor()			   { return m_lightColor; }
 
+	void IsSun(bool val) { m_isSun = val; }
+	bool IsSun()		 { return m_isSun; }
+
+	void Update() override;
 };
 
