@@ -82,10 +82,10 @@ int main()
 	GAMECONTEXT.AddObject(anchor2);
 
 	Light* light = new Light();
-	light->SetPos(glm::vec3(0.f, 200.f, 0.f));
+	light->SetPos(glm::vec3(200.f, 150.f, 100.f));
 	light->Init(&MESH_DEFINES.GetMesh(SUN));
 	light->SetColor(glm::vec4(1.f, 1.f, 1.f, 1.f));
-	light->IsSun(true);
+	//light->IsSun(true);
 	GAMECONTEXT.SetLight(light);
 
 	//Light* light2 = new Light();

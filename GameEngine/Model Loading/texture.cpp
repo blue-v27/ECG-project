@@ -1,5 +1,6 @@
 #include "texture.h"
 #include <iostream>
+#include <vector>
 
 GLuint loadBMP(const char * imagepath) {
 
@@ -66,5 +67,49 @@ GLuint loadBMP(const char * imagepath) {
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	// Return the ID of the texture
+	return textureID;
+}
+
+GLuint loadCubemap(const std::vector<const char*>& faces)
+{
+	GLuint textureID;
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+
+	for (unsigned int i = 0; i < faces.size(); i++)
+	{
+		unsigned char* data;
+		unsigned int width, height;
+		{
+			unsigned char header[54];
+			FILE* file;
+			errno_t err = fopen_s(&file, faces[i], "rb");
+			if (err) { std::cout << "Failed to open " << faces[i] << std::endl; continue; }
+
+			fread(header, 1, 54, file);
+
+			width = *(int*)&header[0x12];
+			height = *(int*)&header[0x16];
+			unsigned int dataPos = *(int*)&header[0x0A];
+			unsigned int imageSize = *(int*)&header[0x22];
+			if (dataPos == 0) dataPos = 54;
+			if (imageSize == 0) imageSize = width * height * 3;
+
+			data = new unsigned char[imageSize];
+			fread(data, 1, imageSize, file);
+			fclose(file);
+		}
+
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
+
+		delete[] data;
+	}
+
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
 	return textureID;
 }

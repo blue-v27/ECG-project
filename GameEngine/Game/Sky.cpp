@@ -3,15 +3,83 @@
 void Sky::Start()
 {
 	m_shader = new Shader(ShaderTypes::skyVertex, ShaderTypes::skyFragment);
-	m_mesh = MESH_DEFINES.GetMesh(SKY);
+	
+    std::vector<const char*> faces
+    { 
+        "Resources/Textures/right.bmp", 
+        "Resources/Textures/left.bmp", 
+        "Resources/Textures/top.bmp", 
+        "Resources/Textures/bottom.bmp", 
+        "Resources/Textures/front.bmp", 
+        "Resources/Textures/back.bmp" 
+    };
+
+    cubemapTexture = loadCubemap(faces);
+
+    // Cube vertices for skybox
+    float skyboxVertices[] = {
+        // positions          
+        -1.0f,  1.0f, -1.0f,
+        -1.0f, -1.0f, -1.0f,
+         1.0f, -1.0f, -1.0f,
+         1.0f, -1.0f, -1.0f,
+         1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f,
+
+        -1.0f, -1.0f,  1.0f,
+        -1.0f, -1.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f,  1.0f,
+        -1.0f, -1.0f,  1.0f,
+
+         1.0f, -1.0f, -1.0f,
+         1.0f, -1.0f,  1.0f,
+         1.0f,  1.0f,  1.0f,
+         1.0f,  1.0f,  1.0f,
+         1.0f,  1.0f, -1.0f,
+         1.0f, -1.0f, -1.0f,
+
+        -1.0f, -1.0f,  1.0f,
+        -1.0f,  1.0f,  1.0f,
+         1.0f,  1.0f,  1.0f,
+         1.0f,  1.0f,  1.0f,
+         1.0f, -1.0f,  1.0f,
+        -1.0f, -1.0f,  1.0f,
+
+        -1.0f,  1.0f, -1.0f,
+         1.0f,  1.0f, -1.0f,
+         1.0f,  1.0f,  1.0f,
+         1.0f,  1.0f,  1.0f,
+        -1.0f,  1.0f,  1.0f,
+        -1.0f,  1.0f, -1.0f,
+
+        -1.0f, -1.0f, -1.0f,
+        -1.0f, -1.0f,  1.0f,
+         1.0f, -1.0f, -1.0f,
+         1.0f, -1.0f, -1.0f,
+        -1.0f, -1.0f,  1.0f,
+         1.0f, -1.0f,  1.0f
+    };
+
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glBindVertexArray(0);
 }
 
 void Sky::Render()
 {
     if (!m_shader) return;
 
+    glDepthMask(GL_FALSE);
+    glDepthFunc(GL_LEQUAL);  // skybox drawn behind everything
     m_shader->use();
-    glUseProgram(m_shader->getId());
 
     Window* window = GAMECONTEXT.GetWindow();
     Camera* camera = GAMECONTEXT.GetCamera();
@@ -34,11 +102,15 @@ void Sky::Render()
     glUniformMatrix4fv(ProjectionLoc, 1, GL_FALSE, &ProjectionMatrix[0][0]);
     glUniformMatrix4fv(ViewLoc, 1, GL_FALSE, &ViewMatrix[0][0]);
 
-    glDepthFunc(GL_LEQUAL);
-    glDepthMask(GL_FALSE);  
+    glBindVertexArray(VAO);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
 
-    m_mesh.draw(*m_shader); 
+    // 3?? Draw the cube
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+    glBindVertexArray(0);
 
-    glDepthMask(GL_TRUE);    
-    glDepthFunc(GL_LESS);   
+    // 4?? Re-enable standard depth testing
+    glDepthMask(GL_TRUE);
+    glDepthFunc(GL_LESS);
 }
