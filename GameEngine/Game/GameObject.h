@@ -9,9 +9,9 @@
 #include "..\Model Loading\texture.h"
 #include "..\Model Loading\meshLoaderObj.h"
 #include "..\Model Loading\MeshDefines.h"
-#include "..\Shaders\shader.h"
 #include "BoundingBox.h"
 #include "IGameObject.h"
+#include "..\Shaders\ShaderManager.h"
 
 class GameObject : public IGameObject
 {
@@ -23,9 +23,6 @@ private:
 	GameObject* m_parent = nullptr;
 
 	PhysicsMask* m_phyMask = nullptr;
-
-	char m_fragmentShader[128] = {0};
-	char m_vertexShader[128]   = {0};
 public:
 	glm::vec3 m_pos;
 	glm::vec3 m_relativePos;
@@ -45,14 +42,17 @@ public:
 
 	bool m_isActive   = true;
 	bool m_usePhysics = false;
+	bool m_isDynamic  = false;
 
 	float m_mass;
 	float m_health = 100.f;
-
+	int   m_shaderId = 0;
 	float m_isAnchor;
 
 	Mesh		  m_mesh;
 	Shader*		  m_shader = nullptr;
+
+	glm::mat4 m_modelMatrix = glm::mat4(1.f);
 
 	GameObject();
 	GameObject(GameObject* obj);
@@ -85,6 +85,8 @@ public:
 	void	  SetRight(glm::vec3 pos) { m_right = pos; }
 	glm::vec3 GetRight()			  { return m_right; }
 
+	void RecomputeModel();
+
 	void IsAnchor(bool val) { m_isAnchor = val; }
 	bool IsAnchor()			{ return m_isAnchor; }
 
@@ -94,11 +96,8 @@ public:
 	void  SetRotationOy(float rot) { m_rotationOy = rot; }
 	float GetRotationOy()		   { return m_rotationOy; }
 
-	void  SetFramentShader(char* path) { sprintf(m_fragmentShader, "%s", path); }
-	void  SetVertexShader(char* path)  { sprintf(m_vertexShader, "%s", path); }
-	char* GetFragmentShader()		   { return m_fragmentShader; }
-	char* getVertexShader()			   { return m_vertexShader; }
-	void  InitShader()				   { m_shader = new Shader(m_vertexShader, m_fragmentShader); }
+	void  SetShaderId(int shaderId) { m_shaderId = shaderId; }
+	void  InitShader(int ShaderId)  { m_shader = SHADER_MANAGER.GetShader(ShaderId); m_shaderId = ShaderId; }
 
 	void		SetChild(GameObject* obj) { m_children.push_back(obj); obj->SetParent(this); }
 	size_t      GetChildCound()			  { return m_children.size(); }

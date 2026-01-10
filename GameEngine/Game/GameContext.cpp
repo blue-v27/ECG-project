@@ -5,6 +5,7 @@
 #include "GUI/Hud.h"
 #include "GUI/GUIManager.h"
 #include "Sky.h"
+#include "../Shaders/ShaderManager.h"
 
 std::vector<GameObject*> GameContext::GetObjectsInRange(glm::vec3 pos, float range)
 {
@@ -35,11 +36,59 @@ void GameContext::Start()
     if (&MESH_DEFINES)
         MESH_DEFINES.Start();
 
+    if (&SHADER_MANAGER)
+        SHADER_MANAGER.Start();
+
     if (&SAVE_MANAGER)
         SAVE_MANAGER.LoadObjects();
 
     if (&SKYBOX)
         SKYBOX.Start();
+}
+
+void GameContext::InitLights()
+{
+    int numShaders = SHADER_MANAGER.GetShaderCount();
+
+    for (int i = 0; i < numShaders; ++i)
+    {
+        if (SHADER_MANAGER.GetShader(i)->UseLights())
+            SHADER_MANAGER.GetShader(i)->CacheLights(m_lights.size());
+    }
+}
+
+void GameContext::UpdateLights()
+{
+    int numShaders = SHADER_MANAGER.GetShaderCount();
+
+    for (int i = 0; i < numShaders; ++i)
+    {
+        if (Shader* shader = SHADER_MANAGER.GetShader(i))
+        {
+            if (shader->UseLights())
+            {
+                shader->use();
+
+                int numLights = GAMECONTEXT.GetLightCount();
+                glUniform1i(shader->m_numLights, numLights);
+
+                for (int i = 0; i < numLights; ++i)
+                {
+                    Light* light = GAMECONTEXT.GetLight(i);
+
+                    glUniform3fv(shader->m_lights[i].color, 1, &light->GetLightColor()[0]);
+                    glUniform3fv(shader->m_lights[i].position, 1, &light->GetPos()[0]);
+                    glUniform1f(shader->m_lights[i].ka, light->GetIntensity());
+                    glUniform1f(shader->m_lights[i].kd, light->GetDifCoef());
+                    glUniform1f(shader->m_lights[i].ks, light->GetSpecIntensity());
+                }
+
+                Camera* cam = GAMECONTEXT.GetCamera();
+                glUniform3fv(shader->m_viewPos, 1, &cam->getCameraPosition()[0]);
+            }          
+        }
+    }
+    
 }
 
 void GameContext::Update()
@@ -65,7 +114,7 @@ void GameContext::Update()
     {
         for (GameObject* obj : m_objects)
         {
-            if (obj)
+            if (obj && obj->m_isActive)
             {                       
                 if (m_player)
                 {
@@ -172,6 +221,8 @@ void GameContext::Update()
             light->Update();
         }
     }
+
+    UpdateLights();
 }
 
 void GameContext::Render()
@@ -188,7 +239,7 @@ void GameContext::Render()
     {
         for (GameObject* obj : m_objects)
         {
-            if (obj)
+            if (obj && obj->m_isActive)
             {
                 BoundingBox bb = obj->GetBoundingBox();
                 if (glm::distance(CAMERA.GetPos(), bb.GetMax()) > 750.f &&

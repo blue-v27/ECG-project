@@ -95,6 +95,7 @@ int main()
 	//GAMECONTEXT.SetLight(light2);
 
 	GUI.Init();
+	GAMECONTEXT.InitLights();
 
 	while (!window.IsReleased(GLFW_KEY_ESCAPE) && glfwWindowShouldClose(window.getWindow()) == 0)
 	{
@@ -107,15 +108,18 @@ int main()
 
 		GAMECONTEXT.SetDeltaTime(deltaTime);
 		GAMECONTEXT.Update();
-		GAMECONTEXT.Render();	
+		GAMECONTEXT.Render();
+		GAMECONTEXT.RemoveObject();
 
 		window.update();
 	}
 
 	// Delete all objects from memory
-	while(GAMECONTEXT.GetObjectCount())
+	if(int size = GAMECONTEXT.GetObjectCount())
 	{
-		if(GameObject* obj = GAMECONTEXT.GetObject(0))
-			GAMECONTEXT.RemoveObject(obj);
+		for(int i = 0; i < size; ++i)
+			GAMECONTEXT.MarkForRemoval(GAMECONTEXT.GetObject(i));
+
+		GAMECONTEXT.RemoveObject();
 	}
 }

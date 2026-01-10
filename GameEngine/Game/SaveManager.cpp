@@ -55,8 +55,7 @@ void SaveManager::WriteObjectInfo(GameObject* obj)
 		fprintf(m_objects, "\tm_mesh:%d\n", MESH_DEFINES.GetMeshIndex(obj->m_mesh));
 		glm::vec3 pos = obj->m_pos;
 		fprintf(m_objects, "\tm_pos:%f %f %f\n", pos.x, pos.y, pos.z);
-		fprintf(m_objects, "\tm_vertexShader:%s\n", obj->getVertexShader());
-		fprintf(m_objects, "\tm_fragmentShader:%s\n", obj->GetFragmentShader());		
+		fprintf(m_objects, "\tm_shader:%d\n", obj->m_shaderId);		
 		glm::vec3 scale = obj->m_scale;
 		fprintf(m_objects, "\tm_scale:%f %f %f\n", scale.x, scale.y, scale.z);
 	}
@@ -74,6 +73,7 @@ void SaveManager::LoadObjects()
 	char line[256];
 	float x, y, z;
 	int ind;
+	int shaderId;
 	char name[128];
 
 	GameObject* obj   = nullptr;
@@ -99,7 +99,7 @@ void SaveManager::LoadObjects()
 					obj->ComputeBoundingBox();
 				}
 					
-				obj->InitShader();
+				obj->InitShader(shaderId);
 
 				if (ind == GRASS)
 					obj->m_scale.y = randomFloat(1.0f, 1.1f) /100.f;
@@ -130,21 +130,10 @@ void SaveManager::LoadObjects()
 			else
 				obj->SetPos(glm::vec3(x,y,z));
 		}
-		else if (sscanf(line, " m_vertexShader:%127s", name) == 1)
+		else if (sscanf(line, " m_shader:%d", &shaderId) == 1)
 		{
-			if (water)
-				water->SetVertexShader(name);
-			else
-				obj->SetVertexShader(name);
 		}
-		else if (sscanf(line, " m_fragmentShader:%127s", name) == 1)
-		{
-			if (water)
-				water->SetFramentShader(name);
-			else
-				obj->SetFramentShader(name);
-		}
-		if (sscanf(line, " m_scale:%f %f %f", &x, &y, &z) == 3)
+		else if (sscanf(line, " m_scale:%f %f %f", &x, &y, &z) == 3)
 		{
 			if (water)
 				water->SetScale(glm::vec3(x, y, z));

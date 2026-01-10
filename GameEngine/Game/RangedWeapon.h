@@ -5,7 +5,9 @@ class RangedWeapon : public Weapon
 {
 private:
 	glm::vec3 m_shotPoint;
-	Shader* m_lineShader;
+
+	Shader* m_lineShader = nullptr;
+	Bullet* m_bullet     = nullptr;
 public:
 	RangedWeapon(float damange, float delay, float range);
 	~RangedWeapon();

@@ -20,15 +20,10 @@ GameObject::GameObject()
     m_id = 0;
     m_health = 100.f;
     m_isAnchor = false;
-
-    snprintf(m_fragmentShader, 128, "%s", ShaderTypes::basicFragment);
-    snprintf(m_vertexShader, 128, "%s", ShaderTypes::basicVertex);
 }
 
 GameObject::GameObject(GameObject* obj)
 {
-    snprintf(m_fragmentShader, 128, "%s", obj->m_fragmentShader);
-    snprintf(m_vertexShader, 128, "%s", obj->m_vertexShader);
     m_pos = obj->m_pos;
     m_mesh = obj->m_mesh;
     m_textures = obj->m_textures;
@@ -38,14 +33,21 @@ GameObject::GameObject(GameObject* obj)
     m_rotationOy = obj->m_rotationOy;
     m_isActive = true;
     m_id = 0;
+    m_shaderId = obj->m_shaderId;
 }
 
 GameObject::~GameObject()
 {
-    delete m_phyMask;
-    m_phyMask = nullptr;
-    delete m_shader;
-    m_phyMask = nullptr;
+    if (m_phyMask)
+    {
+        //delete m_phyMask;
+        m_phyMask = nullptr;
+    }
+    if (m_shader)
+    {
+        //delete m_shader;
+        m_phyMask = nullptr;
+    }  
 }
 
 void GameObject::Update()
@@ -82,7 +84,7 @@ void GameObject::Init(Mesh* mesh)
     }
 
     ComputeBoundingBox();
-    InitShader();
+    InitShader(m_shaderId);
 }
 
 void GameObject::SetPos(glm::vec3 pos)
@@ -125,6 +127,16 @@ void GameObject::RotateZ(float angle)
         m_rot = m_rot * glm::angleAxis(angle, glm::vec3(0, 0, 1));
 }
 
+void GameObject::RecomputeModel()
+{
+    m_modelMatrix  = glm::translate(glm::mat4(1.0f), m_pos);
+    m_modelMatrix *= glm::mat4_cast(m_rot);
+    m_modelMatrix *= glm::scale(glm::mat4(1.0f), m_scale);
+
+    GLuint ModelMatrixID = glGetUniformLocation(m_shader->getId(), "model");
+    glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &m_modelMatrix[0][0]);
+}
+
 void GameObject::RemoveParrentLink()
 {
     if (m_parent)
@@ -155,59 +167,28 @@ void GameObject::ComputeBoundingBox(float height)
 
 void GameObject::Render()
 {
-    if (!m_shader) return;
+    if (!m_shader) 
+        return;
 
     m_shader->use();
-    glUseProgram(m_shader->getId());
 
     Window* window = GAMECONTEXT.GetWindow();
     Camera* camera = GAMECONTEXT.GetCamera();
-    if (!window || !camera) return;
+    
+    if (!window || !camera) 
+        return;
 
-    GLuint MatrixID2     = glGetUniformLocation(m_shader->getId(), "MVP");
-    GLuint ModelMatrixID = glGetUniformLocation(m_shader->getId(), "model");
+    GLuint MatrixID2 = glGetUniformLocation(m_shader->getId(), "MVP");
 
     glm::vec3 renderPos = glm::vec3(0);
 
-    glm::mat4 ModelMatrix = glm::translate(glm::mat4(1.0f), m_pos);
-    ModelMatrix *= glm::mat4_cast(m_rot);
-    ModelMatrix *= glm::scale(glm::mat4(1.0f), m_scale);
-
-    glm::mat4 ProjectionMatrix = glm::perspective(GAMECONTEXT.GetFov(), window->getWidth() * 1.0f / window->getHeight(), 0.1f, 10000.0f);
-    glm::mat4 ViewMatrix = glm::lookAt(camera->getCameraPosition(),
-        camera->getCameraPosition() + camera->getCameraViewDirection(),
-        camera->getCameraUp());
-    glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
+    RecomputeModel();
+   
+    glm::mat4 MVP = CAMERA.GetProjectionMat() * CAMERA.GetViewMat() * m_modelMatrix;
 
     glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &MVP[0][0]);
-    glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
 
-    int numLights = GAMECONTEXT.GetLightCount();
-   
-    glUniform1i(glGetUniformLocation(m_shader->getId(), "numLights"), numLights);
-
-    for (int i = 0; i < numLights; ++i)
-    {
-        if (Light* light = GAMECONTEXT.GetLight(i))
-        {
-            glm::vec4 lightColor = light->GetLightColor();
-            glm::vec3 lightPos = light->GetPos();
-
-            std::string colorName = "lights[" + std::to_string(i) + "].color";
-            std::string posName   = "lights[" + std::to_string(i) + "].position";
-
-            glUniform3f(glGetUniformLocation(m_shader->getId(), colorName.c_str()),lightColor.x, lightColor.y, lightColor.z);
-            glUniform3f(glGetUniformLocation(m_shader->getId(), posName.c_str()),lightPos.x, lightPos.y, lightPos.z);
-            glUniform1f(glGetUniformLocation(m_shader->getId(), ("lights[" + std::to_string(i) + "].ka").c_str()), light->GetIntensity());
-            glUniform1f(glGetUniformLocation(m_shader->getId(), ("lights[" + std::to_string(i) + "].kd").c_str()), light->GetDifCoef());
-            glUniform1f(glGetUniformLocation(m_shader->getId(), ("lights[" + std::to_string(i) + "].ks").c_str()), light->GetSpecIntensity());
-        }
-    }
-
-    glUniform3f(glGetUniformLocation(m_shader->getId(), "viewPos"),
-        camera->getCameraPosition().x,
-        camera->getCameraPosition().y,
-        camera->getCameraPosition().z);
+    glUniform3f(glGetUniformLocation(m_shader->getId(), "viewPos"), camera->getCameraPosition().x, camera->getCameraPosition().y, camera->getCameraPosition().z);
 
     m_mesh.draw(*m_shader);
 }

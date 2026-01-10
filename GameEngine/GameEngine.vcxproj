@@ -143,6 +143,7 @@
     <ClCompile Include="Game\Ray.cpp" />
     <ClCompile Include="Game\SaveManager.cpp" />
     <ClCompile Include="Game\RangedWeapon.cpp" />
+    <ClCompile Include="Shaders\ShaderManager.cpp" />
     <ClCompile Include="Shaders\shader.cpp" />
     <ClCompile Include="Model Loading\texture.cpp" />
     <ClCompile Include="Game\Water.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="Game\Ray.h" />
     <ClInclude Include="Game\SaveManager.h" />
     <ClInclude Include="Game\RangedWeapon.h" />
+    <ClInclude Include="Shaders\ShaderManager.h" />
     <ClInclude Include="Shaders\shader.h" />
     <ClInclude Include="Model Loading\texture.h" />
     <ClInclude Include="Game\Water.h" />

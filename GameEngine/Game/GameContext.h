@@ -35,6 +35,7 @@ private:
     bool m_isEditorActive = false;
 
     std::vector<GameObject*> m_objects;
+    std::vector<GameObject*> m_objectsToRemove;
     std::vector<InteractiveGameObject*> m_interactiveObjects;
     std::vector<Light*> m_lights;
 
@@ -86,11 +87,36 @@ public:
             iobj->m_id = m_interactiveObjects.at(m_interactiveObjects.size() - 1)->m_id + 1;
     }
 
-    void RemoveObject(GameObject* obj)
+    void RemoveObject()
     {
-        m_objects.erase(std::remove(m_objects.begin(), m_objects.end(), obj), m_objects.end());
-        delete obj;
-        obj = nullptr;
+        if (m_objectsToRemove.size())
+        {
+            for (GameObject* obj : m_objectsToRemove)
+            {
+               /* auto it = std::find(m_objects.begin(), m_objects.end(), obj);
+                if (it != m_objects.end())
+                {
+                    delete* it;
+                    m_objects.erase(it);
+                    obj = nullptr;
+                }*/
+                obj->m_isActive = false;
+            }
+
+            m_objectsToRemove.clear();
+        }        
+    }
+
+    void MarkForRemoval(GameObject* obj)
+    {
+        if (m_objectsToRemove.size())
+        {
+            for (GameObject* ob : m_objectsToRemove)
+                if (ob = obj)
+                    return;
+        }
+
+        m_objectsToRemove.push_back(obj);
     }
 
     size_t GetObjectCount() const
@@ -118,6 +144,8 @@ public:
             m_fov = m_targetFov;
     }
     void Start();
+    void InitLights();
+    void UpdateLights();
     void Update();
     void Render();
 

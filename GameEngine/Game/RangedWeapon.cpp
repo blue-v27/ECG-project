@@ -6,6 +6,8 @@
 RangedWeapon::RangedWeapon(float damange, float delay, float range) : Weapon(damange, delay, range)
 {
 	m_lineShader = new Shader(ShaderTypes::lineVertex, ShaderTypes::lineFragment);
+	m_bullet     = new Bullet();
+	GAMECONTEXT.AddObject(m_bullet);
 }
 
 RangedWeapon::~RangedWeapon()
@@ -21,8 +23,7 @@ void RangedWeapon::Shoot()
 	Ray ray;
 	std::vector<GameObject*> arr = GAMECONTEXT.GetObjectsInRange(CAMERA.GetPos(), 2 * m_range);
 
-	Bullet* bullet = new Bullet(m_pos, CAMERA.getCameraViewDirection(), 100.f * GAMECONTEXT.GetDeltaTime());
-	GAMECONTEXT.AddObject(bullet);
+	m_bullet->BulletBeginShoot(m_pos, CAMERA.getCameraViewDirection(), 1000.f * GAMECONTEXT.GetDeltaTime());
 
 	for (GameObject* obj : arr)
 	{
@@ -30,12 +31,9 @@ void RangedWeapon::Shoot()
 		if (ray.RayCast(CAMERA.GetPos() + glm::vec3(0.0f, 0.0f, 2.0f), CAMERA.getCameraViewDirection(), m_range, obj, hitPoint))
 		{
 			obj->GetDamage(m_damage);
-			//GAMECONTEXT.RemoveObject(bullet);
 			break;
 		}
 	}
-
-	bullet = nullptr;
 }
 
 void RangedWeapon::GrabAnchor()

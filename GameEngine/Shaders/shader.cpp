@@ -2,6 +2,8 @@
 #include <iostream>
 #include <vector>
 
+#include "../Game/GameContext.h"
+
 using namespace std;
 
 Shader::Shader(const char* vertexPath, const char* fragmentPath)
@@ -107,6 +109,27 @@ void Shader::use()
 int Shader::getId()
 {
 	return id;
+}
+
+void Shader::CacheLights(int maxLights)
+{
+	m_numLights = glGetUniformLocation(id, "numLights");
+	m_viewPos = glGetUniformLocation(id, "viewPos");
+
+	m_lights.resize(maxLights);
+	for (int i = 0; i < maxLights; ++i)
+	{
+		m_lights[i].color    = glGetUniformLocation(id, ("lights[" + std::to_string(i) + "].color").c_str());
+		m_lights[i].position = glGetUniformLocation(id, ("lights[" + std::to_string(i) + "].position").c_str());
+		m_lights[i].ka       = glGetUniformLocation(id, ("lights[" + std::to_string(i) + "].ka").c_str());
+		m_lights[i].kd       = glGetUniformLocation(id, ("lights[" + std::to_string(i) + "].kd").c_str());
+		m_lights[i].ks       = glGetUniformLocation(id, ("lights[" + std::to_string(i) + "].ks").c_str());
+	}
+}
+
+void Shader::UpdateLights()
+{
+
 }
 
 Shader::~Shader()

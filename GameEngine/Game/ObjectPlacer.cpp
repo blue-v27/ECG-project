@@ -18,12 +18,11 @@ ObjectPlacer::~ObjectPlacer()
 void ObjectPlacer::PlaceObject()
 {
 	GameObject* obj = new GameObject(m_objectToPlace);
-	obj->SetFramentShader(ShaderTypes::basicFragment);
-	obj->SetVertexShader(ShaderTypes::basicVertex);
+	obj->SetShaderId(BASIC);
 	obj->SetMesh(MESH_DEFINES.GetMesh(m_currentMesh));
-	if(m_currentMesh != TREE)
+	if(m_currentMesh != TREE && m_currentMesh != GRASS)
 	obj->ComputeBoundingBox();
-	obj->InitShader();
+	obj->InitShader(obj->m_shaderId);
 	GAMECONTEXT.AddObject(obj);
 }
 
@@ -33,11 +32,9 @@ void ObjectPlacer::SwitchMesh(bool right)
 	{
 		m_objectToPlace = new GameObject();
 
-		m_objectToPlace->SetVertexShader(ShaderTypes::ghostVertex);
-		m_objectToPlace->SetFramentShader(ShaderTypes::ghostFragment);
 		m_objectToPlace->SetMesh(MESH_DEFINES.GetMesh(m_currentMesh));
-		m_objectToPlace->ComputeBoundingBox();
-		m_objectToPlace->InitShader();
+		//m_objectToPlace->ComputeBoundingBox();
+		m_objectToPlace->InitShader(GHOST);
 		m_objectToPlace->SetPos(m_placePos);
 	}
 	else
@@ -108,7 +105,7 @@ void ObjectPlacer::Update()
 			}
 			else
 			{
-				GAMECONTEXT.RemoveObject(obj);
+				GAMECONTEXT.MarkForRemoval(obj);
 				obj = nullptr;
 			}
 		}

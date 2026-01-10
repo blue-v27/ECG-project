@@ -1,8 +1,9 @@
 #include "Water.h"
 #include "../Model Loading/TextureDefine.h"
-#include "../Model Loading/ShaderTypes.h"
+#include "../Shaders/ShaderManager.h"
 #include "../Model Loading/MeshDefines.h"
 #include "GameContext.h"
+
 
 Water::Water() : m_waveHeight(1.f), m_waveSpeed(1.f), m_waveLength(2.f)
 {
@@ -16,7 +17,7 @@ void Water::Init(Mesh* mesh)
     //m_boundingBox.AddVertexArray(m_mesh.vertices);
    // m_boundingBox.ComputeMinMax();
 
-    m_shader = new Shader(ShaderTypes::waterVertex, ShaderTypes::waterFragment);
+    m_shader = SHADER_MANAGER.GetShader(WATER);
 }
 
 void Water::Render()

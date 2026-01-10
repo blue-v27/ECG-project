@@ -26,6 +26,9 @@ private:
 	
 	GameObject* m_targetObject = nullptr;
 
+	glm::mat4 m_projectionMat = glm::mat4(1.f);
+	glm::mat4 m_viewMat		  = glm::mat4(1.f);
+
 	public:
 		glm::mat4 getViewMatrix();
 		glm::vec3 getCameraPosition();
@@ -59,6 +62,11 @@ private:
 		void rotateOy(float angle);
 
 		void MoveCamera(float angle);
+
+		glm::mat4 GetProjectionMat() { return m_projectionMat; }
+		glm::mat4 GetViewMat() { return m_viewMat; }
+
+		void RecomputeMatrices();
 
 		void Update();
 

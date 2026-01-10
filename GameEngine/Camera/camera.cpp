@@ -78,6 +78,12 @@ void Camera::MoveCamera(float angle)
 	int xpos, ypos;
 }
 
+void Camera::RecomputeMatrices()
+{
+	m_projectionMat = glm::perspective(GAMECONTEXT.GetFov(), GAMECONTEXT.GetWindow()->getWidth() * 1.0f / GAMECONTEXT.GetWindow()->getHeight(), 0.1f, 10000.0f);
+	m_viewMat	    = glm::lookAt(m_pos, m_pos + m_viewDirection, m_up);
+}
+
 void Camera::Update()
 {
 	if (m_targetObject && !m_freeCam)
@@ -88,6 +94,8 @@ void Camera::Update()
 
 	if (m_freeCam)
 		ProcessInput(GAMECONTEXT.GetWindow(), GAMECONTEXT.GetDeltaTime());
+
+	RecomputeMatrices();
 }
 
 glm::mat4 Camera::getViewMatrix()
