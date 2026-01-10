@@ -49,6 +49,9 @@ void SaveManager::WriteObjectInfo(GameObject* obj)
 	if (Player* player = dynamic_cast<Player*>(obj))
 		return;
 
+	if (MESH_DEFINES.GetMeshIndex(obj->m_mesh) == MESH_SUN)
+		return;
+
 	fprintf(m_objects, "{\n");
 
 	{
@@ -58,6 +61,9 @@ void SaveManager::WriteObjectInfo(GameObject* obj)
 		fprintf(m_objects, "\tm_shader:%d\n", obj->m_shaderId);		
 		glm::vec3 scale = obj->m_scale;
 		fprintf(m_objects, "\tm_scale:%f %f %f\n", scale.x, scale.y, scale.z);
+		fprintf(m_objects, "\tm_anchor:%d\n", obj->IsAnchor());
+		glm::quat orient = obj->m_rot;
+		fprintf(m_objects, "\tm_rot:%f %f %f %f\n", orient.x, orient.y, orient.z, orient.w);
 	}
 
 	fprintf(m_objects, "}\n");
@@ -72,7 +78,9 @@ void SaveManager::LoadObjects()
 
 	char line[256];
 	float x, y, z;
+	float xO, yO, zO, wO;
 	int ind;
+	int anc;
 	int shaderId;
 	char name[128];
 
@@ -84,62 +92,52 @@ void SaveManager::LoadObjects()
 
 		if (strchr(line, '}'))
 		{
-			if (water)
+			if (ind != MESH_GRASS && ind != MESH_FULLTRE && ind != MESH_TREE && ind != MESH_CLIFF) 
 			{
-				//water->ComputeBoundingBox();
-				water->Init();
-				//water->InitShader();
-				GAMECONTEXT.AddObject(water);
-				water = nullptr;
+				obj->ComputeBoundingBox();
 			}
-			else
-			{
-				if (ind != MESH_GRASS && ind != MESH_FULLTRE && ind != MESH_TREE)
-				{
-					obj->ComputeBoundingBox();
-				}
 					
-				obj->InitShader(shaderId);
+			obj->InitShader(shaderId);
 
-				if (ind == MESH_GRASS)
-					obj->m_scale.y = randomFloat(1.0f, 1.1f) /100.f;
+			if (ind == MESH_GRASS)
+				obj->m_scale.y = randomFloat(1.0f, 1.1f) /100.f;
 
-				GAMECONTEXT.AddObject(obj);
+			GAMECONTEXT.AddObject(obj);
 
-				obj = nullptr;
-			}
-			continue;
+			obj = nullptr;
 		}
 
 		//if (!obj) continue;
 
 		if (sscanf(line, " m_mesh:%d", &ind) == 1)
 		{
-			if (ind == WATER)
-				water = new Water();
-			else
-			{
-				obj = new GameObject();
-				obj->SetMesh(MESH_DEFINES.GetMesh(ind));
-			}
+			obj = new GameObject();
+			obj->SetMesh(MESH_DEFINES.GetMesh(ind));
 		}
 		else if (sscanf(line, " m_pos:%f %f %f", &x, &y, &z) == 3)
 		{
-			if(water)
-				water->SetPos(glm::vec3(x, y, z));
-			else
-				obj->SetPos(glm::vec3(x,y,z));
+			obj->SetPos(glm::vec3(x,y,z));
 		}
 		else if (sscanf(line, " m_shader:%d", &shaderId) == 1)
 		{
 		}
 		else if (sscanf(line, " m_scale:%f %f %f", &x, &y, &z) == 3)
 		{
-			if (water)
-				water->SetScale(glm::vec3(x, y, z));
-			else
-				obj->SetScale(glm::vec3(x, y, z));
+			obj->SetScale(glm::vec3(x, y, z));
 		}
+		else if (sscanf(line, " m_anchor:%d", &anc) == 1)
+		{
+			obj->IsAnchor(anc);
+		}
+		else if (sscanf(line, " m_anchor:%d", &anc) == 1)
+		{
+			obj->IsAnchor(anc);
+		}
+		else if (sscanf(line, " m_rot:%f %f %f %f", &xO, &yO, &zO, &wO) == 4)
+		{
+			//obj->SetRotation(glm::quat(xO, yO, zO, wO));
+		}
+
 	}
 
 	fclose(m_objects);

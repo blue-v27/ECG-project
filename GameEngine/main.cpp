@@ -63,7 +63,7 @@ int main()
 	GAMECONTEXT.AddInteractiveGameObject(weapon);
 
 
-	GameObject* anchor = new GameObject();
+	/*GameObject* anchor = new GameObject();
 	anchor->SetPos(glm::vec3(0.f, 70.f, 0.f));
 	anchor->Init(&MESH_DEFINES.GetMesh(MESH_BOX));
 	anchor->IsAnchor(true);
@@ -79,7 +79,7 @@ int main()
 	anchor2->SetPos(glm::vec3(100.f, 70.f, 0.f));
 	anchor2->Init(&MESH_DEFINES.GetMesh(MESH_BOX));
 	anchor2->IsAnchor(true);
-	GAMECONTEXT.AddObject(anchor2);
+	GAMECONTEXT.AddObject(anchor2);*/
 
 	Light* light = new Light();
 	light->SetPos(glm::vec3(200.f, 150.f, 100.f));
