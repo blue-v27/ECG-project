@@ -12,12 +12,8 @@ Water::Water() : m_waveHeight(1.f), m_waveSpeed(1.f), m_waveLength(2.f)
 
 void Water::Init(Mesh* mesh)
 { 
-    m_mesh = MESH_DEFINES.GetMesh(WATER);
-
-    //m_boundingBox.AddVertexArray(m_mesh.vertices);
-   // m_boundingBox.ComputeMinMax();
-
-    m_shader = SHADER_MANAGER.GetShader(WATER);
+    m_mesh   = MESH_DEFINES.GetMesh(4);
+    m_shader = SHADER_MANAGER.GetShader(1);
 }
 
 void Water::Render()

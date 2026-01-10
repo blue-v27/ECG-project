@@ -1,12 +1,13 @@
 #include "ObjectPlacer.h"
 #include "../Model Loading/ShaderTypes.h"
 #include "../Model Loading/MeshDefines.h"
+#include "SubModes/SceneEditorSubMode.h"
 
 ObjectPlacer::ObjectPlacer() 
 	: m_objectToPlace(nullptr), m_placePos(glm::vec3(0)), m_currentMesh(0)
 {	
-	m_placeColor	 = glm::vec4(1.0f, 1.0f, 1.0f, 0.1f);
-	m_highlightColor = glm::vec4(0.3f, 0.9f, 0.3f, 0.1f);
+	m_placeColor	 = glm::vec4(1.0f, 1.0f, 1.0f, 1.f);
+	m_highlightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.f);
 }
 
 ObjectPlacer::~ObjectPlacer()
@@ -20,7 +21,7 @@ void ObjectPlacer::PlaceObject()
 	GameObject* obj = new GameObject(m_objectToPlace);
 	obj->SetShaderId(BASIC);
 	obj->SetMesh(MESH_DEFINES.GetMesh(m_currentMesh));
-	if(m_currentMesh != TREE && m_currentMesh != GRASS)
+	if(m_currentMesh != MESH_TREE && m_currentMesh != MESH_GRASS && m_currentMesh != MESH_FULLTRE)
 	obj->ComputeBoundingBox();
 	obj->InitShader(obj->m_shaderId);
 	GAMECONTEXT.AddObject(obj);
@@ -33,7 +34,6 @@ void ObjectPlacer::SwitchMesh(bool right)
 		m_objectToPlace = new GameObject();
 
 		m_objectToPlace->SetMesh(MESH_DEFINES.GetMesh(m_currentMesh));
-		//m_objectToPlace->ComputeBoundingBox();
 		m_objectToPlace->InitShader(GHOST);
 		m_objectToPlace->SetPos(m_placePos);
 	}
@@ -55,13 +55,15 @@ void ObjectPlacer::SwitchMesh(bool right)
 				m_currentMesh = meshNumber - 1;
 		}
 
-		if (m_currentMesh == PISTOL) return SwitchMesh(right);
-		if (m_currentMesh == KNIFE) return SwitchMesh(right);
+		if (m_currentMesh == MESH_PISTOL) return SwitchMesh(right);
+		if (m_currentMesh == MESH_KNIFE) return SwitchMesh(right);
 
 		m_objectToPlace->SetMesh(MESH_DEFINES.GetMesh(m_currentMesh));
 		
-		if (m_currentMesh == GRASS)
+		if (m_currentMesh == MESH_GRASS)
 			m_objectToPlace->SetScale(glm::vec3(0.01f));
+		else if(m_currentMesh == MESH_CLIFF)
+			m_objectToPlace->SetScale(glm::vec3(3.f));
 		else
 			m_objectToPlace->SetScale(glm::vec3(1.f));
 	}
@@ -70,66 +72,87 @@ void ObjectPlacer::SwitchMesh(bool right)
 
 void ObjectPlacer::Update()
 {
-	//m_objectToPlace->Update();
-
-	if (m_objectToPlace)
+	if (SCENE_EDITOR.IsActive())
 	{
-		int numObj = GAMECONTEXT.GetObjectCount();
-
-		GameObject* obj = nullptr;
-
-		for (int i = 0; i < numObj; ++i)
+		if (m_objectToPlace)
 		{
-			if (Player* player = dynamic_cast<Player*>(GAMECONTEXT.GetObject(i)))
-				continue;
-			if (m_ray.RayCast(CAMERA.GetPos(), CAMERA.getCameraViewDirection(), 500.f, GAMECONTEXT.GetObject(i), m_placePos))
-			{
-				obj = GAMECONTEXT.GetObject(i);
-				break;
-			}
-		}
+			int numObj = GAMECONTEXT.GetObjectCount();
 
-		m_objectToPlace->SetPos(m_placePos);
+			GameObject* obj = nullptr;
+
+			for (int i = 0; i < numObj; ++i)
+			{
+				if (Player* player = dynamic_cast<Player*>(GAMECONTEXT.GetObject(i)))
+					continue;
+				if (m_ray.RayCast(CAMERA.GetPos(), CAMERA.getCameraViewDirection(), 500.f, GAMECONTEXT.GetObject(i), m_placePos))
+				{
+					obj = GAMECONTEXT.GetObject(i);
+					break;
+				}
+			}
+
+			m_objectToPlace->SetPos(m_placePos);
 		
-		if (GAMECONTEXT.GetWindow()->IsMouseReleased(GLFW_MOUSE_BUTTON_1))
-		{
-			PlaceObject();
-			obj = nullptr;
-		}
-
-		if (obj && GAMECONTEXT.GetWindow()->IsMouseReleased(GLFW_MOUSE_BUTTON_2))
-		{
-			if (Player* player = dynamic_cast<Player*>(obj))
+			if (GAMECONTEXT.GetWindow()->IsMouseReleased(GLFW_MOUSE_BUTTON_1))
 			{
-
-			}
-			else
-			{
-				GAMECONTEXT.MarkForRemoval(obj);
+				PlaceObject();
 				obj = nullptr;
 			}
+
+			if (GAMECONTEXT.GetWindow()->isPressed(GLFW_KEY_R))
+			{
+				m_objectToPlace->RotateY(-1.f);
+			}
+			if (GAMECONTEXT.GetWindow()->isPressed(GLFW_KEY_T))
+			{
+				m_objectToPlace->RotateY(1.f);
+			}
+			if (GAMECONTEXT.GetWindow()->isPressed(GLFW_KEY_U))
+			{
+				m_objectToPlace->SetScale(m_objectToPlace->m_scale * 1.1f);
+			}
+			if (GAMECONTEXT.GetWindow()->isPressed(GLFW_KEY_I))
+			{
+				m_objectToPlace->SetScale(m_objectToPlace->m_scale * 0.9f);
+			}
+
+
+			if (obj && GAMECONTEXT.GetWindow()->IsMouseReleased(GLFW_MOUSE_BUTTON_2))
+			{
+				if (Player* player = dynamic_cast<Player*>(obj))
+				{
+
+				}
+				else
+				{
+					GAMECONTEXT.MarkForRemoval(obj);
+					obj = nullptr;
+				}
+			}
 		}
-	}
 
-	if (GAMECONTEXT.GetWindow()->IsReleased(GLFW_KEY_P))
-	{
-		SwitchMesh(true);
-	}
+		if (GAMECONTEXT.GetWindow()->IsReleased(GLFW_KEY_P))
+		{
+			SwitchMesh(true);
+		}
 	
-	if (GAMECONTEXT.GetWindow()->IsReleased(GLFW_KEY_O))
-	{
-		SwitchMesh(false);
-	}
+		if (GAMECONTEXT.GetWindow()->IsReleased(GLFW_KEY_O))
+		{
+			SwitchMesh(false);
+		}
 
+	}
 }
 
 void ObjectPlacer::RenderGhost()
 {
-	if (m_objectToPlace)
+	if (SCENE_EDITOR.IsActive())
 	{
-		m_objectToPlace->Render();
-		GLuint color = glGetUniformLocation(m_objectToPlace->m_shader->getId(), "color");
-		glUniform4fv(color, 1, glm::value_ptr(m_placeColor));
+		if (m_objectToPlace)
+		{
+			m_objectToPlace->Render();
+			GLuint color = glGetUniformLocation(m_objectToPlace->m_shader->getId(), "color");
+			glUniform4fv(color, 1, glm::value_ptr(m_placeColor));
+		}
 	}
-		
 }

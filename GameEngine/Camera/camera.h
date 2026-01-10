@@ -64,7 +64,7 @@ private:
 		void MoveCamera(float angle);
 
 		glm::mat4 GetProjectionMat() { return m_projectionMat; }
-		glm::mat4 GetViewMat() { return m_viewMat; }
+		glm::mat4 GetViewMat()       { return m_viewMat; }
 
 		void RecomputeMatrices();
 

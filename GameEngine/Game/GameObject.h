@@ -26,6 +26,7 @@ private:
 public:
 	glm::vec3 m_pos;
 	glm::vec3 m_relativePos;
+	glm::vec3 m_lastFramePos;
 	glm::vec3 m_scale;
 	glm::vec4 m_color;
 

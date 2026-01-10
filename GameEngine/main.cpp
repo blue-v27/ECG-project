@@ -38,7 +38,7 @@ int main()
 	player->SetPos(glm::vec3(0.f, 10.f, 0.f));
 	player->SetCamera(&CAMERA);
 	player->GetCamera()->SetPos(glm::vec3(0.0f, 7.f, 2.4f));
-	player->Init(&MESH_DEFINES.GetMesh(CUBE));
+	player->Init(&MESH_DEFINES.GetMesh(MESH_CUBE));
 	player->InitPhysics();
 	GAMECONTEXT.AddPlayer(player);
 	GAMECONTEXT.AddObject(player);
@@ -49,7 +49,7 @@ int main()
 	knife->SetPos(glm::vec3(0.0f, 7.f, 1.f));
 	knife->SetRotation(glm::quat(0.70710678f, 0.70710678f, 0.0f, 0.0f));
 	knife->SetScale(glm::vec3(0.25f));
-	knife->Init(&MESH_DEFINES.GetMesh(KNIFE));
+	knife->Init(&MESH_DEFINES.GetMesh(MESH_KNIFE));
 	GAMECONTEXT.AddObject(knife);
 #endif
 
@@ -59,38 +59,39 @@ int main()
 	weapon->RotateX(90.f);
 	weapon->RotateZ(-90.f);
 	weapon->SetScale(glm::vec3(0.25f));
-	weapon->Init(&MESH_DEFINES.GetMesh(PISTOL));
+	weapon->Init(&MESH_DEFINES.GetMesh(MESH_PISTOL));
 	GAMECONTEXT.AddInteractiveGameObject(weapon);
 
 
 	GameObject* anchor = new GameObject();
 	anchor->SetPos(glm::vec3(0.f, 70.f, 0.f));
-	anchor->Init(&MESH_DEFINES.GetMesh(BOX));
+	anchor->Init(&MESH_DEFINES.GetMesh(MESH_BOX));
 	anchor->IsAnchor(true);
 	GAMECONTEXT.AddObject(anchor);
 
 	GameObject* anchor1 = new GameObject();
 	anchor1->SetPos(glm::vec3(50.f, 70.f, 0.f));
-	anchor1->Init(&MESH_DEFINES.GetMesh(BOX));
+	anchor1->Init(&MESH_DEFINES.GetMesh(MESH_BOX));
 	anchor1->IsAnchor(true);
 	GAMECONTEXT.AddObject(anchor1);
 
 	GameObject* anchor2 = new GameObject();
 	anchor2->SetPos(glm::vec3(100.f, 70.f, 0.f));
-	anchor2->Init(&MESH_DEFINES.GetMesh(BOX));
+	anchor2->Init(&MESH_DEFINES.GetMesh(MESH_BOX));
 	anchor2->IsAnchor(true);
 	GAMECONTEXT.AddObject(anchor2);
 
 	Light* light = new Light();
 	light->SetPos(glm::vec3(200.f, 150.f, 100.f));
-	light->Init(&MESH_DEFINES.GetMesh(SUN));
+	light->SetShaderId(BASIC);
+	light->Init(&MESH_DEFINES.GetMesh(MESH_SUN));
 	light->SetColor(glm::vec4(1.f, 1.f, 1.f, 1.f));
 	//light->IsSun(true);
 	GAMECONTEXT.SetLight(light);
 
 	//Light* light2 = new Light();
 	//light2->SetPos(glm::vec3(100.f, 75.f, 0.f));
-	//light2->Init(&MESH_DEFINES.GetMesh(SUN));
+	//light2->Init(&MESH_DEFINES.GetMesh(MESH_SUN));
 	//light2->SetColor(glm::vec4(1.f, 0.f, 0.f, 1.f));
 	//GAMECONTEXT.SetLight(light2);
 

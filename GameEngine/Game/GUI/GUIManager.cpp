@@ -2,7 +2,7 @@
 #include "GUIManager.h"
 #include "glfw3.h"
 #include "String"
-#include "../../Model Loading/ShaderTypes.h"
+#include "../../Shaders/ShaderManager.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -51,7 +51,7 @@ void GUIManager::Init()
 
     delete[] bitmap;
 
-    m_shader        = new Shader(ShaderTypes::textVertex, ShaderTypes::textFragment);
+    m_shader        = SHADER_MANAGER.GetShader(TEXT);
     m_shaderProgram = m_shader->getId();  
     m_projLocation  = glGetUniformLocation(m_shaderProgram, "projection");
     m_colorLocation = glGetUniformLocation(m_shaderProgram, "textColor");

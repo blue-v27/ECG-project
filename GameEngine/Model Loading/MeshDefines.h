@@ -22,6 +22,7 @@ public:
 	static constexpr char* rock			= "Resources/Models/Rock1.obj";
 	static constexpr char* treeStem     = "Resources/Models/MapleTreeStem.obj";
 	static constexpr char* treeLeaves   = "Resources/Models/MapleTreeLeaves.obj";
+	static constexpr char* cliff		= "Resources/Models/ForestRoad.obj";
 
 	void Start();
 	Mesh GetMesh(int index) { return m_meshes.at(index); }
@@ -35,18 +36,18 @@ public:
 
 #define MESH_DEFINES MeshDefines::Instance()
 
-#define CUBE    0
-#define SPHERE  1
-#define PLANE   2
-#define BOX	    3
-#define WATER   4
-#define GROUND  5
-#define KNIFE   6
-#define PISTOL  7
-#define GRASS   8
-#define ROCK	9
-#define TREE	10
-#define FULLTRE 11
-#define SUN		12
-#define SKY		13
+#define MESH_CUBE    0
+#define MESH_SPHERE  1
+#define MESH_PLANE   2
+#define MESH_BOX	 3
+#define MESH_WATER   4
+#define MESH_GROUND  5
+#define MESH_KNIFE   6
+#define MESH_PISTOL  7
+#define MESH_GRASS   8
+#define MESH_ROCK	 9
+#define MESH_TREE	 10
+#define MESH_FULLTRE 11
+#define MESH_SUN	 12
+#define MESH_CLIFF   13
 };

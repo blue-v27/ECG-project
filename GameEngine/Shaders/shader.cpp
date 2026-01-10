@@ -99,6 +99,8 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
  
 	glDeleteShader(vertex);
 	glDeleteShader(fragment);
+
+	CacheUniforms();
 }
 
 void Shader::use()
@@ -111,11 +113,16 @@ int Shader::getId()
 	return id;
 }
 
+void Shader::CacheUniforms()
+{
+	m_modelMatrixID = glGetUniformLocation(id, "model");
+	m_MVPMatrixID   = glGetUniformLocation(id, "MVP");
+	m_numLights     = glGetUniformLocation(id, "numLights");
+	m_viewPos		= glGetUniformLocation(id, "viewPos");
+}
+
 void Shader::CacheLights(int maxLights)
 {
-	m_numLights = glGetUniformLocation(id, "numLights");
-	m_viewPos = glGetUniformLocation(id, "viewPos");
-
 	m_lights.resize(maxLights);
 	for (int i = 0; i < maxLights; ++i)
 	{

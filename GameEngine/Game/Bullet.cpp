@@ -8,7 +8,7 @@ Bullet::Bullet()
 	m_speed	    = 0.f;
 	m_startTime = glfwGetTime();
 
-	SetMesh(MESH_DEFINES.GetMesh(SPHERE));
+	SetMesh(MESH_DEFINES.GetMesh(MESH_SPHERE));
 	InitShader(BASIC);
 	GAMECONTEXT.AddObject(this);
 }

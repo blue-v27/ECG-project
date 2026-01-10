@@ -27,13 +27,16 @@ public:
 	void UseLights(bool val) { m_useLight = val; }
 	bool UseLights()		 { return m_useLight; }
 
+	void CacheUniforms();
 	void CacheLights(int maxLights);
 	void UpdateLights();
 
 	std::vector<LightUniform> m_lights;
 	
-	GLint m_viewPos;
-	GLint m_numLights;
+	GLint  m_viewPos;
+	GLint  m_numLights;
+	GLuint m_modelMatrixID = 0;
+	GLuint m_MVPMatrixID   = 0;
 private:
 	unsigned int id;
 	bool	     m_useLight;

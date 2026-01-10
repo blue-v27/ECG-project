@@ -20,6 +20,7 @@ GameObject::GameObject()
     m_id = 0;
     m_health = 100.f;
     m_isAnchor = false;
+    m_lastFramePos = glm::vec3(-100.f);
 }
 
 GameObject::GameObject(GameObject* obj)
@@ -34,6 +35,7 @@ GameObject::GameObject(GameObject* obj)
     m_isActive = true;
     m_id = 0;
     m_shaderId = obj->m_shaderId;
+    m_rot = obj->m_rot;
 }
 
 GameObject::~GameObject()
@@ -80,7 +82,7 @@ void GameObject::Init(Mesh* mesh)
     }
     else
     {
-        m_mesh = MESH_DEFINES.GetMesh(CUBE);
+        m_mesh = MESH_DEFINES.GetMesh(MESH_CUBE);
     }
 
     ComputeBoundingBox();
@@ -132,9 +134,13 @@ void GameObject::RecomputeModel()
     m_modelMatrix  = glm::translate(glm::mat4(1.0f), m_pos);
     m_modelMatrix *= glm::mat4_cast(m_rot);
     m_modelMatrix *= glm::scale(glm::mat4(1.0f), m_scale);
+    glm::mat4 MVP = CAMERA.GetProjectionMat() * CAMERA.GetViewMat() * m_modelMatrix;
 
     GLuint ModelMatrixID = glGetUniformLocation(m_shader->getId(), "model");
     glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &m_modelMatrix[0][0]);
+
+    GLuint MatrixID2 = glGetUniformLocation(m_shader->getId(), "MVP");
+    glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &MVP[0][0]);
 }
 
 void GameObject::RemoveParrentLink()
@@ -178,17 +184,7 @@ void GameObject::Render()
     if (!window || !camera) 
         return;
 
-    GLuint MatrixID2 = glGetUniformLocation(m_shader->getId(), "MVP");
-
-    glm::vec3 renderPos = glm::vec3(0);
-
-    RecomputeModel();
-   
-    glm::mat4 MVP = CAMERA.GetProjectionMat() * CAMERA.GetViewMat() * m_modelMatrix;
-
-    glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &MVP[0][0]);
-
-    glUniform3f(glGetUniformLocation(m_shader->getId(), "viewPos"), camera->getCameraPosition().x, camera->getCameraPosition().y, camera->getCameraPosition().z);
+    RecomputeModel();   
 
     m_mesh.draw(*m_shader);
 }

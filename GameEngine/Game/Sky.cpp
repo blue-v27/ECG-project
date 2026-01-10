@@ -1,8 +1,9 @@
 #include "Sky.h"
 #include "GameContext.h"
+
 void Sky::Start()
 {
-	m_shader = new Shader(ShaderTypes::skyVertex, ShaderTypes::skyFragment);
+	m_shader = SHADER_MANAGER.GetShader(SKY);
 	
     std::vector<const char*> faces
     { 

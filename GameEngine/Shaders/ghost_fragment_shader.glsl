@@ -17,5 +17,5 @@ void main()
 	//TO DO: Add illumination from Lab 9
 
 	//fragColor = texture(texture1, textureCoord);
-	fragColor = vColor;
+	fragColor = vec4(1.f, 1.f, 1.f, 1.f);
 }

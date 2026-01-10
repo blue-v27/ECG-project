@@ -23,6 +23,6 @@ public:
 #define TEXT  3
 #define GHOST 4
 #define SUN   5
-#define SKU   6
+#define SKY   6
 };
 

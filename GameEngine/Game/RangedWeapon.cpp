@@ -1,11 +1,11 @@
 #include "RangedWeapon.h"
 #include "GameContext.h"
 #include "Ray.h"
-#include "../Model Loading/ShaderTypes.h"
+#include "../Shaders/ShaderManager.h"
 
 RangedWeapon::RangedWeapon(float damange, float delay, float range) : Weapon(damange, delay, range)
 {
-	m_lineShader = new Shader(ShaderTypes::lineVertex, ShaderTypes::lineFragment);
+	m_lineShader = SHADER_MANAGER.GetShader(LINE);
 	m_bullet     = new Bullet();
 	GAMECONTEXT.AddObject(m_bullet);
 }

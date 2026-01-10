@@ -55,8 +55,8 @@ void Camera::UpdateVectors()
 	glm::vec3 up    = m_rot * glm::vec3(0, 1, 0);
 
 	m_viewDirection = glm::normalize(front);
-	m_right = glm::normalize(right);
-	m_up = glm::normalize(up);
+	m_right			= glm::normalize(right);
+	m_up			= glm::normalize(up);
 }
 
 

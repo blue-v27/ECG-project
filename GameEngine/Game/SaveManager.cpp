@@ -94,14 +94,14 @@ void SaveManager::LoadObjects()
 			}
 			else
 			{
-				if (ind != GRASS && ind != FULLTRE && ind != TREE)
+				if (ind != MESH_GRASS && ind != MESH_FULLTRE && ind != MESH_TREE)
 				{
 					obj->ComputeBoundingBox();
 				}
 					
 				obj->InitShader(shaderId);
 
-				if (ind == GRASS)
+				if (ind == MESH_GRASS)
 					obj->m_scale.y = randomFloat(1.0f, 1.1f) /100.f;
 
 				GAMECONTEXT.AddObject(obj);
