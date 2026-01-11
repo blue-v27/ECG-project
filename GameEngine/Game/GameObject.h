@@ -13,6 +13,8 @@
 #include "IGameObject.h"
 #include "..\Shaders\ShaderManager.h"
 
+enum class ObjectType { Basic, Player, Light };
+
 class GameObject : public IGameObject
 {
 private:
@@ -39,6 +41,8 @@ public:
 
 	glm::quat m_rot;
 	glm::quat m_relativeRot;
+
+	ObjectType m_type;
 
 	float m_rotationOx;
 	float m_rotationOy;

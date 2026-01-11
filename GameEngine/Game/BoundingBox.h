@@ -11,13 +11,11 @@ class BoundingBox
 {
 private:
 	std::vector<Vertex> m_vertices;
-
-
-
-	glm::vec3 m_worldCenter;
-	glm::vec3 m_worldMin;
-	glm::vec3 m_worldMax;
-	glm::vec3 m_intersectionPoint;
+	glm::vec3			m_worldCenter;
+	glm::vec3			m_worldMin;
+	glm::vec3			m_worldMax;
+	glm::vec3			m_intersectionPoint;
+	glm::vec3			m_offset;
 public:
 	Vertex m_min;
 	Vertex m_max;
@@ -37,6 +35,7 @@ public:
 	glm::vec3 GetMin()		     { return m_worldMin; }
 
 	glm::vec3 GetCenter() { return m_worldCenter; }
+	glm::vec3 GetOffset() { return m_offset; }
 
 	void ComputeMinMax(float height);
 	bool IsIntersecting(BoundingBox other);

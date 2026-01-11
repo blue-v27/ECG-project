@@ -16,7 +16,7 @@ private:
 	bool  m_isGrounded = false;
 public:
 
-	Player() = default;
+	Player();
 
 	void	SetCamera(Camera* cam) { m_camera = cam; cam->SetTarget(this); }
 	Camera* GetCamera()			   { return m_camera; }

@@ -8,6 +8,11 @@
 #include "..\Game\GameObject.h"
 #include "..\Game\fSingleton.h"
 
+struct Frustum
+{
+	glm::vec4 planes[6];
+};
+
 class Camera : public fSingleton<Camera>
 {
 private:
@@ -31,6 +36,8 @@ private:
 	glm::mat4 m_projectionMat	  = glm::mat4(1.f);
 	glm::mat4 m_viewMat			  = glm::mat4(1.f);
 	glm::mat4 m_ViewPorjectionMat = glm::mat4(1.f);
+	
+	Frustum m_frustum;
 
 	public:
 		glm::mat4 getViewMatrix();
@@ -39,6 +46,8 @@ private:
 		glm::vec3 getCameraUp();
 
 		void ProcessInput(Window* window, float deltaTime);
+
+		bool AABBInFrustum(glm::vec3& center, glm::vec3& offset, Frustum& frustum);
 
 		void keyboardMoveFront(float cameraSpeed);
 		void keyboardMoveBack(float cameraSpeed);
@@ -74,6 +83,9 @@ private:
 		glm::mat4 GetProjectionMat() { return m_projectionMat; }
 		glm::mat4 GetViewMat()       { return m_viewMat; }
 		glm::mat4 GetVPMat()         { return m_ViewPorjectionMat; }
+
+		Frustum GetFrustum() const { return m_frustum; }
+		void	 UpdateFrustum();
 
 		void RecomputeMatrices();
 

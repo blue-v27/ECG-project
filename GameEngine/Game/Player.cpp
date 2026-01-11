@@ -2,6 +2,13 @@
 #include "GameContext.h"
 #include "Ray.h"	
 
+Player::Player()
+{
+	m_camera	 = nullptr;
+	m_isGrounded = false;
+	m_type		 = ObjectType::Player;
+}
+
 void Player::KeyboardMoveFront(float speed, bool isSprinting)
 {
 	PhysicsMask* mask = GetPhysicsMask();

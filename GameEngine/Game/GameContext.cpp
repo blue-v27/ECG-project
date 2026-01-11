@@ -8,6 +8,7 @@
 #include "../Shaders/ShaderManager.h"
 #include "QuestManager.h"
 
+
 std::vector<GameObject*> GameContext::GetObjectsInRange(glm::vec3 pos, float range)
 {
     std::vector<GameObject*> arr;
@@ -126,19 +127,14 @@ void GameContext::Update()
                     if (glm::dot(d, d) > 100.f * 100.f)
                         continue;
 
-
                     float x = 1;
                     obj->IUpdate();
 
-                    if (Player* player = dynamic_cast<Player*>(obj))
-                    {
-
-                    }
-                    else
+                    if (obj->m_type != ObjectType::Player)
                     {
                         glm::vec3 velocity = glm::vec3(100);
-                                              
-                        if(mask)
+
+                        if (mask)
                             velocity = mask->GetVelocity();
 
                         if (m_player->m_boundingBox.HandleIntersection(m_player->m_pos, obj->GetBoundingBox(), velocity))
@@ -150,11 +146,11 @@ void GameContext::Update()
                             }
                         }
                     }
-                }
 
-                if (Player* player = dynamic_cast<Player*>(obj))
-                    if(PhysicsMask* pMask = player->GetPhysicsMask())
-                        pMask->ComputeVelocity();
+                    if (obj->m_type == ObjectType::Player)
+                        if (PhysicsMask* pMask = obj->GetPhysicsMask())
+                            pMask->ComputeVelocity();
+                }
             }
         }
     }

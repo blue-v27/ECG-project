@@ -22,6 +22,7 @@ GameObject::GameObject()
     m_isAnchor = false;
     m_lastFramePos = m_pos;
     m_isDirty = true;
+    m_type    = ObjectType::Basic;
 }
 
 GameObject::GameObject(GameObject* obj)

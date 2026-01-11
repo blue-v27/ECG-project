@@ -95,6 +95,59 @@ void Camera::MoveCamera(float angle)
 	int xpos, ypos;
 }
 
+void Camera::UpdateFrustum()
+{
+	const glm::mat4& m = m_ViewPorjectionMat;
+
+	m_frustum.planes[0] = glm::vec4(
+		m[0][3] + m[0][0],
+		m[1][3] + m[1][0],
+		m[2][3] + m[2][0],
+		m[3][3] + m[3][0]
+	);
+
+	m_frustum.planes[1] = glm::vec4(
+		m[0][3] - m[0][0],
+		m[1][3] - m[1][0],
+		m[2][3] - m[2][0],
+		m[3][3] - m[3][0]
+	);
+
+	m_frustum.planes[2] = glm::vec4(
+		m[0][3] + m[0][1],
+		m[1][3] + m[1][1],
+		m[2][3] + m[2][1],
+		m[3][3] + m[3][1]
+	);
+
+	m_frustum.planes[3] = glm::vec4(
+		m[0][3] - m[0][1],
+		m[1][3] - m[1][1],
+		m[2][3] - m[2][1],
+		m[3][3] - m[3][1]
+	);
+
+	m_frustum.planes[4] = glm::vec4(
+		m[0][3] + m[0][2],
+		m[1][3] + m[1][2],
+		m[2][3] + m[2][2],
+		m[3][3] + m[3][2]
+	);
+
+	m_frustum.planes[5] = glm::vec4(
+		m[0][3] - m[0][2],
+		m[1][3] - m[1][2],
+		m[2][3] - m[2][2],
+		m[3][3] - m[3][2]
+	);
+
+	for (int i = 0; i < 6; ++i)
+	{
+		float len = glm::length(glm::vec3(m_frustum.planes[i]));
+		m_frustum.planes[i] /= len;
+	}
+}
+
 void Camera::RecomputeMatrices()
 {
 	m_projectionMat		= glm::perspective(m_fov, GAMECONTEXT.GetWindow()->getWidth() * 1.0f / GAMECONTEXT.GetWindow()->getHeight(), 0.1f, 10000.0f);
@@ -117,6 +170,7 @@ void Camera::Update()
 	if (m_isDirty)
 	{
 		RecomputeMatrices();
+		UpdateFrustum();
 	}
 	
 }
@@ -175,6 +229,24 @@ void Camera::ProcessInput(Window* window, float deltaTime)
 
 	rotateOy(-dx * sensitivity);
 	rotateOx(-dy * sensitivity);
+}
+
+bool Camera::AABBInFrustum(glm::vec3& center, glm::vec3& offset, Frustum& frustum)
+{
+	for (int i = 0; i < 6; ++i)
+	{
+		const glm::vec3 normal = glm::vec3(frustum.planes[i]);
+		const float     d = frustum.planes[i].w;
+
+		float r = offset.x * std::abs(normal.x) + offset.y * std::abs(normal.y) + offset.z * std::abs(normal.z);
+
+		float s = glm::dot(normal, center) + d;
+
+		if (s + r < 0)
+			return false;
+	}
+
+	return true;
 }
 
 
