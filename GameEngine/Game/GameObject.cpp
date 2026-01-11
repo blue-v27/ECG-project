@@ -20,7 +20,8 @@ GameObject::GameObject()
     m_id = 0;
     m_health = 100.f;
     m_isAnchor = false;
-    m_lastFramePos = glm::vec3(-100.f);
+    m_lastFramePos = m_pos;
+    m_isDirty = true;
 }
 
 GameObject::GameObject(GameObject* obj)
@@ -54,16 +55,33 @@ GameObject::~GameObject()
 
 void GameObject::Update()
 {
-    if (m_phyMask)
+    m_lastFramePos = m_pos;
+
+    if (m_phyMask && !CAMERA.FreeCam())
         m_phyMask->UpdatePhysics();
 
-    m_boundingBox.UpdateWorldPos(GetPos(), m_scale);
-
-    if (GameObject* parent = dynamic_cast<GameObject*>(GetParrent()))
+    if (m_lastFramePos != m_pos)
     {
-        m_pos = CAMERA.getCameraPosition() + CAMERA.getCameraViewDirection() * m_relativePos;
-        m_rot = CAMERA.GetRotation() * m_relativeRot;
+        m_isDirty = true;
     }
+
+    if (GameObject* parent = GetParrent())
+    {
+        if (parent->m_isDirty)
+        {
+            m_pos = CAMERA.getCameraPosition() + CAMERA.getCameraViewDirection() * m_relativePos;
+            m_rot = CAMERA.GetRotation() * m_relativeRot;
+
+            m_isDirty = true;
+        }       
+    }
+
+    if (m_isDirty)
+        for (GameObject* child : m_children)
+            child->m_isDirty = true;
+
+    if (m_isDirty)
+        m_boundingBox.UpdateWorldPos(GetPos(), m_scale);
 }
 
 void GameObject::ProcessInput(Window* window, float deltaTime)
@@ -95,6 +113,8 @@ void GameObject::SetPos(glm::vec3 pos)
         SetRelativePos(pos);
     else
         m_pos = pos;
+
+    m_isDirty = true;
 }
 
 void GameObject::SetRotation(glm::quat rot)
@@ -103,6 +123,8 @@ void GameObject::SetRotation(glm::quat rot)
         m_relativeRot = rot;
     else
         m_rot = rot;
+
+    m_isDirty = true;
 }
 
 void GameObject::RotateX(float angle)
@@ -114,6 +136,8 @@ void GameObject::RotateX(float angle)
         m_rot         = m_rot * glm::angleAxis(angle, glm::vec3(1, 0, 0));
         m_relativeRot = m_rot;
     }
+
+    m_isDirty = true;
 }
 
 void GameObject::RotateY(float angle)
@@ -122,6 +146,8 @@ void GameObject::RotateY(float angle)
         m_relativeRot = m_relativeRot * glm::angleAxis(angle, glm::vec3(0, 1, 0));
     else
         m_rot = m_rot * glm::angleAxis(angle, glm::vec3(0, 1, 0));
+
+    m_isDirty = true;
 }
 
 void GameObject::RotateZ(float angle)
@@ -130,20 +156,24 @@ void GameObject::RotateZ(float angle)
         m_relativeRot = m_relativeRot * glm::angleAxis(angle, glm::vec3(0, 0, 1));
     else
         m_rot = m_rot * glm::angleAxis(angle, glm::vec3(0, 0, 1));
+
+    m_isDirty = true;
 }
 
 void GameObject::RecomputeModel()
 {
-    m_modelMatrix  = glm::translate(glm::mat4(1.0f), m_pos);
-    m_modelMatrix *= glm::mat4_cast(m_rot);
-    m_modelMatrix *= glm::scale(glm::mat4(1.0f), m_scale);
-    glm::mat4 MVP  = CAMERA.GetVPMat() * m_modelMatrix;
+    if (m_isDirty)
+    {
+        m_modelMatrix = glm::translate(glm::mat4(1.0f), m_pos);
+        m_modelMatrix *= glm::mat4_cast(m_rot);
+        m_modelMatrix *= glm::scale(glm::mat4(1.0f), m_scale);
+        m_isDirty = false;
+    }
 
-    GLuint ModelMatrixID = glGetUniformLocation(m_shader->getId(), "model");
-    glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &m_modelMatrix[0][0]);
+    m_MVPmat = CAMERA.GetVPMat() * m_modelMatrix;
 
-    GLuint MatrixID2 = glGetUniformLocation(m_shader->getId(), "MVP");
-    glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &MVP[0][0]);
+    glUniformMatrix4fv(m_shader->m_modelMatrixID, 1, GL_FALSE, &m_modelMatrix[0][0]);
+    glUniformMatrix4fv(m_shader->m_MVPMatrixID,   1, GL_FALSE, &m_MVPmat[0][0]);
 }
 
 void GameObject::RemoveParrentLink()

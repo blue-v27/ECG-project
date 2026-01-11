@@ -3,32 +3,38 @@
 
 void Camera::keyboardMoveFront(float cameraSpeed)
 {
-	m_pos += m_viewDirection * cameraSpeed;
+	m_pos	 += m_viewDirection * cameraSpeed;
+	m_isDirty = true;
 }
 
 void Camera::keyboardMoveBack(float cameraSpeed)
 {
-	m_pos -= m_viewDirection * cameraSpeed;
+	m_pos	 -= m_viewDirection * cameraSpeed;
+	m_isDirty = true;
 }
 
 void Camera::keyboardMoveLeft(float cameraSpeed)
 {
-	m_pos -= m_right * cameraSpeed;
+	m_pos	 -= m_right * cameraSpeed;
+	m_isDirty = true;
 }
 
 void Camera::keyboardMoveRight(float cameraSpeed)
 {
-	m_pos += m_right * cameraSpeed;
+	m_pos	 += m_right * cameraSpeed;
+	m_isDirty = true;
 }
 
 void Camera::keyboardMoveUp(float cameraSpeed)
 {
-	m_pos += m_up * cameraSpeed;
+	m_pos	 += m_up * cameraSpeed;
+	m_isDirty = true;
 }
 
 void Camera::keyboardMoveDown(float cameraSpeed)
 {
-	m_pos -= m_up * cameraSpeed;
+	m_pos	 -= m_up * cameraSpeed;
+	m_isDirty = true;
 }
 
 void Camera::SetPos(glm::vec3 pos)
@@ -37,6 +43,8 @@ void Camera::SetPos(glm::vec3 pos)
 		m_relativePos = pos;
 	else
 		m_pos = pos;
+
+	m_isDirty = true;
 }
 
 void Camera::UpdateVectors()
@@ -57,20 +65,23 @@ void Camera::UpdateVectors()
 	m_viewDirection = glm::normalize(front);
 	m_right			= glm::normalize(right);
 	m_up			= glm::normalize(up);
+
+	m_isDirty = true;
 }
 
 
 void Camera::rotateOx(float angle)
 {	
 	m_rotationOx += angle;
-//	m_rotationOx = glm::clamp(m_rotationOx, -89.0f, 89.0f);
 	UpdateVectors();
+	m_isDirty = true;
 }
 
 void Camera::rotateOy (float angle)
 {
 	m_rotationOy += angle;
 	UpdateVectors();
+	m_isDirty = true;
 }
 
 void Camera::MoveCamera(float angle)
@@ -80,28 +91,33 @@ void Camera::MoveCamera(float angle)
 
 void Camera::RecomputeMatrices()
 {
-	m_projectionMat		= glm::perspective(GAMECONTEXT.GetFov(), GAMECONTEXT.GetWindow()->getWidth() * 1.0f / GAMECONTEXT.GetWindow()->getHeight(), 0.1f, 10000.0f);
+	m_projectionMat		= glm::perspective(m_fov, GAMECONTEXT.GetWindow()->getWidth() * 1.0f / GAMECONTEXT.GetWindow()->getHeight(), 0.1f, 10000.0f);
 	m_viewMat			= glm::lookAt(m_pos, m_pos + m_viewDirection, m_up);
 	m_ViewPorjectionMat = m_projectionMat * m_viewMat;
 }
 
 void Camera::Update()
 {
-	if (m_targetObject && !m_freeCam)
+	if (m_targetObject && !m_freeCam && m_targetObject->m_isDirty)
 	{
-		m_pos = m_targetObject->GetPos() + m_relativePos;
-		m_rot = m_targetObject->m_rot;
+		m_pos     = m_targetObject->GetPos() + m_relativePos;
+		m_rot     = m_targetObject->m_rot;
+		m_isDirty = true;
 	}
 
 	if (m_freeCam)
 		ProcessInput(GAMECONTEXT.GetWindow(), GAMECONTEXT.GetDeltaTime());
 
-	RecomputeMatrices();
+	if (m_isDirty)
+	{
+		RecomputeMatrices();
+	}
+	
 }
 
 glm::mat4 Camera::getViewMatrix()
 {
-	return glm::lookAt(m_pos, m_pos + m_viewDirection, m_up);
+	return m_viewMat;
 }
 
 glm::vec3 Camera::getCameraPosition()
@@ -123,7 +139,6 @@ void Camera::ProcessInput(Window* window, float deltaTime)
 {
 	float speed = 300 * deltaTime;
 
-	GAMECONTEXT.SetFov(90.f);
 	if (window->isPressed(GLFW_KEY_W))
 		keyboardMoveFront(speed);
 

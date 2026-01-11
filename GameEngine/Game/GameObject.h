@@ -29,6 +29,8 @@ public:
 	glm::vec3 m_lastFramePos;
 	glm::vec3 m_scale;
 	glm::vec4 m_color;
+	glm::mat4 m_lastFrameVP = glm::mat4(1.f);
+	glm::mat4 m_MVPmat		= glm::mat4(1.f);
 
 	glm::vec3 m_viewDirection;
 	glm::vec3 m_up;
@@ -44,6 +46,7 @@ public:
 	bool m_isActive   = true;
 	bool m_usePhysics = false;
 	bool m_isDynamic  = false;
+	bool m_isDirty	  = true;
 
 	float m_mass;
 	float m_health = 100.f;
@@ -61,7 +64,7 @@ public:
 
 	void	  SetPos(glm::vec3 pos);
 	glm::vec3 GetPos()						{ return m_pos; }
-	void	  SetRelativePos(glm::vec3 pos) { m_relativePos = pos; }
+	void	  SetRelativePos(glm::vec3 pos) { m_relativePos = pos; m_isDirty = true; }
 	glm::vec3 GetRelativePos()				{ return m_relativePos; }
 
 	void	  SetColor(glm::vec4 col) { m_color = col; }
@@ -74,16 +77,16 @@ public:
 	void RotateY(float angle);
 	void RotateZ(float angle);
 
-	void	  SetScale(glm::vec3 scale) { m_scale = scale; }
+	void	  SetScale(glm::vec3 scale) { m_scale = scale; m_isDirty = true;}
 	glm::vec3 GetScale()				{ return m_scale; }
 
-	void	  SetDir(glm::vec3 pos) { m_viewDirection = pos; }
+	void	  SetDir(glm::vec3 pos) { m_viewDirection = pos; m_isDirty = true;}
 	glm::vec3 GetDir()				{ return m_viewDirection; }
 
-	void	  SetUp(glm::vec3 pos) { m_up = pos; }
+	void	  SetUp(glm::vec3 pos) { m_up = pos; m_isDirty = true;}
 	glm::vec3 GetUp()			   { return m_up; }
 
-	void	  SetRight(glm::vec3 pos) { m_right = pos; }
+	void	  SetRight(glm::vec3 pos) { m_right = pos; m_isDirty = true;}
 	glm::vec3 GetRight()			  { return m_right; }
 
 	void RecomputeModel();
@@ -91,10 +94,10 @@ public:
 	void IsAnchor(bool val) { m_isAnchor = val; }
 	bool IsAnchor()			{ return m_isAnchor; }
 
-	void  SetRotationOx(float rot) { m_rotationOx = rot; }
+	void  SetRotationOx(float rot) { m_rotationOx = rot; m_isDirty = true;}
 	float GetRotationOx()		   { return m_rotationOx; }
 
-	void  SetRotationOy(float rot) { m_rotationOy = rot; }
+	void  SetRotationOy(float rot) { m_rotationOy = rot; m_isDirty = true;}
 	float GetRotationOy()		   { return m_rotationOy; }
 
 	void  SetShaderId(int shaderId) { m_shaderId = shaderId; }

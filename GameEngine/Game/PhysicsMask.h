@@ -21,7 +21,6 @@ private:
 	float	  m_ropeLength;
 	glm::vec3 m_anchor;
 
-
 public:
 	PhysicsMask(glm::vec3& pos);
 

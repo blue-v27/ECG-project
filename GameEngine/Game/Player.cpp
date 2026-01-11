@@ -9,11 +9,13 @@ void Player::KeyboardMoveFront(float speed, bool isSprinting)
 	if (isSprinting)
 	{
 		speed *= 1.5f;
-		GAMECONTEXT.SetFov(95.f);
+		CAMERA.SetFov(95.f);
 	}
 
 	glm::vec3 vel = glm::vec3(m_viewDirection.x, 0, m_viewDirection.z) * speed;
 	mask->AddVelocity(vel);
+
+	m_isDirty = true;
 }
 
 void Player::KeyboardMoveBack(float speed)
@@ -21,13 +23,15 @@ void Player::KeyboardMoveBack(float speed)
 	PhysicsMask* mask = GetPhysicsMask();
 	glm::vec3 vel = glm::vec3(m_viewDirection.x, 0, m_viewDirection.z) * speed;
 	mask->AddVelocity(-vel);
+	m_isDirty = true;
 }
 
 void Player::KeyboardMoveLeft(float speed)
 {
 	PhysicsMask* mask = GetPhysicsMask();
 	glm::vec3 vel = glm::vec3(m_right.x, 0, m_right.z) * speed;
-	mask->AddVelocity(-vel);
+	mask->AddVelocity(-vel);;
+	m_isDirty = true;
 }
 
 void Player::KeyboardMoveRight(float speed)
@@ -35,16 +39,19 @@ void Player::KeyboardMoveRight(float speed)
 	PhysicsMask* mask = GetPhysicsMask();
 	glm::vec3 vel = glm::vec3(m_right.x, 0, m_right.z) * speed;
 	mask->AddVelocity(vel);
+	m_isDirty = true;
 }
 
 void Player::KeyboardMoveUp(float speed)
 {
 	m_pos.y += m_up.y * speed;
+	m_isDirty = true;
 }
 
 void Player::KeyboardMoveDown(float speed)
 {
 	m_pos.y -= m_up.y * speed;
+	m_isDirty = true;
 }
 
 void Player::UpdateVectors()
@@ -67,6 +74,7 @@ void Player::UpdateVectors()
 	SetUp(glm::normalize(up));
 
 	m_camera->UpdateVectors();
+	m_isDirty = true;
 }
 
 void Player::Jump()
@@ -75,6 +83,7 @@ void Player::Jump()
 	{
 		GetPhysicsMask()->SetVelocityY(50.f);
 		m_isGrounded = false;
+		m_isDirty	 = true;
 	}
 }
 
@@ -87,6 +96,7 @@ void Player::RotateOx(float angle)
 	UpdateVectors();
 
 	m_camera->rotateOx(angle);
+	m_isDirty = true;
 }
 
 void Player::RotateOy(float angle)
@@ -97,6 +107,7 @@ void Player::RotateOy(float angle)
 	UpdateVectors();
 
 	m_camera->rotateOy(angle);
+	m_isDirty = true;
 }
 
 void Player::ProcessInput(Window* window, float deltaTime)
@@ -105,7 +116,6 @@ void Player::ProcessInput(Window* window, float deltaTime)
 	{
 		float speed = 300 * deltaTime;
 
-		GAMECONTEXT.SetFov(90.f);
 		if (window->isPressed(GLFW_KEY_W))
 		{
 			if (window->isPressed(GLFW_KEY_LEFT_SHIFT))
@@ -128,6 +138,9 @@ void Player::ProcessInput(Window* window, float deltaTime)
 
 		if (window->isPressed(GLFW_KEY_LEFT_CONTROL))
 			KeyboardMoveDown(speed);
+
+		if(window->IsReleased(GLFW_KEY_LEFT_SHIFT))
+			CAMERA.SetFov(90.f);
 
 		if (window->isPressed(GLFW_KEY_X))
 			KeyboardMoveUp(speed);

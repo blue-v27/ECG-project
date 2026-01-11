@@ -51,7 +51,7 @@ public:
     void    SetCamera(Camera* camera) { m_camera = camera; }
     Camera* GetCamera() { return m_camera; }
 
-    float GetFov() { return m_fov; }
+    float GetFov()          { return m_fov; }
     void  SetFov(float fov) { m_fov = fov; }
 
     Player* GetPlayer() { return m_player; }

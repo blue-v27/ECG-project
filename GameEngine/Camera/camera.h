@@ -19,10 +19,12 @@ private:
 
 	float m_rotationOx = 0.0f;
 	float m_rotationOy = -90.0f;
+	float m_fov		   = 90.f;
 
 	glm::quat m_rot;
 	
 	bool m_freeCam = false;
+	bool m_isDirty = true;
 	
 	GameObject* m_targetObject = nullptr;
 
@@ -48,8 +50,8 @@ private:
 		void	  SetPos(glm::vec3 pos);
 		glm::vec3 GetPos() { return m_pos; }
 
-		void      SetRotatation(glm::quat rot)		{ m_rot = rot; }
-		void      SetRotatation(float ox, float oy) { m_rotationOx = ox; m_rotationOy = oy; }
+		void      SetRotatation(glm::quat rot)		{ m_rot = rot; m_isDirty = true; }
+		void      SetRotatation(float ox, float oy) { m_rotationOx = ox; m_rotationOy = oy; m_isDirty = true;}
 		glm::quat GetRotation()						{ return m_rot; }
 
 		bool FreeCam()		   { return m_freeCam; }
@@ -62,11 +64,13 @@ private:
 		void rotateOx(float angle);
 		void rotateOy(float angle);
 
+		void SetFov(float fov) { m_fov = fov; m_isDirty = true; }
+
 		void MoveCamera(float angle);
 
 		glm::mat4 GetProjectionMat() { return m_projectionMat; }
 		glm::mat4 GetViewMat()       { return m_viewMat; }
-		glm::mat4 GetVPMat()         { return m_viewMat; }
+		glm::mat4 GetVPMat()         { return m_ViewPorjectionMat; }
 
 		void RecomputeMatrices();
 

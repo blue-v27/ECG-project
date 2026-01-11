@@ -126,6 +126,8 @@ void GameContext::Update()
                     if (glm::dot(d, d) > 100.f * 100.f)
                         continue;
 
+
+                    float x = 1;
                     obj->IUpdate();
 
                     if (Player* player = dynamic_cast<Player*>(obj))
