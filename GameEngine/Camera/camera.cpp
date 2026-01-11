@@ -80,8 +80,9 @@ void Camera::MoveCamera(float angle)
 
 void Camera::RecomputeMatrices()
 {
-	m_projectionMat = glm::perspective(GAMECONTEXT.GetFov(), GAMECONTEXT.GetWindow()->getWidth() * 1.0f / GAMECONTEXT.GetWindow()->getHeight(), 0.1f, 10000.0f);
-	m_viewMat	    = glm::lookAt(m_pos, m_pos + m_viewDirection, m_up);
+	m_projectionMat		= glm::perspective(GAMECONTEXT.GetFov(), GAMECONTEXT.GetWindow()->getWidth() * 1.0f / GAMECONTEXT.GetWindow()->getHeight(), 0.1f, 10000.0f);
+	m_viewMat			= glm::lookAt(m_pos, m_pos + m_viewDirection, m_up);
+	m_ViewPorjectionMat = m_projectionMat * m_viewMat;
 }
 
 void Camera::Update()

@@ -26,8 +26,9 @@ private:
 	
 	GameObject* m_targetObject = nullptr;
 
-	glm::mat4 m_projectionMat = glm::mat4(1.f);
-	glm::mat4 m_viewMat		  = glm::mat4(1.f);
+	glm::mat4 m_projectionMat	  = glm::mat4(1.f);
+	glm::mat4 m_viewMat			  = glm::mat4(1.f);
+	glm::mat4 m_ViewPorjectionMat = glm::mat4(1.f);
 
 	public:
 		glm::mat4 getViewMatrix();
@@ -65,6 +66,7 @@ private:
 
 		glm::mat4 GetProjectionMat() { return m_projectionMat; }
 		glm::mat4 GetViewMat()       { return m_viewMat; }
+		glm::mat4 GetVPMat()         { return m_viewMat; }
 
 		void RecomputeMatrices();
 

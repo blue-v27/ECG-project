@@ -137,7 +137,7 @@ void GameObject::RecomputeModel()
     m_modelMatrix  = glm::translate(glm::mat4(1.0f), m_pos);
     m_modelMatrix *= glm::mat4_cast(m_rot);
     m_modelMatrix *= glm::scale(glm::mat4(1.0f), m_scale);
-    glm::mat4 MVP = CAMERA.GetProjectionMat() * CAMERA.GetViewMat() * m_modelMatrix;
+    glm::mat4 MVP  = CAMERA.GetVPMat() * m_modelMatrix;
 
     GLuint ModelMatrixID = glGetUniformLocation(m_shader->getId(), "model");
     glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &m_modelMatrix[0][0]);

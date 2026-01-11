@@ -9,6 +9,7 @@ void ShaderManager::Start()
 	m_shaders.push_back(new Shader(ShaderTypes::ghostVertex, ShaderTypes::ghostFragment));
 	m_shaders.push_back(new Shader(ShaderTypes::sunVertex,   ShaderTypes::sunFragment));
 	m_shaders.push_back(new Shader(ShaderTypes::skyVertex,   ShaderTypes::skyFragment));
+	m_shaders.push_back(new Shader(ShaderTypes::basicNoLightVertex, ShaderTypes::basicNoLightFragment));
 
 	GetShader(BASIC)->UseLights(true);
 	GetShader(WATER)->UseLights(true);

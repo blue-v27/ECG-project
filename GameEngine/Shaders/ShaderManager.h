@@ -24,5 +24,6 @@ public:
 #define GHOST 4
 #define SUN   5
 #define SKY   6
+#define BASICNOLIGHT 7
 };
 

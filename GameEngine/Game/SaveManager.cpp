@@ -93,11 +93,11 @@ void SaveManager::LoadObjects()
 
 		if (strchr(line, '}'))
 		{
-			if (ind != MESH_GRASS && ind != MESH_FULLTRE && ind != MESH_TREE && ind != MESH_CLIFF) 
+			if (ind != MESH_GRASS && ind != MESH_FULLTRE && ind != MESH_TREE && ind != MESH_CLIFF)
 			{
 				obj->ComputeBoundingBox();
 			}
-					
+
 			obj->InitShader(shaderId);
 
 			if (ind == MESH_GRASS)

@@ -23,4 +23,8 @@ public:
 
 	static constexpr char* skyVertex   = "Shaders/sky_vertex_shader.glsl";
 	static constexpr char* skyFragment = "Shaders/sky_fragment_shader.glsl";
+
+	static constexpr char* basicNoLightVertex   = "Shaders/nolight_vertex_shader.glsl";
+	static constexpr char* basicNoLightFragment = "Shaders/nolight_fragment_shader.glsl";
+
 };
