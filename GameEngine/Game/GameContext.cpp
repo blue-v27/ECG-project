@@ -299,4 +299,6 @@ void GameContext::Render()
 
     if (&QUEST_MANAGER)
         QUEST_MANAGER.RenderQuestText();
+
+    CAMERA.IsDirty(false);
 }

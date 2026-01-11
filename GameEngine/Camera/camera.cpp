@@ -73,15 +73,21 @@ void Camera::UpdateVectors()
 void Camera::rotateOx(float angle)
 {	
 	m_rotationOx += angle;
-	UpdateVectors();
-	m_isDirty = true;
+	if (angle)
+	{
+		UpdateVectors();
+		m_isDirty = true;
+	}
 }
 
 void Camera::rotateOy (float angle)
 {
 	m_rotationOy += angle;
-	UpdateVectors();
-	m_isDirty = true;
+	if (angle)
+	{
+		UpdateVectors();
+		m_isDirty = true;
+	}
 }
 
 void Camera::MoveCamera(float angle)

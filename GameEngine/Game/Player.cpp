@@ -158,6 +158,7 @@ void Player::ProcessInput(Window* window, float deltaTime)
 		RotateOy(-dx * sensitivity);
 		RotateOx(-dy * sensitivity);
 	}
+	
 }
 
 void Player::Update()

@@ -77,10 +77,6 @@ void GameObject::Update()
     }
 
     if (m_isDirty)
-        for (GameObject* child : m_children)
-            child->m_isDirty = true;
-
-    if (m_isDirty)
         m_boundingBox.UpdateWorldPos(GetPos(), m_scale);
 }
 
@@ -162,18 +158,25 @@ void GameObject::RotateZ(float angle)
 
 void GameObject::RecomputeModel()
 {
+
+    GameObject* obj = this;
+
     if (m_isDirty)
     {
         m_modelMatrix = glm::translate(glm::mat4(1.0f), m_pos);
         m_modelMatrix *= glm::mat4_cast(m_rot);
         m_modelMatrix *= glm::scale(glm::mat4(1.0f), m_scale);
-        m_isDirty = false;
+        
     }
-
-    m_MVPmat = CAMERA.GetVPMat() * m_modelMatrix;
+    
+    if(CAMERA.IsDirty())
+        m_MVPmat = CAMERA.GetVPMat() * m_modelMatrix;
 
     glUniformMatrix4fv(m_shader->m_modelMatrixID, 1, GL_FALSE, &m_modelMatrix[0][0]);
     glUniformMatrix4fv(m_shader->m_MVPMatrixID,   1, GL_FALSE, &m_MVPmat[0][0]);
+
+    if (m_isDirty)
+        m_isDirty = false;
 }
 
 void GameObject::RemoveParrentLink()

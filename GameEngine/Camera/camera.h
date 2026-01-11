@@ -50,6 +50,9 @@ private:
 		void	  SetPos(glm::vec3 pos);
 		glm::vec3 GetPos() { return m_pos; }
 
+		bool IsDirty()		   { return m_isDirty; }
+		void IsDirty(bool val) { m_isDirty = val; }
+
 		void      SetRotatation(glm::quat rot)		{ m_rot = rot; m_isDirty = true; }
 		void      SetRotatation(float ox, float oy) { m_rotationOx = ox; m_rotationOy = oy; m_isDirty = true;}
 		glm::quat GetRotation()						{ return m_rot; }
