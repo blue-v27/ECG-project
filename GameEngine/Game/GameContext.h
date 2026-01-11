@@ -124,11 +124,21 @@ public:
         return m_objects.size();
     }
 
+    size_t GetInteractiveObjectCount() const
+    {
+        return m_interactiveObjects.size();
+    }
+
     std::vector<GameObject*> GetObjectsInRange(glm::vec3 pos, float range);
 
     GameObject* GetObject(size_t index)
     {
         return m_objects.at(index);
+    }
+
+    InteractiveGameObject* GetInteractiveObject(size_t index)
+    {
+        return m_interactiveObjects.at(index);
     }
 
     void SetDeltaTime(float time) { m_deltaTime = time; }

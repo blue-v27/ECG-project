@@ -6,6 +6,7 @@
 #include "GUI/GUIManager.h"
 #include "Sky.h"
 #include "../Shaders/ShaderManager.h"
+#include "QuestManager.h"
 
 std::vector<GameObject*> GameContext::GetObjectsInRange(glm::vec3 pos, float range)
 {
@@ -18,9 +19,8 @@ std::vector<GameObject*> GameContext::GetObjectsInRange(glm::vec3 pos, float ran
             if (obj)
             {
                 BoundingBox bb = obj->GetBoundingBox();
-                if (glm::distance(pos, bb.GetMax()) > range &&
-                    glm::distance(pos, obj->m_pos) > range &&
-                    glm::distance(pos, bb.GetMin()) > range)
+                glm::vec3 d = bb.GetCenter() - pos;
+                if (glm::dot(d, d) > range * range)
                     continue;
 
                 arr.push_back(obj);
@@ -44,6 +44,9 @@ void GameContext::Start()
 
     if (&SKYBOX)
         SKYBOX.Start();
+
+    if (&QUEST_MANAGER)
+        QUEST_MANAGER.Start();
 }
 
 void GameContext::InitLights()
@@ -119,9 +122,8 @@ void GameContext::Update()
                 if (m_player)
                 {
                     BoundingBox bb = obj->GetBoundingBox();
-                    if (glm::distance(m_player->m_pos, bb.GetMax()) > 100.f &&
-                        glm::distance(m_player->m_pos, obj->m_pos) > 100.f &&
-                        glm::distance(m_player->m_pos, bb.GetMin()) > 100.f)
+                    glm::vec3    d = bb.GetCenter() - m_player->m_pos;
+                    if (glm::dot(d, d) > 100.f * 100.f)
                         continue;
 
                     obj->IUpdate();
@@ -164,9 +166,8 @@ void GameContext::Update()
                 if (iobj->GetParrent() != m_player)
                 {
                     BoundingBox bb = iobj->GetBoundingBox();
-                    if (glm::distance(m_player->m_pos, bb.GetMax()) > 100.f &&
-                        glm::distance(m_player->m_pos, iobj->m_pos) > 100.f &&
-                        glm::distance(m_player->m_pos, bb.GetMin()) > 100.f)
+                    glm::vec3 d = bb.GetCenter() - m_player->m_pos;
+                    if (glm::dot(d, d) > 100.f * 100.f)
                         continue;
                 }
 
@@ -180,6 +181,9 @@ void GameContext::Update()
                             continue;
 
                         if (m_player->AsGameObject() == iobj->GetParrent())
+                            continue;
+
+                        if (obj->m_boundingBox.GetMax().x - obj->m_boundingBox.GetMin().x == 0.f)
                             continue;
 
                         if (iobj->m_boundingBox.HandleIntersection(iobj->m_pos, obj->GetBoundingBox()))
@@ -242,9 +246,8 @@ void GameContext::Render()
             if (obj && obj->m_isActive)
             {
                 BoundingBox bb = obj->GetBoundingBox();
-                if (glm::distance(CAMERA.GetPos(), bb.GetMax()) > 750.f &&
-                    glm::distance(CAMERA.GetPos(), obj->m_pos) > 750.f &&
-                    glm::distance(CAMERA.GetPos(), bb.GetMin()) > 750.f)
+                glm::vec3    d = bb.GetCenter() - CAMERA.GetPos();
+                if (glm::dot(d, d) > 750.f * 750.f)
                     continue;
 
                 obj->IRender();
@@ -257,9 +260,8 @@ void GameContext::Render()
         for (InteractiveGameObject* iobj : m_interactiveObjects)
         {
             BoundingBox bb = iobj->GetBoundingBox();
-            if (glm::distance(CAMERA.GetPos(), bb.GetMax()) > 750.f &&
-                glm::distance(CAMERA.GetPos(), iobj->m_pos) > 750.f &&
-                glm::distance(CAMERA.GetPos(), bb.GetMin()) > 750.f)
+            glm::vec3    d = bb.GetCenter() - CAMERA.GetPos();
+            if (glm::dot(d, d) > 750.f * 750.f)
                 continue;
 
             iobj->Render();
@@ -292,4 +294,7 @@ void GameContext::Render()
     char dir[50] = { 0 };
     sprintf(dir, "%f, %f, %f", CAMERA.getCameraViewDirection().x, CAMERA.getCameraViewDirection().y, CAMERA.getCameraViewDirection().z);
     GUI.DrawText(dir, 500, 500, .5f);
+
+    if (&QUEST_MANAGER)
+        QUEST_MANAGER.RenderQuestText();
 }

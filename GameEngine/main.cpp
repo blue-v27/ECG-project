@@ -55,42 +55,25 @@ int main()
 
 	RangedWeapon* weapon = new RangedWeapon(10.f, 0.5f, 300.f);
 	player->SetChild(weapon);
-	weapon->SetPos(glm::vec3(0.0f, -1.f, 4.f));
+	weapon->SetPos(glm::vec3(10.f, 1.f, 1.f));
+	weapon->SetRelativePos(glm::vec3(0.0f, -1.f, 4.f));
 	weapon->RotateX(90.f);
 	weapon->RotateZ(-90.f);
 	weapon->SetScale(glm::vec3(0.25f));
 	weapon->Init(&MESH_DEFINES.GetMesh(MESH_PISTOL));
+	//weapon->InitPhysics();
 	GAMECONTEXT.AddInteractiveGameObject(weapon);
-
-
-	/*GameObject* anchor = new GameObject();
-	anchor->SetPos(glm::vec3(0.f, 70.f, 0.f));
-	anchor->Init(&MESH_DEFINES.GetMesh(MESH_BOX));
-	anchor->IsAnchor(true);
-	GAMECONTEXT.AddObject(anchor);
-
-	GameObject* anchor1 = new GameObject();
-	anchor1->SetPos(glm::vec3(50.f, 70.f, 0.f));
-	anchor1->Init(&MESH_DEFINES.GetMesh(MESH_BOX));
-	anchor1->IsAnchor(true);
-	GAMECONTEXT.AddObject(anchor1);
-
-	GameObject* anchor2 = new GameObject();
-	anchor2->SetPos(glm::vec3(100.f, 70.f, 0.f));
-	anchor2->Init(&MESH_DEFINES.GetMesh(MESH_BOX));
-	anchor2->IsAnchor(true);
-	GAMECONTEXT.AddObject(anchor2);*/
 
 	Light* light = new Light();
 	light->SetPos(glm::vec3(200.f, 150.f, 100.f));
 	light->SetShaderId(BASIC);
 	light->Init(&MESH_DEFINES.GetMesh(MESH_SUN));
 	light->SetColor(glm::vec4(1.f, 1.f, 1.f, 1.f));
-	//light->IsSun(true);
+	light->IsSun(true);
 	GAMECONTEXT.SetLight(light);
 
 	//Light* light2 = new Light();
-	//light2->SetPos(glm::vec3(100.f, 75.f, 0.f));
+	//light2->SetPos(glm::vec3(200.f, 150.f, 100.f));
 	//light2->Init(&MESH_DEFINES.GetMesh(MESH_SUN));
 	//light2->SetColor(glm::vec4(1.f, 0.f, 0.f, 1.f));
 	//GAMECONTEXT.SetLight(light2);

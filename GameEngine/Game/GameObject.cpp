@@ -110,7 +110,10 @@ void GameObject::RotateX(float angle)
     if (m_parent)
         m_relativeRot = m_relativeRot * glm::angleAxis(angle, glm::vec3(1, 0, 0));
     else
-        m_rot = m_rot * glm::angleAxis(angle, glm::vec3(1, 0, 0));
+    {
+        m_rot         = m_rot * glm::angleAxis(angle, glm::vec3(1, 0, 0));
+        m_relativeRot = m_rot;
+    }
 }
 
 void GameObject::RotateY(float angle)

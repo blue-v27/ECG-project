@@ -51,8 +51,9 @@ void BoundingBox::UpdateWorldPos(glm::vec3 delta, glm::vec3 scale)
 	glm::vec3 scaledMin = m_min.pos * scale;
 	glm::vec3 scaledMax = m_max.pos * scale;
 
-	m_worldMin = glm::min(scaledMin, scaledMax) + delta;
-	m_worldMax = glm::max(scaledMin, scaledMax) + delta;
+	m_worldMin    = glm::min(scaledMin, scaledMax) + delta;
+	m_worldMax    = glm::max(scaledMin, scaledMax) + delta;
+	m_worldCenter = (m_worldMax + m_worldMin ) / 2.f;
 }
 
 bool BoundingBox::HandleIntersection(glm::vec3& pos, BoundingBox other, glm::vec3 velocity)

@@ -11,7 +11,6 @@
 
 void GUIManager::Init()
 {
-
     Window* wnd = GAMECONTEXT.GetWindow();
     m_projection = glm::ortho(0.0f, (float)wnd->getWidth(), 0.0f, (float)wnd->getHeight());
 
@@ -19,11 +18,13 @@ void GUIManager::Init()
 
     unsigned char* ttf_buffer = new unsigned char[1 << 20];
     FILE* f = fopen(fontPath.c_str(), "rb");
+    
     if (!f)
     {
         printf("Couldn't load font: %s\n", fontPath.c_str());
         return;
     }
+   
     fread(ttf_buffer, 1, 1 << 20, f);
     fclose(f);
 

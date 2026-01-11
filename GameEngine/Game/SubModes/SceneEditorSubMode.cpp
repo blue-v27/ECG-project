@@ -36,7 +36,11 @@ void SceneEditorSubMode::Update()
 		m_objPlacer->Update();
 
 		if (GAMECONTEXT.GetWindow()->IsReleased(GLFW_KEY_UP))
+		{
 			SAVE_MANAGER.SaveObjects();
+			SAVE_MANAGER.SaveInteractives();
+		}
+			
 	}
 }
 

@@ -15,7 +15,7 @@ void Sky::Start()
         "Resources/Textures/back.bmp" 
     };
 
-    cubemapTexture = loadCubemap(faces);
+    m_cubemapTexture = loadCubemap(faces);
 
     // Cube vertices for skybox
     float skyboxVertices[] = {
@@ -105,7 +105,7 @@ void Sky::Render()
 
     glBindVertexArray(VAO);
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, m_cubemapTexture);
 
     // 3?? Draw the cube
     glDrawArrays(GL_TRIANGLES, 0, 36);

@@ -7,7 +7,7 @@ class Sky : public fSingleton<Sky>
 {
 private:
 	Shader* m_shader = nullptr;
-	GLuint cubemapTexture;
+	GLuint m_cubemapTexture;
 	GLuint VAO, VBO;
 public:
 	void Start();

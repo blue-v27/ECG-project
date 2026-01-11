@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
+#include "InteractiveGameObject.h"
 #include "fSingleton.h"
 class SaveManager : public fSingleton<SaveManager>
 {
@@ -14,6 +15,9 @@ public:
 	void SavePlayer();
 	void SaveGameStats();
 	void LoadObjects();
+	void SaveInteractives();
+	void WriteInteractiveInfo(InteractiveGameObject* obj);
+	void LoadInteractives();
 	void LoadPlayer();
 	void LoadGameStats();
 	void LoadGame();
