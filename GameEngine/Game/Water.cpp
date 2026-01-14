@@ -7,7 +7,7 @@
 
 Water::Water() : m_waveHeight(1.f), m_waveSpeed(1.f), m_waveLength(2.f)
 {
-
+    m_type = ObjectType::Water;
 }
 
 void Water::Init(Mesh* mesh)

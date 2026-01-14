@@ -15,6 +15,7 @@
 #include "Game/GUI/GUIManager.h"
 #include "Game/Weapon.h"
 #include "Game/RangedWeapon.h"
+#include "Game/SaveManager.h"
 
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
@@ -43,6 +44,8 @@ int main()
 	GAMECONTEXT.AddPlayer(player);
 	GAMECONTEXT.AddObject(player);
 
+	SAVE_MANAGER.LoadInteractives();
+
 #if 0
 	Weapon* knife = new Weapon(10.f, 0.5f, 500.f);
 	player->SetChild(knife);
@@ -53,16 +56,21 @@ int main()
 	GAMECONTEXT.AddObject(knife);
 #endif
 
-	RangedWeapon* weapon = new RangedWeapon(10.f, 0.5f, 300.f);
-	player->SetChild(weapon);
-	weapon->SetPos(glm::vec3(10.f, 1.f, 1.f));
-	weapon->SetRelativePos(glm::vec3(0.0f, -1.f, 4.f));
-	weapon->RotateX(90.f);
-	weapon->RotateZ(-90.f);
-	weapon->SetScale(glm::vec3(0.25f));
-	weapon->Init(&MESH_DEFINES.GetMesh(MESH_PISTOL));
-	//weapon->InitPhysics();
-	GAMECONTEXT.AddInteractiveGameObject(weapon);
+	//Water* water = new Water();
+	//water->Init();
+	//water->SetPos(glm::vec3(0.f, -2.f, 0.f));
+	//GAMECONTEXT.AddObject(water);
+
+	//RangedWeapon* weapon = new RangedWeapon(10.f, 0.5f, 300.f);
+	//player->SetChild(weapon);
+	//weapon->SetPos(glm::vec3(10.f, 1.f, 1.f));
+	//weapon->SetRelativePos(glm::vec3(0.0f, -1.f, 4.f));
+	//weapon->RotateX(90.f);
+	//weapon->RotateZ(-90.f);
+	//weapon->SetScale(glm::vec3(0.25f));
+	//weapon->Init(&MESH_DEFINES.GetMesh(MESH_PISTOL));
+	////weapon->InitPhysics();
+	//GAMECONTEXT.AddInteractiveGameObject(weapon);
 
 	Light* light = new Light();
 	light->SetPos(glm::vec3(200.f, 150.f, 100.f));

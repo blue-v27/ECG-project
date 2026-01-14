@@ -7,7 +7,15 @@ RangedWeapon::RangedWeapon(float damange, float delay, float range) : Weapon(dam
 {
 	m_lineShader = SHADER_MANAGER.GetShader(LINE);
 	m_bullet     = new Bullet();
+	m_type	     = ObjectType::RangedWeapon;
 	GAMECONTEXT.AddObject(m_bullet);
+}
+
+RangedWeapon::RangedWeapon()
+{
+	m_lineShader = SHADER_MANAGER.GetShader(LINE);
+	m_bullet = new Bullet();
+	m_type = ObjectType::RangedWeapon;
 }
 
 RangedWeapon::~RangedWeapon()

@@ -13,7 +13,7 @@
 #include "IGameObject.h"
 #include "..\Shaders\ShaderManager.h"
 
-enum class ObjectType { Basic, Player, Light };
+enum class ObjectType { Basic, Player, Light, RangedWeapon, Water, Bullet };
 
 class GameObject : public IGameObject
 {

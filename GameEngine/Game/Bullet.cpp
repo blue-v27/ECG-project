@@ -7,6 +7,7 @@ Bullet::Bullet()
 	m_scale	    = glm::vec3(0.01f);
 	m_speed	    = 0.f;
 	m_startTime = glfwGetTime();
+	m_type	    = ObjectType::Bullet;
 
 	SetMesh(MESH_DEFINES.GetMesh(MESH_SPHERE));
 	InitShader(BASIC);

@@ -2,13 +2,15 @@
 
 #include "GameObject.h"
 #include "InteractiveGameObject.h"
+#include "RangedWeapon.h"
 #include "fSingleton.h"
 class SaveManager : public fSingleton<SaveManager>
 {
 private:
-	FILE* m_playerInfo = nullptr;
-	FILE* m_objects	   = nullptr;
-	FILE* m_gameStats  = nullptr;
+	FILE* m_playerInfo  = nullptr;
+	FILE* m_objects	    = nullptr;
+	FILE* m_interactive = nullptr;
+	FILE* m_gameStats   = nullptr;
 public:
 	void SaveObjects();
 	void WriteObjectInfo(GameObject* obj);

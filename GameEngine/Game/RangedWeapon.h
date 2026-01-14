@@ -10,6 +10,7 @@ private:
 	Bullet* m_bullet     = nullptr;
 public:
 	RangedWeapon(float damange, float delay, float range);
+	RangedWeapon();
 	~RangedWeapon();
 
 	void Shoot();
