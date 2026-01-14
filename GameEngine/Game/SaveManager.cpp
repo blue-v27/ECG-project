@@ -198,6 +198,7 @@ void SaveManager::WriteInteractiveInfo(InteractiveGameObject* obj)
 				fprintf(m_interactive, "\tm_damage:%f\n", weap->m_damage);
 				fprintf(m_interactive, "\tm_delay:%f\n", weap->m_delay);
 				fprintf(m_interactive, "\tm_range:%f\n", weap->m_range);
+				fprintf(m_interactive, "\tm_droped:%d\n", weap->IsPickable());
 			}
 
 		}
@@ -257,6 +258,7 @@ void SaveManager::LoadInteractives()
 			}
 			else if (sscanf(line, " m_rot:%f %f %f %f", &xO, &yO, &zO, &wO) == 4)
 			{
+				//wep->m_relativeRot == glm::quat(xO, yO, zO, wO);
 			}
 			else if (sscanf(line, " m_relPos:%f %f %f", &x, &y, &z) == 3)
 			{
@@ -264,26 +266,38 @@ void SaveManager::LoadInteractives()
 			}
 			else if (sscanf(line, " m_hasParent:%d", &anc) == 1)
 			{
-				GAMECONTEXT.GetPlayer()->SetChild(wep);
+				if(anc)
+					GAMECONTEXT.GetPlayer()->SetChild(wep);
 			}
-			else if (sscanf(line, " tm_damage:%d", &val) == 1)
+			else if (sscanf(line, " m_damage:%f", &val) == 1)
 			{
 				wep->SetDamage(val);
 			}
-			else if (sscanf(line, " tm_delay:%d", &val) == 1)
+			else if (sscanf(line, " m_delay:%f", &val) == 1)
 			{
 				wep->SetDelay(val);
 			}
-			else if (sscanf(line, " tm_range:%d", &val) == 1)
+			else if (sscanf(line, " m_range:%f", &val) == 1)
 			{
 				wep->SetRange(val);
+			}
+			else if (sscanf(line, " m_droped:%d", &anc) == 1)
+			{
+				//wep->IsPickable(val);
+				if (anc)
+				{
+					wep->IsPickable(true);
+					wep->InitPhysics();
+				}
+					
 			}
 
 			if (strchr(line, '}'))
 			{
-				//wep->ComputeBoundingBox();
+				wep->ComputeBoundingBox();
 				wep->InitShader(shaderId);
-
+				wep->RotateX(90.f);
+				wep->RotateZ(-90.f);
 				GAMECONTEXT.AddInteractiveGameObject(wep);
 
 				wep = nullptr;

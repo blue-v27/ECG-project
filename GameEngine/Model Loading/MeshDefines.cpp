@@ -70,14 +70,12 @@ void MeshDefines::Start()
 	m_meshes.push_back(m_loader.loadObj(MeshDefines::sphere, m_textures));
 	m_textures.clear();
 
-#if 0
 	m_tex = loadBMP(TextureDefine::Dirt);
 	m_textures.push_back(Texture());
 	m_textures[0].id = m_tex;
 	m_textures[0].type = "texture_diffuse";
 	m_meshes.push_back(m_loader.loadObj(MeshDefines::cliff, m_textures));
 	m_textures.clear();
-#endif
 }
 
 int MeshDefines::GetMeshIndex(Mesh mesh)
