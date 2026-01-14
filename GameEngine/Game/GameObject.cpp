@@ -88,9 +88,6 @@ void GameObject::ProcessInput(Window* window, float deltaTime)
 
 void GameObject::Init(Mesh* mesh)
 {
-    if (Camera* cam = dynamic_cast<Camera*>(this))
-        return;
-
     if (mesh)
     {
         m_mesh = *mesh;

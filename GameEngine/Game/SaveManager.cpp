@@ -47,7 +47,7 @@ void SaveManager::SaveObjects()
 
 void SaveManager::WriteObjectInfo(GameObject* obj)
 {
-	if (Player* player = dynamic_cast<Player*>(obj))
+	if (obj->m_type == ObjectType::Player)
 		return;
 
 	if (MESH_DEFINES.GetMeshIndex(obj->m_mesh) == MESH_SUN)

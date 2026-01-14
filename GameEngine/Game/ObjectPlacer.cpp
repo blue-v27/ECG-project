@@ -82,8 +82,9 @@ void ObjectPlacer::Update()
 
 			for (int i = 0; i < numObj; ++i)
 			{
-				if (Player* player = dynamic_cast<Player*>(GAMECONTEXT.GetObject(i)))
+				if (GAMECONTEXT.GetObject(i)->m_type == ObjectType::Player)
 					continue;
+
 				if (m_ray.RayCast(CAMERA.GetPos(), CAMERA.getCameraViewDirection(), 500.f, GAMECONTEXT.GetObject(i), m_placePos))
 				{
 					obj = GAMECONTEXT.GetObject(i);
@@ -119,11 +120,7 @@ void ObjectPlacer::Update()
 
 			if (obj && GAMECONTEXT.GetWindow()->IsMouseReleased(GLFW_MOUSE_BUTTON_2))
 			{
-				if (Player* player = dynamic_cast<Player*>(obj))
-				{
-
-				}
-				else
+				if (obj->m_type != ObjectType::Player)
 				{
 					GAMECONTEXT.MarkForRemoval(obj);
 					obj = nullptr;

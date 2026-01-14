@@ -238,7 +238,7 @@ void GameContext::Render()
     }
 
     if (m_objects.size())
-    {
+    { 
         for (GameObject* obj : m_objects)
         {
             if (obj && obj->m_isActive)
