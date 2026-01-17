@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "GameContext.h"
 #include "Ray.h"	
+#include "Inventory.h"
 
 Player::Player()
 {
@@ -151,6 +152,13 @@ void Player::ProcessInput(Window* window, float deltaTime)
 
 		if (window->isPressed(GLFW_KEY_X))
 			KeyboardMoveUp(speed);
+
+		if(window->IsReleased(GLFW_KEY_1))
+			INVETORY.EquipGun();
+
+		if (window->IsReleased(GLFW_KEY_2))
+			INVETORY.EquipKnife();
+			
 
 		double x, y;
 		window->getMousePos(x, y);

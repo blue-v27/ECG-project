@@ -244,8 +244,9 @@ void GameContext::Render()
             if (obj && obj->m_isActive)
             {
                 BoundingBox bb = obj->GetBoundingBox();
-                glm::vec3    d = bb.GetCenter() - CAMERA.GetPos();
-                if (glm::dot(d, d) > 750.f * 750.f)
+               // glm::vec3    d = bb.GetCenter() - CAMERA.GetPos();
+               // if (glm::dot(d, d) > 750.f * 750.f)
+                if(!CAMERA.AABBInFrustum(bb.GetCenter(), bb.GetOffset(), CAMERA.GetFrustum()))
                     continue;
 
                 obj->IRender();
@@ -257,24 +258,28 @@ void GameContext::Render()
     {
         for (InteractiveGameObject* iobj : m_interactiveObjects)
         {
-            BoundingBox bb = iobj->GetBoundingBox();
-            glm::vec3    d = bb.GetCenter() - CAMERA.GetPos();
-            if (glm::dot(d, d) > 750.f * 750.f)
-                continue;
-
-            iobj->Render();
-
-            Ray ray;
-            glm::vec3 hitPoint;
-            if (ray.RayCast(CAMERA.GetPos(), CAMERA.getCameraViewDirection(), 200.f, iobj, hitPoint))
+            if (iobj && iobj->m_isActive)
             {
-                if (iobj->IsPickable())
+
+                BoundingBox bb = iobj->GetBoundingBox();
+                glm::vec3    d = bb.GetCenter() - CAMERA.GetPos();
+                if (glm::dot(d, d) > 750.f * 750.f)
+                    continue;
+
+                iobj->Render();
+
+                Ray ray;
+                glm::vec3 hitPoint;
+                if (ray.RayCast(CAMERA.GetPos(), CAMERA.getCameraViewDirection(), 200.f, iobj, hitPoint))
                 {
-                    GUI.DrawText("PRESS E TO PICKUP", 400.f, 600.f, 1.f);
-                    if (GAMECONTEXT.GetWindow()->IsReleased(GLFW_KEY_E))
-                        iobj->PickUp(m_player);
+                    if (iobj->IsPickable())
+                    {
+                        GUI.DrawText("PRESS E TO PICKUP", 400.f, 600.f, 1.f);
+                        if (GAMECONTEXT.GetWindow()->IsReleased(GLFW_KEY_E))
+                            iobj->PickUp(m_player);
+                    }
+
                 }
-                    
             }
         }
     }

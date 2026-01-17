@@ -1,6 +1,7 @@
 #include "Weapon.h"
 #include "Ray.h"
 #include "GameContext.h"
+#include "Inventory.h"
 
 Weapon::Weapon(float damage, float delay, float range)
 {
@@ -42,6 +43,7 @@ void Weapon::Drop()
 		RemoveParrentLink();
 		IsPickable(true);
 		InitPhysics();
+		INVETORY.Drop(this);
 	}
 }
 

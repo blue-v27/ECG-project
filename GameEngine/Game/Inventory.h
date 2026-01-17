@@ -1,18 +1,30 @@
 #pragma once
-#include "InteractiveGameObject.h"
+#include "RangedWeapon.h"
+#include "fSingleton.h"
 
-class Inventory
+class Inventory : public fSingleton<Inventory>
 {	
 private:
-	std::vector<InteractiveGameObject*> m_items;
-	int m_slots[4][4];
+	RangedWeapon* m_gun   = nullptr;
+	Weapon*		  m_knife = nullptr;
+
 public:
-	Inventory();
-	~Inventory();
+	void AddGun(RangedWeapon* gun) { m_gun = gun; if (m_knife) m_knife->m_isActive == false; }
+	void DropGun()				   { m_gun = nullptr; if (m_knife) m_knife->m_isActive == true; }
+		
+	void AddKnife(Weapon* knife) { m_knife = knife; if (m_gun) m_gun->m_isActive  = false; }
+	void DropKnife()			 { m_knife = nullptr;if (m_gun) m_gun->m_isActive = true; }
 
-	void AddItem(InteractiveGameObject* item);
-	void RemoveItem(InteractiveGameObject* item);
-	void RemoveItem(int i1, int i2);
+	void Drop(InteractiveGameObject* obj);
 
+	void EquipKnife();
+	void EquipGun();
+
+	RangedWeapon* GetWeapon() { return m_gun; }
+	Weapon*		  GetKnife() { return m_knife; }
+
+	
+
+#define INVETORY Inventory::Instance()
 };
 

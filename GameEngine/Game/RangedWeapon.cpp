@@ -25,79 +25,93 @@ RangedWeapon::~RangedWeapon()
 
 void RangedWeapon::Shoot()
 {
-	if (!m_canAttack)
-		return;
-
-	Ray ray;
-	std::vector<GameObject*> arr = GAMECONTEXT.GetObjectsInRange(CAMERA.GetPos(), 2 * m_range);
-
-	m_bullet->BulletBeginShoot(m_pos, CAMERA.getCameraViewDirection(), 1000.f * GAMECONTEXT.GetDeltaTime());
-
-	for (GameObject* obj : arr)
+	if (m_isActive)
 	{
-		glm::vec3 hitPoint;
-		if (ray.RayCast(CAMERA.GetPos() + glm::vec3(0.0f, 0.0f, 2.0f), CAMERA.getCameraViewDirection(), m_range, obj, hitPoint))
+		if (!m_canAttack)
+			return;
+
+		Ray ray;
+		std::vector<GameObject*> arr = GAMECONTEXT.GetObjectsInRange(CAMERA.GetPos(), 2 * m_range);
+
+		m_bullet->BulletBeginShoot(m_pos, CAMERA.getCameraViewDirection(), 1000.f * GAMECONTEXT.GetDeltaTime());
+
+		for (GameObject* obj : arr)
 		{
-			obj->GetDamage(m_damage);
-			break;
+			glm::vec3 hitPoint;
+			if (ray.RayCast(CAMERA.GetPos() + glm::vec3(0.0f, 0.0f, 2.0f), CAMERA.getCameraViewDirection(), m_range, obj, hitPoint))
+			{
+				obj->GetDamage(m_damage);
+				break;
+			}
 		}
 	}
 }
 
 void RangedWeapon::GrabAnchor()
 {
-	int numObj = GAMECONTEXT.GetObjectCount();
-	Ray ray;
-	for (int i = 0; i < numObj; ++i)
+	if (m_isActive)
 	{
-		GameObject* obj = GAMECONTEXT.GetObject(i);
-		glm::vec3 hitPoint;
-		if (ray.RayCast(m_pos, CAMERA.getCameraViewDirection(), 200.f, obj, hitPoint))
+		int numObj = GAMECONTEXT.GetObjectCount();
+		Ray ray;
+		for (int i = 0; i < numObj; ++i)
 		{
-			if (obj->IsAnchor())
+			GameObject* obj = GAMECONTEXT.GetObject(i);
+			glm::vec3 hitPoint;
+			if (ray.RayCast(m_pos, CAMERA.getCameraViewDirection(), 200.f, obj, hitPoint))
 			{
-				GetParrent()->GetPhysicsMask()->StartSwing(obj->GetPos());
-				break;
-			}
+				if (obj->IsAnchor())
+				{
+					GetParrent()->GetPhysicsMask()->StartSwing(obj->GetPos());
+					break;
+				}
 
+			}
 		}
+
 	}
 }
 
 void RangedWeapon::Update()
 {
-	if (!m_canAttack)
+	if (m_isActive)
 	{
-		if (glfwGetTime() - m_time > m_delay)
+		if (!m_canAttack)
 		{
-			m_canAttack = true;
-			m_time = glfwGetTime();
+			if (glfwGetTime() - m_time > m_delay)
+			{
+				m_canAttack = true;
+				m_time = glfwGetTime();
+			}
 		}
+
+		ProcessInput(GAMECONTEXT.GetWindow(), GAMECONTEXT.GetDeltaTime());
+
+		InteractiveGameObject::Update();
 	}
-
-	ProcessInput(GAMECONTEXT.GetWindow(), GAMECONTEXT.GetDeltaTime());
-
-	InteractiveGameObject::Update();
 }
 
 void RangedWeapon::ProcessInput(Window* wnd, float dt)
 {
-	if (GameObject* obj = GetParrent())
+	if (m_isActive)
 	{
-		if (wnd->IsMouseReleased(0))
-			Shoot();
-		if (wnd->IsReleased(GLFW_KEY_Q))
-			Drop();
-		if (wnd->isMousePressed(1))
+
+		if (GameObject* obj = GetParrent())
 		{
-			if (!GetParrent()->GetPhysicsMask()->isSwinging())
+			if (wnd->IsMouseReleased(0))
+				Shoot();
+			if (wnd->IsReleased(GLFW_KEY_Q))
+				Drop();
+			if (wnd->isMousePressed(1))
 			{
-				GrabAnchor();
+				if (!GetParrent()->GetPhysicsMask()->isSwinging())
+				{
+					GrabAnchor();
+				}
 			}
+			if (wnd->IsMouseReleased(1))
+				if (GetParrent()->GetPhysicsMask()->isSwinging())
+					GetParrent()->GetPhysicsMask()->StopSwinging();
 		}
-		if (wnd->IsMouseReleased(1))
-			if (GetParrent()->GetPhysicsMask()->isSwinging())
-				GetParrent()->GetPhysicsMask()->StopSwinging();
 	}
 }
 
@@ -153,13 +167,16 @@ void RangedWeapon::RenderLine()
 
 void RangedWeapon::Render()
 {
-	if (GameObject* obj = GetParrent())
+	if (m_isActive)
 	{
-		if (obj->GetPhysicsMask()->isSwinging())
+		if (GameObject* obj = GetParrent())
 		{
-			RenderLine();
+			if (obj->GetPhysicsMask()->isSwinging())
+			{
+				RenderLine();
+			}
 		}
-	}
 
-	InteractiveGameObject::Render();	
+		InteractiveGameObject::Render();
+	}
 }

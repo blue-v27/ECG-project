@@ -1,6 +1,7 @@
 #include "SaveManager.h"
 #include "Water.h"
 #include "GameContext.h"
+#include "Inventory.h"
 
 float randomFloat()
 {
@@ -299,6 +300,7 @@ void SaveManager::LoadInteractives()
 				wep->RotateX(90.f);
 				wep->RotateZ(-90.f);
 				GAMECONTEXT.AddInteractiveGameObject(wep);
+				INVETORY.AddGun(wep);
 
 				wep = nullptr;
 			}

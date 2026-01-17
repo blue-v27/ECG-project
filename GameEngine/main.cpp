@@ -16,6 +16,7 @@
 #include "Game/Weapon.h"
 #include "Game/RangedWeapon.h"
 #include "Game/SaveManager.h"
+#include "Game/Inventory.h"
 
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
@@ -46,7 +47,6 @@ int main()
 
 	SAVE_MANAGER.LoadInteractives();
 
-#if 0
 	Weapon* knife = new Weapon(10.f, 0.5f, 500.f);
 	player->SetChild(knife);
 	knife->SetPos(glm::vec3(0.0f, 7.f, 1.f));
@@ -54,7 +54,7 @@ int main()
 	knife->SetScale(glm::vec3(0.25f));
 	knife->Init(&MESH_DEFINES.GetMesh(MESH_KNIFE));
 	GAMECONTEXT.AddObject(knife);
-#endif
+	INVETORY.AddKnife(knife);
 
 	//Water* water = new Water();
 	//water->Init();

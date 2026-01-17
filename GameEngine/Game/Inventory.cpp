@@ -1,42 +1,28 @@
 #include "Inventory.h"
 
-Inventory::Inventory()
+void Inventory::Drop(InteractiveGameObject* obj)
 {
-	for (int i = 0; i < 4; ++i)
-		for (int j = 0; j < 4; ++j)
-			m_slots[i][j] = 0;
+	if (obj->m_type == ObjectType::RangedWeapon)
+		DropGun();
+	else
+		DropKnife();
+
 }
 
-Inventory::~Inventory()
+void Inventory::EquipKnife()
 {
-	for (int i = 0; i < 4; ++i)
-		for (int j = 0; j < 4; ++j)
-			m_slots[i][j] = 0;
+	if(m_knife)
+		m_knife->m_isActive = true;
 
-	int numObj = m_items.size();
-	for (int i = 0; i < numObj; ++i)
-	{
-		delete m_items.at(i);
-		m_items.at(i) = nullptr;
-	}
-
-	m_items.clear();		
+	if (m_gun)
+		m_gun->m_isActive = false;
 }
 
-void Inventory::AddItem(InteractiveGameObject* item)
+void Inventory::EquipGun()
 {
-	for (int i = 0; i < 4; ++i)
-		for (int j = 0; j < 4; ++j)
-		{
-			if (m_slots[i][j] != 0)
-				m_items.push_back(item);
-		}
-}
+	if (m_knife)
+		m_knife->m_isActive = false;
 
-void Inventory::RemoveItem(InteractiveGameObject* item)
-{
-}
-
-void Inventory::RemoveItem(int i1, int i2)
-{
+	if (m_gun)
+		m_gun->m_isActive = true;
 }
