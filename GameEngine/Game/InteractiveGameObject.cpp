@@ -1,4 +1,5 @@
 #include "InteractiveGameObject.h"
+#include "Inventory.h"
 
 InteractiveGameObject::InteractiveGameObject()
 {
@@ -26,7 +27,11 @@ bool InteractiveGameObject::HandleIntersection(GameObject* other, glm::vec3& vel
 	if (other->m_boundingBox.HandleIntersection(other->m_pos, this->m_boundingBox, velocity))
 	{
 		if (m_pickable)
+		{
 			PickUp(other);
+			INVETORY.Add(this);
+		}
+			
 
 		return true;
 	}

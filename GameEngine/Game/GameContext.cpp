@@ -7,6 +7,7 @@
 #include "Sky.h"
 #include "../Shaders/ShaderManager.h"
 #include "QuestManager.h"
+#include "Inventory.h"
 
 
 std::vector<GameObject*> GameContext::GetObjectsInRange(glm::vec3 pos, float range)
@@ -276,7 +277,11 @@ void GameContext::Render()
                     {
                         GUI.DrawText("PRESS E TO PICKUP", 400.f, 600.f, 1.f);
                         if (GAMECONTEXT.GetWindow()->IsReleased(GLFW_KEY_E))
+                        {
                             iobj->PickUp(m_player);
+                            INVETORY.Add(iobj);
+                        }
+                            
                     }
 
                 }

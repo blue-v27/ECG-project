@@ -53,7 +53,7 @@ int main()
 	knife->SetRotation(glm::quat(0.70710678f, 0.70710678f, 0.0f, 0.0f));
 	knife->SetScale(glm::vec3(0.25f));
 	knife->Init(&MESH_DEFINES.GetMesh(MESH_KNIFE));
-	GAMECONTEXT.AddObject(knife);
+	GAMECONTEXT.AddInteractiveGameObject(knife);
 	INVETORY.AddKnife(knife);
 
 	//Water* water = new Water();

@@ -9,13 +9,14 @@ private:
 	Weapon*		  m_knife = nullptr;
 
 public:
-	void AddGun(RangedWeapon* gun) { m_gun = gun; if (m_knife) m_knife->m_isActive == false; }
-	void DropGun()				   { m_gun = nullptr; if (m_knife) m_knife->m_isActive == true; }
+	void AddGun(RangedWeapon* gun) { m_gun = gun; if (m_knife) m_knife->m_isActive = false; }
+	void DropGun()				   { m_gun = nullptr; if (m_knife) m_knife->m_isActive = true; }
 		
 	void AddKnife(Weapon* knife) { m_knife = knife; if (m_gun) m_gun->m_isActive  = false; }
 	void DropKnife()			 { m_knife = nullptr;if (m_gun) m_gun->m_isActive = true; }
 
 	void Drop(InteractiveGameObject* obj);
+	void Add(InteractiveGameObject* obj);
 
 	void EquipKnife();
 	void EquipGun();

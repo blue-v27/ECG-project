@@ -9,6 +9,14 @@ void Inventory::Drop(InteractiveGameObject* obj)
 
 }
 
+void Inventory::Add(InteractiveGameObject* obj)
+{
+	if (obj->m_type == ObjectType::RangedWeapon)
+		AddGun(dynamic_cast<RangedWeapon*>(obj));
+	else
+		AddKnife(dynamic_cast<Weapon*>(obj));
+}
+
 void Inventory::EquipKnife()
 {
 	if(m_knife)
