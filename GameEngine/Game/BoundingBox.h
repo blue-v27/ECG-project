@@ -37,7 +37,7 @@ public:
 	glm::vec3 GetCenter() { return m_worldCenter; }
 	glm::vec3 GetOffset() { return m_offset; }
 
-	void ComputeMinMax(float height);
+	void ComputeMinMax(float height = 300.f);
 	bool IsIntersecting(BoundingBox other);
 	void UpdateWorldPos(glm::vec3 delta, glm::vec3 scale);
 	bool HandleIntersection(glm::vec3& pos, BoundingBox other, glm::vec3 velocity = glm::vec3(100));

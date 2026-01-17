@@ -3,6 +3,8 @@
 
 void QuestManager::Start()
 {
+	m_currentQuest = 0;
+
 	for (int i = 0; i < MAX_QUESTS; ++i)
 		m_quests[i] = 0;
 }
@@ -34,5 +36,8 @@ int QuestManager::GetCurrentQuest()
  
 void QuestManager::RenderQuestText()
 {
-	GUI.DrawText(QUEST0, 0, 700, 1.f);
+	if(m_currentQuest == 0)
+		GUI.DrawText(QUEST0, 0, 700, 1.f);
+	else
+		GUI.DrawText(QUEST1, 0, 700, 1.f);
 }

@@ -1,4 +1,14 @@
 #include "Inventory.h"
+#include "QuestManager.h"
+
+void Inventory::AddGun(RangedWeapon* gun)
+{
+	m_gun = gun; 
+	if (m_knife) 
+		m_knife->m_isActive = false; 	
+	if (QUEST_MANAGER.GetCurrentQuest() == 0)
+		QUEST_MANAGER.CompleteQuest(0);
+}
 
 void Inventory::Drop(InteractiveGameObject* obj)
 {

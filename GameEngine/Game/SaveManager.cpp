@@ -104,6 +104,8 @@ void SaveManager::LoadObjects()
 
 			obj->InitShader(shaderId);
 
+			//obj->ComputeRenderBoundingBox();
+
 			if (mesh == MESH_GRASS)
 				obj->m_scale.y = randomFloat(1.0f, 1.1f) /100.f;
 
@@ -246,6 +248,10 @@ void SaveManager::LoadInteractives()
 				wep = new RangedWeapon();
 				wep->SetMesh(MESH_DEFINES.GetMesh(mesh));
 			}
+			else if (sscanf(line, " m_pos:%f %f %f", &x, &y, &z) == 3)
+			{
+				wep->SetPos(glm::vec3(x, y, z));
+			}
 			else if (sscanf(line, " m_shader:%d", &shaderId) == 1)
 			{
 			}
@@ -267,8 +273,12 @@ void SaveManager::LoadInteractives()
 			}
 			else if (sscanf(line, " m_hasParent:%d", &anc) == 1)
 			{
-				if(anc)
+				if (anc)
+				{
 					GAMECONTEXT.GetPlayer()->SetChild(wep);
+					INVETORY.AddGun(wep);
+				}
+					
 			}
 			else if (sscanf(line, " m_damage:%f", &val) == 1)
 			{
@@ -300,7 +310,7 @@ void SaveManager::LoadInteractives()
 				wep->RotateX(90.f);
 				wep->RotateZ(-90.f);
 				GAMECONTEXT.AddInteractiveGameObject(wep);
-				INVETORY.AddGun(wep);
+				
 
 				wep = nullptr;
 			}

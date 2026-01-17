@@ -122,9 +122,13 @@ public:
 	void		 DisablePhysics();
 
 	BoundingBox m_boundingBox;
+	BoundingBox m_renderBoundingBox;
 
 	BoundingBox GetBoundingBox() { return m_boundingBox; }
 	void ComputeBoundingBox(float height = 100.f);
+
+	BoundingBox GetRenderBoundingBox() { return m_renderBoundingBox; }
+	void ComputeRenderBoundingBox();
 
 	void SetMesh(Mesh mesh) { m_mesh = mesh; }
 

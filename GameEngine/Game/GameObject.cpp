@@ -205,6 +205,12 @@ void GameObject::ComputeBoundingBox(float height)
     m_boundingBox.ComputeMinMax(height);
 }
 
+void GameObject::ComputeRenderBoundingBox()
+{
+    m_renderBoundingBox.AddVertexArray(m_mesh.vertices);
+    m_renderBoundingBox.ComputeMinMax();
+}
+
 void GameObject::Render()
 {
     if (!m_shader) 
