@@ -17,7 +17,7 @@ GameObject::GameObject()
 	m_parent       = nullptr;
 	m_mass         = 10;
     m_isActive     = true;
-    m_isInPast     = false;
+    m_isInPast     = true;
     m_id           = 0;
     m_health       = 100.f;
     m_isAnchor     = false;

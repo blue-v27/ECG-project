@@ -24,6 +24,9 @@ public:
 	static constexpr char* treeLeaves   = "Resources/Models/MapleTreeLeaves.obj";
 	static constexpr char* cliff		= "Resources/Models/ForestRoad.obj";
 	static constexpr char* clock		= "Resources/Models/clock.obj";
+	static constexpr char* build1		= "Resources/Models/ResidentialBuildings003.obj";
+	static constexpr char* build2		= "Resources/Models/ResidentialBuildings007.obj";
+	static constexpr char* build3		= "Resources/Models/ResidentialBuildings010.obj";
 
 	void Start();
 	Mesh GetMesh(int index) { return m_meshes.at(index); }
@@ -52,4 +55,7 @@ public:
 #define MESH_SUN	 12
 #define MESH_CLIFF   13
 #define MESH_CLOCK   14
+#define MESH_BUILD1  15
+#define MESH_BUILD2  16
+#define MESH_BUILD3  17
 };

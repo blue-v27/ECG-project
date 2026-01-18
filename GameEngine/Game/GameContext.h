@@ -40,6 +40,8 @@ private:
     std::vector<Light*> m_lights;
 
     Player* m_player = nullptr;
+
+    bool m_isInPast = true;
   
 public:
 
@@ -145,6 +147,7 @@ public:
     float GetDeltaTime() { return m_deltaTime; }
 
     void TimeTravel();
+    bool IsInPast() { return m_isInPast; }
     
     void UpdateFov()
     {

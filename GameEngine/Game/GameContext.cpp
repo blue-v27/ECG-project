@@ -35,6 +35,8 @@ std::vector<GameObject*> GameContext::GetObjectsInRange(glm::vec3 pos, float ran
 
 void GameContext::TimeTravel()
 {
+    if (m_isInPast)m_isInPast = false;
+        else m_isInPast = true;
 }
 
 void GameContext::Start()
@@ -127,15 +129,14 @@ void GameContext::Update()
             {                       
                 if (m_player)
                 {
-                    BoundingBox bb = obj->GetBoundingBox();
-                    glm::vec3    d = bb.GetCenter() - m_player->m_pos;
+                    glm::vec3    d = obj->GetBoundingBox().GetCenter() - m_player->m_pos;
                     if (glm::dot(d, d) > 100.f * 100.f)
                         continue;
 
                     float x = 1;
                     obj->IUpdate();
 
-                    if (obj->m_type != ObjectType::Player)
+                    if (obj->m_type != ObjectType::Player && obj->m_isInPast == m_isInPast)
                     {
                         glm::vec3 velocity = glm::vec3(100);
 
@@ -168,8 +169,7 @@ void GameContext::Update()
             {
                 if (iobj->GetParrent() != m_player)
                 {
-                    BoundingBox bb = iobj->GetBoundingBox();
-                    glm::vec3 d = bb.GetCenter() - m_player->m_pos;
+                    glm::vec3 d = iobj->GetBoundingBox().GetCenter() - m_player->m_pos;
                     if (glm::dot(d, d) > 100.f * 100.f)
                         continue;
                 }
@@ -246,12 +246,11 @@ void GameContext::Render()
     { 
         for (GameObject* obj : m_objects)
         {
-            if (obj && obj->m_isActive)
+            if (obj && obj->m_isActive && obj->m_isInPast == m_isInPast)
             {
-                BoundingBox bb = obj->GetBoundingBox();
-               // glm::vec3    d = bb.GetCenter() - CAMERA.GetPos();
-               // if (glm::dot(d, d) > 750.f * 750.f)
-                if(!CAMERA.AABBInFrustum(bb.GetCenter(), bb.GetOffset(), CAMERA.GetFrustum()))
+                glm::vec3    d = obj->GetBoundingBox().GetCenter() - CAMERA.GetPos();
+                if (glm::dot(d, d) > 750.f * 750.f)
+                //if(!CAMERA.AABBInFrustum(bb.GetCenter(), bb.GetOffset(), CAMERA.GetFrustum()))
                     continue;
 
                 obj->IRender();

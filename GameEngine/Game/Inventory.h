@@ -26,8 +26,8 @@ public:
 	void EquipGun();
 
 	RangedWeapon* GetWeapon() { return m_gun; }
-	Weapon*		  GetKnife() { return m_knife; }
-
+	Weapon*		  GetKnife()  { return m_knife; }
+	Watch*		  GetWatch()  { return m_watch; }
 	
 
 #define INVETORY Inventory::Instance()

@@ -1,5 +1,6 @@
 #include "Watch.h"
 #include "GameContext.h"
+#include "Inventory.h"
 
 Watch::Watch()
 {
@@ -8,7 +9,7 @@ Watch::Watch()
 
 void Watch::ProcessInput(Window* window, float deltaTime)
 {
-	if (m_isActive)
+	if (m_isActive && INVETORY.GetWatch())
 	{
 		if (window->IsReleased(GLFW_KEY_T))
 			GAMECONTEXT.TimeTravel();

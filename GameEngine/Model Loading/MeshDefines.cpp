@@ -78,6 +78,10 @@ void MeshDefines::Start()
 	m_textures.clear();
 
 	m_meshes.push_back(m_loader.loadObj(MeshDefines::clock));
+
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::build1));
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::build2));
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::build3));
 }
 
 int MeshDefines::GetMeshIndex(Mesh mesh)

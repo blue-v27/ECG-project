@@ -70,6 +70,7 @@ void SaveManager::WriteObjectInfo(GameObject* obj)
 		fprintf(m_objects, "\tm_anchor:%d\n", obj->IsAnchor());
 		glm::quat orient = obj->m_rot;
 		fprintf(m_objects, "\tm_rot:%f %f %f %f\n", orient.x, orient.y, orient.z, orient.w);
+		fprintf(m_objects, "\tm_past:%d\n", obj->m_isInPast);
 	}
 
 	fprintf(m_objects, "}\n");
@@ -98,7 +99,8 @@ void SaveManager::LoadObjects()
 
 		if (strchr(line, '}'))
 		{
-			if (mesh != MESH_GRASS && mesh != MESH_FULLTRE && mesh != MESH_TREE && mesh != MESH_CLIFF && mesh != MESH_WATER)
+			if (mesh != MESH_GRASS && mesh != MESH_FULLTRE && mesh != MESH_TREE && mesh != MESH_CLIFF && mesh != MESH_WATER && mesh != MESH_BUILD1
+				&& mesh != MESH_BUILD2 && mesh != MESH_BUILD3)
 			{
 				obj->ComputeBoundingBox();
 			}
@@ -151,6 +153,10 @@ void SaveManager::LoadObjects()
 		else if (sscanf(line, " m_rot:%f %f %f %f", &xO, &yO, &zO, &wO) == 4)
 		{
 			//obj->SetRotation(glm::quat(xO, yO, zO, wO));
+		}
+		else if (sscanf(line, " m_past:%d:", &anc) == 1)
+		{
+			obj->m_isInPast = anc;
 		}
 
 	}

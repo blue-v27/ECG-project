@@ -24,6 +24,7 @@ void ObjectPlacer::PlaceObject()
 	if(m_currentMesh != MESH_TREE && m_currentMesh != MESH_GRASS && m_currentMesh != MESH_FULLTRE)
 	obj->ComputeBoundingBox();
 	obj->InitShader(obj->m_shaderId);
+	obj->m_isInPast = GAMECONTEXT.IsInPast();
 	GAMECONTEXT.AddObject(obj);
 }
 
@@ -63,6 +64,8 @@ void ObjectPlacer::SwitchMesh(bool right)
 		if (m_currentMesh == MESH_GRASS)
 			m_objectToPlace->SetScale(glm::vec3(0.01f));
 		else if(m_currentMesh == MESH_CLIFF)
+			m_objectToPlace->SetScale(glm::vec3(3.f));
+		else if(m_currentMesh >= MESH_BUILD1 && m_currentMesh <= MESH_BUILD3)
 			m_objectToPlace->SetScale(glm::vec3(3.f));
 		else
 			m_objectToPlace->SetScale(glm::vec3(1.f));
