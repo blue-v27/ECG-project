@@ -46,3 +46,33 @@ void OctreeNode::Insert(GameObject* object)
             m_children[index]->Insert(object);
     }
 }
+
+void OctreeNode::Subdivide()
+{
+    glm::vec3 center = m_bounds.GetCenter();
+    glm::vec3 half = m_bounds.GetOffset() * 0.5f;
+
+    glm::vec3 childCenters[8];
+
+    childCenters[0] = center + glm::vec3(-half.x, -half.y, -half.z);
+    childCenters[1] = center + glm::vec3(half.x, -half.y, -half.z);
+    childCenters[2] = center + glm::vec3(-half.x, half.y, -half.z);
+    childCenters[3] = center + glm::vec3(half.x, half.y, -half.z);
+
+    childCenters[4] = center + glm::vec3(-half.x, -half.y, half.z);
+    childCenters[5] = center + glm::vec3(half.x, -half.y, half.z);
+    childCenters[6] = center + glm::vec3(-half.x, half.y, half.z);
+    childCenters[7] = center + glm::vec3(half.x, half.y, half.z);
+
+    for (int i = 0; i < 8; i++)
+    {
+        BoundingBox childBounds;
+
+        childBounds.SetWorldMin(childCenters[i] - half);
+        childBounds.SetWorldMax(childCenters[i] + half);
+
+        m_children[i] = new OctreeNode(childBounds, m_depth + 1);
+    }
+
+    m_isLeaf = false;
+}

@@ -28,11 +28,13 @@ public:
 	size_t GetVertexCount()							   { return m_vertices.size(); }
 	Vertex GetVertexAt(int index)					   { return m_vertices.at(index); }
 
-	void	  SetMax(Vertex max) { m_max = max; }
-	glm::vec3 GetMax()			 { return m_worldMax; }
+	void	  SetMax(Vertex max)		 { m_max = max; }
+	void	  SetWorldMax(glm::vec3 max) { m_worldMax = max; }
+	glm::vec3 GetMax()					 { return m_worldMax; }
 
-	void	  SetMin(Vertex min) { m_min = min; }
-	glm::vec3 GetMin()		     { return m_worldMin; }
+	void	  SetMin(Vertex min)		 { m_min = min; }
+	void	  SetWorldMin(glm::vec3 min) { m_worldMin = min; }
+	glm::vec3 GetMin()					 { return m_worldMin; }
 
 	glm::vec3 GetCenter() { return m_worldCenter; }
 	glm::vec3 GetOffset() { return m_offset; }
