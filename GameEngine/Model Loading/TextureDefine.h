@@ -15,4 +15,5 @@ public:
 	static constexpr char* treeStem     = "Resources/Textures/maple_bark.bmp";
 	static constexpr char* treeLeaves   = "Resources/Textures/maple_leaf.bmp";
 	static constexpr char* skyBox		= "Resources/Textures/skybox.bmp";
+	static constexpr char* black		= "Resources/Textures/black.bmp";
 };

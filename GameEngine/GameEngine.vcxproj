@@ -144,6 +144,7 @@
     <ClCompile Include="Game\SaveManager.cpp" />
     <ClCompile Include="Game\RangedWeapon.cpp" />
     <ClCompile Include="Game\QuestManager.cpp" />
+    <ClCompile Include="Game\OctTree.cpp" />
     <ClCompile Include="Shaders\ShaderManager.cpp" />
     <ClCompile Include="Shaders\shader.cpp" />
     <ClCompile Include="Model Loading\texture.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="Game\SaveManager.h" />
     <ClInclude Include="Game\RangedWeapon.h" />
     <ClInclude Include="Game\QuestManager.h" />
+    <ClInclude Include="Game\OctTree.h" />
     <ClInclude Include="Shaders\ShaderManager.h" />
     <ClInclude Include="Shaders\shader.h" />
     <ClInclude Include="Model Loading\texture.h" />

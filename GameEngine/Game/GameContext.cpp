@@ -33,6 +33,19 @@ std::vector<GameObject*> GameContext::GetObjectsInRange(glm::vec3 pos, float ran
     return arr;
 }
 
+void GameContext::BuildOctree()
+{
+    BoundingBox worldBounds;
+    worldBounds.SetWorldMin(glm::vec3(-5000));
+    worldBounds.SetWorldMax(glm::vec3(5000));
+
+    m_octTree = new OctreeNode(worldBounds);
+
+    for (GameObject* obj : m_objects)
+        m_octTree->Insert(obj);
+
+}
+
 void GameContext::TimeTravel()
 {
     if (m_isInPast)m_isInPast = false;
@@ -121,9 +134,13 @@ void GameContext::Update()
     if (mask)
         mask->SetLastFramePos(m_player->m_pos);
 
-    if (m_objects.size())
+    std::vector<GameObject*> nearby;
+    if(m_player)
+        m_octTree->Query(m_player->GetBoundingBox(), nearby);
+
+    if (nearby.size())
     {
-        for (GameObject* obj : m_objects)
+        for (GameObject* obj : nearby)
         {
             if (obj && obj->m_isActive)
             {                       

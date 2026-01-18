@@ -17,6 +17,7 @@
 #include "Player.h"
 #include "fSingleton.h"
 #include "Light.h"
+#include "OctTree.h"
 
 class GameContext : public fSingleton<GameContext>
 {
@@ -42,7 +43,8 @@ private:
     Player* m_player = nullptr;
 
     bool m_isInPast = true;
-  
+    OctreeNode* m_octTree = nullptr;
+
 public:
 
     float getHeight() { return m_window->getHeight(); }
@@ -143,7 +145,9 @@ public:
         return m_interactiveObjects.at(index);
     }
 
-    void SetDeltaTime(float time) { m_deltaTime = time; }
+    void BuildOctree();
+
+    void  SetDeltaTime(float time) { m_deltaTime = time; }
     float GetDeltaTime() { return m_deltaTime; }
 
     void TimeTravel();

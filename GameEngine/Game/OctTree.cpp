@@ -76,3 +76,33 @@ void OctreeNode::Subdivide()
 
     m_isLeaf = false;
 }
+
+int OctreeNode::GetChildIndex(BoundingBox& box)
+{
+    for (int i = 0; i < 8; i++)
+    {
+        if (m_children[i]->m_bounds.IsIntersecting(box))
+            return i;
+    }
+    return -1;
+}
+
+void OctreeNode::Query(BoundingBox& range, std::vector<GameObject*>& results)
+{
+    if (!m_bounds.IsIntersecting(range))
+        return;
+
+    if (m_isLeaf)
+    {
+        for (auto* obj : m_objects)
+            results.push_back(obj);
+    }
+    else
+    {
+        for (auto* child : m_children)
+            if (child)
+                child->Query(range, results);
+    }
+}
+
+
