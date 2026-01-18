@@ -5,11 +5,12 @@
 
 Weapon::Weapon(float damage, float delay, float range)
 {
-	m_delay = delay;
+	m_delay		= delay;
 	m_canAttack = false;
-	m_range = range;
-	m_damage = damage;
-	m_time = 0;
+	m_range		= range;
+	m_damage	= damage;
+	m_time		= 0;
+	m_type		= ObjectType::Weapon;
 }
 
 Weapon::~Weapon()

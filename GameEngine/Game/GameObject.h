@@ -13,7 +13,7 @@
 #include "IGameObject.h"
 #include "..\Shaders\ShaderManager.h"
 
-enum class ObjectType { Basic, Player, Light, RangedWeapon, Water, Bullet };
+enum class ObjectType { Basic, Player, Light, RangedWeapon, Water, Bullet , Watch, Weapon};
 
 class GameObject : public IGameObject
 {
@@ -51,14 +51,15 @@ public:
 	bool m_usePhysics = false;
 	bool m_isDynamic  = false;
 	bool m_isDirty	  = true;
+	bool m_isInPast	  = false;
 
 	float m_mass;
-	float m_health = 100.f;
+	float m_health   = 100.f;
 	int   m_shaderId = 0;
 	float m_isAnchor;
 
-	Mesh		  m_mesh;
-	Shader*		  m_shader = nullptr;
+	Mesh	m_mesh;
+	Shader* m_shader = nullptr;
 
 	glm::mat4 m_modelMatrix = glm::mat4(1.f);
 

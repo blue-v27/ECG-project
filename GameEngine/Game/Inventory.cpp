@@ -5,9 +5,18 @@ void Inventory::AddGun(RangedWeapon* gun)
 {
 	m_gun = gun; 
 	if (m_knife) 
-		m_knife->m_isActive = false; 	
+		m_knife->m_isActive = false;
+
 	if (QUEST_MANAGER.GetCurrentQuest() == 0)
 		QUEST_MANAGER.CompleteQuest(0);
+}
+
+void Inventory::AddWatch(Watch* watch)
+{
+	m_watch = watch;
+
+	if (QUEST_MANAGER.GetCurrentQuest() == 1)
+		QUEST_MANAGER.CompleteQuest(1);
 }
 
 void Inventory::Drop(InteractiveGameObject* obj)
@@ -16,15 +25,16 @@ void Inventory::Drop(InteractiveGameObject* obj)
 		DropGun();
 	else
 		DropKnife();
-
 }
 
 void Inventory::Add(InteractiveGameObject* obj)
 {
 	if (obj->m_type == ObjectType::RangedWeapon)
 		AddGun(dynamic_cast<RangedWeapon*>(obj));
-	else
+	else if (obj->m_type == ObjectType::Weapon)
 		AddKnife(dynamic_cast<Weapon*>(obj));
+	else
+		AddWatch(dynamic_cast<Watch*>(obj));
 }
 
 void Inventory::EquipKnife()

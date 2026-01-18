@@ -143,6 +143,8 @@ public:
 
     void SetDeltaTime(float time) { m_deltaTime = time; }
     float GetDeltaTime() { return m_deltaTime; }
+
+    void TimeTravel();
     
     void UpdateFov()
     {

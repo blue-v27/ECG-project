@@ -31,7 +31,7 @@ void QuestManager::GoToNextQuest()
 
 int QuestManager::GetCurrentQuest()
 {
-	return 0;
+	return m_currentQuest;
 }
  
 void QuestManager::RenderQuestText()

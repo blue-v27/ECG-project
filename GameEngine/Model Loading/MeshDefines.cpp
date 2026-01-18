@@ -76,6 +76,8 @@ void MeshDefines::Start()
 	m_textures[0].type = "texture_diffuse";
 	m_meshes.push_back(m_loader.loadObj(MeshDefines::cliff, m_textures));
 	m_textures.clear();
+
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::clock));
 }
 
 int MeshDefines::GetMeshIndex(Mesh mesh)

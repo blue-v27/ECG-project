@@ -1,19 +1,23 @@
 #pragma once
 #include "RangedWeapon.h"
 #include "fSingleton.h"
+#include "Watch.h"
 
 class Inventory : public fSingleton<Inventory>
 {	
 private:
 	RangedWeapon* m_gun   = nullptr;
 	Weapon*		  m_knife = nullptr;
+	Watch*		  m_watch = nullptr;
 
 public:
 	void AddGun(RangedWeapon* gun);
-	void DropGun()				   { m_gun = nullptr; if (m_knife) m_knife->m_isActive = true; }
+	void DropGun() { m_gun = nullptr; if (m_knife) m_knife->m_isActive = true; }
 		
 	void AddKnife(Weapon* knife) { m_knife = knife; if (m_gun) m_gun->m_isActive  = false; }
 	void DropKnife()			 { m_knife = nullptr;if (m_gun) m_gun->m_isActive = true; }
+
+	void AddWatch(Watch* watch);
 
 	void Drop(InteractiveGameObject* obj);
 	void Add(InteractiveGameObject* obj);

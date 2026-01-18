@@ -153,10 +153,10 @@ void Player::ProcessInput(Window* window, float deltaTime)
 		if (window->isPressed(GLFW_KEY_X))
 			KeyboardMoveUp(speed);
 
-		if(window->IsReleased(GLFW_KEY_1))
+		if(window->IsReleased(GLFW_KEY_2))
 			INVETORY.EquipGun();
 
-		if (window->IsReleased(GLFW_KEY_2))
+		if (window->IsReleased(GLFW_KEY_3))
 			INVETORY.EquipKnife();
 			
 

@@ -150,6 +150,7 @@
     <ClCompile Include="Game\Water.cpp" />
     <ClCompile Include="Game\Weapon.cpp" />
     <ClCompile Include="Game\Sky.cpp" />
+    <ClCompile Include="Game\Watch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Bullet.h" />
@@ -188,6 +189,7 @@
     <ClInclude Include="Game\Water.h" />
     <ClInclude Include="Game\Weapon.h" />
     <ClInclude Include="Game\Sky.h" />
+    <ClInclude Include="Game\Watch.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fragment_shader.glsl" />

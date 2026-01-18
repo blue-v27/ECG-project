@@ -14,30 +14,34 @@ GameObject::GameObject()
 	m_rotationOx = 0.0f;
 	m_rotationOy = -90.0f;
 
-	m_parent = nullptr;
-	m_mass = 10;
-    m_isActive = true;
-    m_id = 0;
-    m_health = 100.f;
-    m_isAnchor = false;
+	m_parent       = nullptr;
+	m_mass         = 10;
+    m_isActive     = true;
+    m_isInPast     = false;
+    m_id           = 0;
+    m_health       = 100.f;
+    m_isAnchor     = false;
     m_lastFramePos = m_pos;
-    m_isDirty = true;
-    m_type    = ObjectType::Basic;
+    m_isDirty      = true;
+    m_type         = ObjectType::Basic;
 }
 
 GameObject::GameObject(GameObject* obj)
 {
-    m_pos = obj->m_pos;
-    m_mesh = obj->m_mesh;
-    m_textures = obj->m_textures;
-    m_scale = obj->m_scale;
-    m_mass = obj->m_mass;
+    m_pos        = obj->m_pos;
+    m_mesh       = obj->m_mesh;
+    m_textures   = obj->m_textures;
+    m_scale      = obj->m_scale;
+    m_mass       = obj->m_mass;
     m_rotationOx = obj->m_rotationOx;
     m_rotationOy = obj->m_rotationOy;
-    m_isActive = true;
-    m_id = 0;
-    m_shaderId = obj->m_shaderId;
-    m_rot = obj->m_rot;
+    m_isActive   = true;
+    m_id         = 0;
+    m_shaderId   = obj->m_shaderId;
+    m_rot        = obj->m_rot;
+    m_isInPast   = obj->m_isInPast;
+    m_isAnchor   = obj->m_isAnchor;
+    m_type       = obj->m_type;
 }
 
 GameObject::~GameObject()

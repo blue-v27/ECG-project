@@ -33,6 +33,10 @@ std::vector<GameObject*> GameContext::GetObjectsInRange(glm::vec3 pos, float ran
     return arr;
 }
 
+void GameContext::TimeTravel()
+{
+}
+
 void GameContext::Start()
 {
     if (&MESH_DEFINES)
@@ -278,6 +282,9 @@ void GameContext::Render()
                         GUI.DrawText("PRESS E TO PICKUP", 400.f, 600.f, 1.f);
                         if (GAMECONTEXT.GetWindow()->IsReleased(GLFW_KEY_E))
                         {
+                            if (iobj->m_type == ObjectType::Watch && QUEST_MANAGER.GetCurrentQuest() != 1)
+                                return;
+
                             iobj->PickUp(m_player);
                             INVETORY.Add(iobj);
                         }

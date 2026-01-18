@@ -2,6 +2,7 @@
 #include "Water.h"
 #include "GameContext.h"
 #include "Inventory.h"
+#include "Watch.h"
 
 float randomFloat()
 {
@@ -177,34 +178,54 @@ void SaveManager::SaveInteractives()
 
 void SaveManager::WriteInteractiveInfo(InteractiveGameObject* obj)
 {
-	if (MESH_DEFINES.GetMeshIndex(obj->m_mesh) == MESH_PISTOL)
+	if (obj->m_type == ObjectType::RangedWeapon)
 	{
 		fprintf(m_interactive, "{\n");
 
+		if (RangedWeapon* weap = dynamic_cast<RangedWeapon*>(obj))
 		{
-			if (RangedWeapon* weap = dynamic_cast<RangedWeapon*>(obj))
-			{
-				fprintf(m_interactive, "\tm_type:%d\n", (int)(obj->m_type));
-				fprintf(m_interactive, "\tm_mesh:%d\n", MESH_DEFINES.GetMeshIndex(obj->m_mesh));
-				glm::vec3 pos = obj->m_pos;
-				fprintf(m_interactive, "\tm_pos:%f %f %f\n", pos.x, pos.y, pos.z);
-				fprintf(m_interactive, "\tm_shader:%d\n", obj->m_shaderId);
-				glm::vec3 scale = obj->m_scale;
-				fprintf(m_interactive, "\tm_scale:%f %f %f\n", scale.x, scale.y, scale.z);
-				fprintf(m_interactive, "\tm_anchor:%d\n", obj->IsAnchor());
-				glm::quat orient = obj->m_rot;
-				fprintf(m_interactive, "\tm_rot:%f %f %f %f\n", orient.x, orient.y, orient.z, orient.w);
-				pos = weap->m_relativePos;
-				fprintf(m_interactive, "\tm_relPos:%f %f %f\n", pos.x, pos.y, pos.z);
-				bool hasParent = weap->GetParrent() != nullptr;
-				fprintf(m_interactive, "\tm_hasParent:%d\n", hasParent);
-				fprintf(m_interactive, "\tm_damage:%f\n", weap->m_damage);
-				fprintf(m_interactive, "\tm_delay:%f\n", weap->m_delay);
-				fprintf(m_interactive, "\tm_range:%f\n", weap->m_range);
-				fprintf(m_interactive, "\tm_droped:%d\n", weap->IsPickable());
-			}
-
+			fprintf(m_interactive, "\tm_type:%d\n", (int)(obj->m_type));
+			fprintf(m_interactive, "\tm_mesh:%d\n", MESH_DEFINES.GetMeshIndex(obj->m_mesh));
+			glm::vec3 pos = obj->m_pos;
+			fprintf(m_interactive, "\tm_pos:%f %f %f\n", pos.x, pos.y, pos.z);
+			fprintf(m_interactive, "\tm_shader:%d\n", obj->m_shaderId);
+			glm::vec3 scale = obj->m_scale;
+			fprintf(m_interactive, "\tm_scale:%f %f %f\n", scale.x, scale.y, scale.z);
+			fprintf(m_interactive, "\tm_anchor:%d\n", obj->IsAnchor());
+			glm::quat orient = obj->m_rot;
+			fprintf(m_interactive, "\tm_rot:%f %f %f %f\n", orient.x, orient.y, orient.z, orient.w);
+			pos = weap->m_relativePos;
+			fprintf(m_interactive, "\tm_relPos:%f %f %f\n", pos.x, pos.y, pos.z);
+			bool hasParent = weap->GetParrent() != nullptr;
+			fprintf(m_interactive, "\tm_hasParent:%d\n", hasParent);
+			fprintf(m_interactive, "\tm_damage:%f\n", weap->m_damage);
+			fprintf(m_interactive, "\tm_delay:%f\n", weap->m_delay);
+			fprintf(m_interactive, "\tm_range:%f\n", weap->m_range);
+			fprintf(m_interactive, "\tm_droped:%d\n", weap->IsPickable());
 		}
+
+		fprintf(m_interactive, "}\n");
+	}
+
+	if (obj->m_type == ObjectType::Watch)
+	{
+		fprintf(m_interactive, "{\n");
+
+		fprintf(m_interactive, "\tm_type:%d\n", (int)(obj->m_type));
+		fprintf(m_interactive, "\tm_mesh:%d\n", MESH_DEFINES.GetMeshIndex(obj->m_mesh));
+		glm::vec3 pos = obj->m_pos;
+		fprintf(m_interactive, "\tm_pos:%f %f %f\n", pos.x, pos.y, pos.z);
+		fprintf(m_interactive, "\tm_shader:%d\n", obj->m_shaderId);
+		glm::vec3 scale = obj->m_scale;
+		fprintf(m_interactive, "\tm_scale:%f %f %f\n", scale.x, scale.y, scale.z);
+		fprintf(m_interactive, "\tm_anchor:%d\n", obj->IsAnchor());
+		glm::quat orient = obj->m_rot;
+		fprintf(m_interactive, "\tm_rot:%f %f %f %f\n", orient.x, orient.y, orient.z, orient.w);
+		pos = obj->m_relativePos;
+		fprintf(m_interactive, "\tm_relPos:%f %f %f\n", pos.x, pos.y, pos.z);
+		bool hasParent = obj->GetParrent() != nullptr;
+		fprintf(m_interactive, "\tm_hasParent:%d\n", hasParent);
+		fprintf(m_interactive, "\tm_droped:%d\n", obj->IsPickable());
 
 		fprintf(m_interactive, "}\n");
 	}
@@ -229,7 +250,8 @@ void SaveManager::LoadInteractives()
 	float val;
 	char  name[128];
 
-	RangedWeapon* wep = nullptr;
+	RangedWeapon* wep   = nullptr;
+	Watch*		  watch	= nullptr;
 
 	while (fgets(line, sizeof(line), m_interactive))
 	{
@@ -242,7 +264,7 @@ void SaveManager::LoadInteractives()
 		}
 
 		if (type == static_cast<int>(ObjectType::RangedWeapon))
-		{	
+		{
 			if (sscanf(line, " m_mesh:%d", &mesh) == 1)
 			{
 				wep = new RangedWeapon();
@@ -278,7 +300,7 @@ void SaveManager::LoadInteractives()
 					GAMECONTEXT.GetPlayer()->SetChild(wep);
 					INVETORY.AddGun(wep);
 				}
-					
+
 			}
 			else if (sscanf(line, " m_damage:%f", &val) == 1)
 			{
@@ -300,7 +322,7 @@ void SaveManager::LoadInteractives()
 					wep->IsPickable(true);
 					wep->InitPhysics();
 				}
-					
+
 			}
 
 			if (strchr(line, '}'))
@@ -310,9 +332,71 @@ void SaveManager::LoadInteractives()
 				wep->RotateX(90.f);
 				wep->RotateZ(-90.f);
 				GAMECONTEXT.AddInteractiveGameObject(wep);
-				
+
 
 				wep = nullptr;
+			}
+		}
+
+		if (type == static_cast<int>(ObjectType::Watch))
+		{	
+			if (sscanf(line, " m_mesh:%d", &mesh) == 1)
+			{
+				watch = new Watch();
+				watch->SetMesh(MESH_DEFINES.GetMesh(mesh));
+			}
+			else if (sscanf(line, " m_pos:%f %f %f", &x, &y, &z) == 3)
+			{
+				watch->SetPos(glm::vec3(x, y, z));
+			}
+			else if (sscanf(line, " m_shader:%d", &shaderId) == 1)
+			{
+			}
+			else if (sscanf(line, " m_scale:%f %f %f", &x, &y, &z) == 3)
+			{
+				watch->SetScale(glm::vec3(x, y, z));
+			}
+			else if (sscanf(line, " m_anchor:%d", &anc) == 1)
+			{
+				watch->IsAnchor(anc);
+			}
+			else if (sscanf(line, " m_rot:%f %f %f %f", &xO, &yO, &zO, &wO) == 4)
+			{
+				//wep->m_relativeRot == glm::quat(xO, yO, zO, wO);
+			}
+			else if (sscanf(line, " m_relPos:%f %f %f", &x, &y, &z) == 3)
+			{
+				watch->SetRelativePos(glm::vec3(x, y, z));
+			}
+			else if (sscanf(line, " m_hasParent:%d", &anc) == 1)
+			{
+				if (anc)
+				{
+					GAMECONTEXT.GetPlayer()->SetChild(watch);
+					INVETORY.AddWatch(watch);
+				}
+					
+			}
+			else if (sscanf(line, " m_droped:%d", &anc) == 1)
+			{
+				//wep->IsPickable(val);
+				if (anc)
+				{
+					watch->IsPickable(true);
+					watch->InitPhysics();
+				}
+					
+			}
+
+			if (strchr(line, '}'))
+			{
+				watch->ComputeBoundingBox();
+				watch->InitShader(shaderId);
+				watch->RotateX(90.f);
+				watch->RotateZ(-90.f);
+				GAMECONTEXT.AddInteractiveGameObject(watch);
+				
+				watch = nullptr;
 			}
 		}
 
