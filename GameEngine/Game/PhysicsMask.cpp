@@ -20,7 +20,7 @@ void PhysicsMask::UpdatePhysics()
 		Swing();
 
 		float friction = 1.5f;
-		m_velocity -= m_velocity * friction * dt;
+		m_velocity    -= m_velocity * friction * dt;
 	}
 	else
 	{
@@ -82,17 +82,4 @@ void PhysicsMask::Swing()
 
 	float vel = glm::dot(m_velocity, direction);
 	m_velocity -= direction * vel;
-}
-
-void PhysicsMask::AddSwingInput(const glm::vec3& inputDir, float force)
-{
-	if (!m_isSwinging)
-		return;
-
-	glm::vec3 ropeDir = glm::normalize(m_pos - m_anchor);
-
-	// Remove rope direction from input
-	glm::vec3 tangent = inputDir - ropeDir * glm::dot(inputDir, ropeDir);
-
-	m_velocity += tangent * force;
 }

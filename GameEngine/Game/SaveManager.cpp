@@ -105,8 +105,6 @@ void SaveManager::LoadObjects()
 				obj->ComputeBoundingBox();
 			}
 
-			obj->InitShader(shaderId);
-
 			//obj->ComputeRenderBoundingBox();
 
 			if (mesh == MESH_GRASS)
@@ -126,9 +124,9 @@ void SaveManager::LoadObjects()
 
 		if (sscanf(line, " m_type:%d", &type) == 1)
 		{
-			if(type == static_cast<int>(ObjectType::Basic))
+			if(type == (int)(ObjectType::Basic))
 				obj = new GameObject();
-			if (type == static_cast<int>(ObjectType::Water))
+			if (type == (int)(ObjectType::Water))
 				obj = new Water();
 		}
 		else if (sscanf(line, " m_mesh:%d", &mesh) == 1)
@@ -141,6 +139,7 @@ void SaveManager::LoadObjects()
 		}
 		else if (sscanf(line, " m_shader:%d", &shaderId) == 1)
 		{
+			obj->InitShader(shaderId);
 		}
 		else if (sscanf(line, " m_scale:%f %f %f", &x, &y, &z) == 3)
 		{

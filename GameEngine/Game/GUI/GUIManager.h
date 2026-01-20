@@ -13,11 +13,13 @@
 class GUIManager : public fSingleton<GUIManager>
 {
 private:
-    GLuint m_fontTexture = 0;
+    GLuint  m_fontTexture = 0;
     Shader* m_shader = nullptr;
-    GLuint m_shaderProgram = 0;
-    GLuint VAO = 0, VBO = 0;
-    stbtt_bakedchar charData[96];
+    GLuint  m_shaderProgram = 0;
+    GLuint  VAO = 0, VBO = 0;
+    stbtt_bakedchar m_charData[96];
+
+
     int m_atlasWidth = 512;
     int m_atlasHeight = 512;
 
@@ -32,8 +34,8 @@ private:
 public:
 	void Init();
 	void DrawText(char* text, float x, float y, float scale, glm::vec3 color = glm::vec3(1.f));
-    GLuint LoadTexture(const std::string& path);
-    void DrawImage(const std::string& path, float x, float y, float scale = 1.0f, const glm::vec3& tint = glm::vec3(1.0f));
+    GLuint LoadTexture(char* path);
+    void DrawImage(char* path, float x, float y, float scale = 1.0f, const glm::vec3& tint = glm::vec3(1.0f));
     void DrawImage(GLuint textureID, float x, float y, float width, float height, const glm::vec3& tint = glm::vec3(1.0f)); 
 
 #define GUI GUIManager::Instance()

@@ -65,12 +65,6 @@ int main()
 //	light->IsSun(true);
 	GAMECONTEXT.SetLight(light);
 
-	//Light* light2 = new Light();
-	//light2->SetPos(glm::vec3(200.f, 150.f, 100.f));
-	//light2->Init(&MESH_DEFINES.GetMesh(MESH_SUN));
-	//light2->SetColor(glm::vec4(1.f, 0.f, 0.f, 1.f));
-	//GAMECONTEXT.SetLight(light2);
-
 	GUI.Init();
 	GAMECONTEXT.InitLights();
 	GAMECONTEXT.BuildOctree();

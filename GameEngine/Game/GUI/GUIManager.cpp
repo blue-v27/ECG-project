@@ -11,30 +11,30 @@
 
 void GUIManager::Init()
 {
-    Window* wnd = GAMECONTEXT.GetWindow();
+    Window* wnd  = GAMECONTEXT.GetWindow();
     m_projection = glm::ortho(0.0f, (float)wnd->getWidth(), 0.0f, (float)wnd->getHeight());
 
-    std::string fontPath = "Resources/Fonts/ARIAL.TTF";
+    char fontPath[124] = "Resources/Fonts/ARIAL.TTF";
 
     unsigned char* ttf_buffer = new unsigned char[1 << 20];
-    FILE* f = fopen(fontPath.c_str(), "rb");
+    FILE* f = fopen(fontPath, "rb");
     
     if (!f)
     {
-        printf("Couldn't load font: %s\n", fontPath.c_str());
+        printf("Couldn't load font: %s\n", fontPath);
         return;
     }
    
     fread(ttf_buffer, 1, 1 << 20, f);
     fclose(f);
 
-    m_atlasWidth = 720;
-    m_atlasHeight = 1280;
+    m_atlasWidth  = (float)wnd->getWidth();
+    m_atlasHeight = (float)wnd->getHeight();
 
     unsigned char* bitmap = new unsigned char[m_atlasWidth * m_atlasHeight];
 
     int bakeResult = stbtt_BakeFontBitmap(ttf_buffer, 0, 48.0f, bitmap,
-        m_atlasWidth, m_atlasHeight, 32, 96, charData);
+        m_atlasWidth, m_atlasHeight, 32, 96, m_charData);
 
     if (bakeResult <= 0) {
         printf("Failed to bake font bitmap (result: %d)\n", bakeResult);
@@ -62,7 +62,7 @@ void GUIManager::Init()
 
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4 * 256, nullptr, GL_DYNAMIC_DRAW); // Enough for ~256 chars
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4 * 256, nullptr, GL_DYNAMIC_DRAW);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -81,8 +81,7 @@ void GUIManager::DrawText(char* text, float x, float y, float scale, glm::vec3 c
     glUseProgram(m_shaderProgram);
 
     glUniform3fv(m_colorLocation, 1, glm::value_ptr(color));
-    glUniformMatrix4fv(m_projLocation, 1, GL_FALSE, glm::value_ptr(m_projection)); // Use cached ortho
-
+    glUniformMatrix4fv(m_projLocation, 1, GL_FALSE, glm::value_ptr(m_projection)); 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, m_fontTexture);
 
@@ -90,7 +89,7 @@ void GUIManager::DrawText(char* text, float x, float y, float scale, glm::vec3 c
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
     std::vector<float> vertices;
-    vertices.reserve(strlen(text) * 24); // 6 verts × 4 floats
+    vertices.reserve(strlen(text) * 24); 
 
     float xpos = x;
     float ypos = y;
@@ -100,7 +99,7 @@ void GUIManager::DrawText(char* text, float x, float y, float scale, glm::vec3 c
         if (*c >= 32 && *c < 128)
         {
             stbtt_aligned_quad q;
-            stbtt_GetBakedQuad(charData, m_atlasWidth, m_atlasHeight,
+            stbtt_GetBakedQuad(m_charData, m_atlasWidth, m_atlasHeight,
                 *c - 32, &xpos, &ypos, &q, 1); 
 
             std::swap(q.t0, q.t1);
@@ -139,16 +138,16 @@ void GUIManager::DrawText(char* text, float x, float y, float scale, glm::vec3 c
 
 }
 
-GLuint GUIManager::LoadTexture(const std::string& path)
+GLuint GUIManager::LoadTexture(char* path)
 {
     auto it = m_loadedTextures.find(path);
     if (it != m_loadedTextures.end()) return it->second;
 
     int w, h, channels;
-    unsigned char* data = stbi_load(path.c_str(), &w, &h, &channels, 4);  // Force RGBA
+    unsigned char* data = stbi_load(path, &w, &h, &channels, 4);
     if (!data) 
     {
-        printf("Failed to load image: %s\n", path.c_str());
+        printf("Failed to load image: %s\n", path);
         return 0;
     }
 
@@ -167,7 +166,7 @@ GLuint GUIManager::LoadTexture(const std::string& path)
     return tex;
 }
 
-void GUIManager::DrawImage(const std::string& path, float x, float y, float scale, const glm::vec3& tint)
+void GUIManager::DrawImage(char* path, float x, float y, float scale, const glm::vec3& tint)
 {
     GLuint tex = LoadTexture(path);
     if (tex == 0) return;
@@ -181,7 +180,7 @@ void GUIManager::DrawImage(GLuint textureID, float x, float y, float width, floa
     glDisable(GL_DEPTH_TEST);
 
     glUseProgram(m_shaderProgram);
-    glUniform3fv(m_colorLocation, 1, glm::value_ptr(tint));  // Reuse textColor uniform as tint
+    glUniform3fv(m_colorLocation, 1, glm::value_ptr(tint));  
     glUniformMatrix4fv(m_projLocation, 1, GL_FALSE, glm::value_ptr(m_projection));
 
     glActiveTexture(GL_TEXTURE0);

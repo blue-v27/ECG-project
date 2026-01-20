@@ -39,7 +39,6 @@ public:
 	void StartSwing(glm::vec3 anchor);
 	void StopSwinging();
 	void Swing();
-	void AddSwingInput(const glm::vec3& inputDir, float force);
 	glm::vec3 GetAnchor() { return m_anchor; }
 	bool isSwinging() { return m_isSwinging; }
 

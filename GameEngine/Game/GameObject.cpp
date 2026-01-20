@@ -165,7 +165,7 @@ void GameObject::RecomputeModel()
 
     if (m_isDirty)
     {
-        m_modelMatrix = glm::translate(glm::mat4(1.0f), m_pos);
+        m_modelMatrix  = glm::translate(glm::mat4(1.0f), m_pos);
         m_modelMatrix *= glm::mat4_cast(m_rot);
         m_modelMatrix *= glm::scale(glm::mat4(1.0f), m_scale);
         

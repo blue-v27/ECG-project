@@ -265,9 +265,10 @@ void GameContext::Render()
         {
             if (obj && obj->m_isActive && obj->m_isInPast == m_isInPast)
             {
-                glm::vec3    d = obj->GetBoundingBox().GetCenter() - CAMERA.GetPos();
-                if (glm::dot(d, d) > 750.f * 750.f)
-                //if(!CAMERA.AABBInFrustum(bb.GetCenter(), bb.GetOffset(), CAMERA.GetFrustum()))
+                BoundingBox bb = obj->GetBoundingBox();
+                //glm::vec3    d = obj->GetBoundingBox().GetCenter() - CAMERA.GetPos();
+                //if (glm::dot(d, d) > 750.f * 750.f)
+                if(!CAMERA.AABBInFrustum(bb.GetCenter(), bb.GetOffset(), CAMERA.GetFrustum()))
                     continue;
 
                 obj->IRender();

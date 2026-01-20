@@ -236,7 +236,7 @@ bool Camera::AABBInFrustum(glm::vec3& center, glm::vec3& offset, Frustum& frustu
 	for (int i = 0; i < 6; ++i)
 	{
 		const glm::vec3 normal = glm::vec3(frustum.planes[i]);
-		const float     d = frustum.planes[i].w;
+		const float			 d = frustum.planes[i].w;
 
 		float r = offset.x * std::abs(normal.x) + offset.y * std::abs(normal.y) + offset.z * std::abs(normal.z);
 
