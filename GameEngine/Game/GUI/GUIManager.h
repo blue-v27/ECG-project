@@ -8,27 +8,29 @@
 #include "stb_truetype.h"
 #include "../../Model Loading/mesh.h"
 #include <unordered_map>
-
+#include "../../Graphics/window.h"
 
 class GUIManager : public fSingleton<GUIManager>
 {
 private:
-    GLuint  m_fontTexture = 0;
-    Shader* m_shader = nullptr;
+    Window* m_window        = nullptr;
+
+    Shader* m_shader        = nullptr;
+    GLuint  m_fontTexture   = 0;
     GLuint  m_shaderProgram = 0;
-    GLuint  VAO = 0, VBO = 0;
+    GLuint  VAO             = 0; 
+    GLuint  VBO             = 0;
+
     stbtt_bakedchar m_charData[96];
 
+    int m_bitMapWidth  = 512;
+    int m_bitMapHeight = 512;
 
-    int m_atlasWidth = 512;
-    int m_atlasHeight = 512;
-
-    GLint m_projLocation = -1;
-    GLint m_colorLocation = -1;
+    GLint m_projLocation  = 0;
+    GLint m_colorLocation = 0;
 
     glm::mat4 m_projection = glm::ortho(0.0f, 800.0f, 0.0f, 800.0f);
 
-    GLuint m_whiteTexture = 0;
     std::unordered_map<std::string, GLuint> m_loadedTextures;
 
 public:

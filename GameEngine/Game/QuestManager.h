@@ -8,11 +8,11 @@ class QuestManager : public fSingleton<QuestManager>
 #pragma region QuestText
 
 #define QUEST0 "GRAB YOUR GUN FROM THE GROUND"
-#define QUEST1 "Go to the camp fire and find tour watch"
-#define QUEST2
-#define QUEST3
-#define QUEST4
-#define QUEST5
+#define QUEST1 "GO TO THE CAMPFIRE AND PICK UP YOUR WATCH"
+#define QUEST2 "PRESS 'T' TO TRAVEL BACK TO THE FUTURE"
+#define QUEST3 "RIGHT CLICK ON THE CUBES TO SWING FROM THEM"
+#define QUEST4 ""
+#define QUEST5 "CLIMB TO THE TOP OF THE BUILDING TO SAVE THE WORLD"
 #define QUEST_COMPLETE
 
 #pragma endregion 

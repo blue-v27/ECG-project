@@ -36,8 +36,12 @@ int QuestManager::GetCurrentQuest()
  
 void QuestManager::RenderQuestText()
 {
-	if(m_currentQuest == 0)
+	if (m_currentQuest == 0)
 		GUI.DrawText(QUEST0, 0, 700, 1.f);
-	else
+	else if (m_currentQuest == 1)
 		GUI.DrawText(QUEST1, 0, 700, 1.f);
+	else if (m_currentQuest == 2)
+		GUI.DrawText(QUEST2, 0, 700, 1.f);
+	else
+		GUI.DrawText(QUEST3, 0, 700, 1.f);
 }

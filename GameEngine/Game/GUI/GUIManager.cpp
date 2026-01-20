@@ -11,12 +11,12 @@
 
 void GUIManager::Init()
 {
-    Window* wnd  = GAMECONTEXT.GetWindow();
-    m_projection = glm::ortho(0.0f, (float)wnd->getWidth(), 0.0f, (float)wnd->getHeight());
+    m_window     = GAMECONTEXT.GetWindow();
+    m_projection = glm::ortho(0.0f, (float)m_window->getWidth(), 0.0f, (float)m_window->getHeight());
 
     char fontPath[124] = "Resources/Fonts/ARIAL.TTF";
 
-    unsigned char* ttf_buffer = new unsigned char[1 << 20];
+    unsigned char* buffer = new unsigned char[1 << 20];
     FILE* f = fopen(fontPath, "rb");
     
     if (!f)
@@ -25,18 +25,18 @@ void GUIManager::Init()
         return;
     }
    
-    fread(ttf_buffer, 1, 1 << 20, f);
+    fread(buffer, 1, 1 << 20, f);
     fclose(f);
 
-    m_atlasWidth  = (float)wnd->getWidth();
-    m_atlasHeight = (float)wnd->getHeight();
+    m_bitMapWidth  = (float)m_window->getWidth();
+    m_bitMapHeight = (float)m_window->getHeight();
 
-    unsigned char* bitmap = new unsigned char[m_atlasWidth * m_atlasHeight];
+    unsigned char* bitmap = new unsigned char[m_bitMapWidth * m_bitMapHeight];
 
-    int bakeResult = stbtt_BakeFontBitmap(ttf_buffer, 0, 48.0f, bitmap,
-        m_atlasWidth, m_atlasHeight, 32, 96, m_charData);
+    int bakeResult = stbtt_BakeFontBitmap(buffer, 0, 48.0f, bitmap, m_bitMapWidth, m_bitMapHeight, 32, 96, m_charData);
 
-    if (bakeResult <= 0) {
+    if (bakeResult <= 0) 
+    {
         printf("Failed to bake font bitmap (result: %d)\n", bakeResult);
         delete[] bitmap;
         return;
@@ -44,8 +44,7 @@ void GUIManager::Init()
 
     glGenTextures(1, &m_fontTexture);
     glBindTexture(GL_TEXTURE_2D, m_fontTexture);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, m_atlasWidth, m_atlasHeight, 0,
-        GL_RED, GL_UNSIGNED_BYTE, bitmap);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, m_bitMapWidth, m_bitMapHeight, 0, GL_RED, GL_UNSIGNED_BYTE, bitmap);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -94,13 +93,12 @@ void GUIManager::DrawText(char* text, float x, float y, float scale, glm::vec3 c
     float xpos = x;
     float ypos = y;
 
-    for (const char* c = text; *c; ++c)
+    for (const char* c = text; *c; ++c) 
     {
         if (*c >= 32 && *c < 128)
         {
             stbtt_aligned_quad q;
-            stbtt_GetBakedQuad(m_charData, m_atlasWidth, m_atlasHeight,
-                *c - 32, &xpos, &ypos, &q, 1); 
+            stbtt_GetBakedQuad(m_charData, m_bitMapWidth, m_bitMapHeight, *c - 32, &xpos, &ypos, &q, 1);
 
             std::swap(q.t0, q.t1);
 
@@ -141,7 +139,8 @@ void GUIManager::DrawText(char* text, float x, float y, float scale, glm::vec3 c
 GLuint GUIManager::LoadTexture(char* path)
 {
     auto it = m_loadedTextures.find(path);
-    if (it != m_loadedTextures.end()) return it->second;
+    if (it != m_loadedTextures.end()) 
+        return it->second;
 
     int w, h, channels;
     unsigned char* data = stbi_load(path, &w, &h, &channels, 4);

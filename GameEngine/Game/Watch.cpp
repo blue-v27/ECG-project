@@ -1,6 +1,7 @@
 #include "Watch.h"
 #include "GameContext.h"
 #include "Inventory.h"
+#include "QuestManager.h"
 
 Watch::Watch()
 {
@@ -12,7 +13,12 @@ void Watch::ProcessInput(Window* window, float deltaTime)
 	if (m_isActive && INVETORY.GetWatch())
 	{
 		if (window->IsReleased(GLFW_KEY_T))
+		{
+			if (QUEST_MANAGER.GetCurrentQuest() == 2)
+				QUEST_MANAGER.CompleteQuest(2);
+
 			GAMECONTEXT.TimeTravel();
+		}		
 
 		Weapon::ProcessInput(window, deltaTime);
 	}

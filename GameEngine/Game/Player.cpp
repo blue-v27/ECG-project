@@ -64,10 +64,10 @@ void Player::KeyboardMoveDown(float speed)
 
 void Player::UpdateVectors()
 {
-	float yaw = glm::radians(m_rotationOy);
+	float yaw   = glm::radians(m_rotationOy);
 	float pitch = glm::radians(m_rotationOx);
 
-	glm::quat qYaw = glm::angleAxis(yaw, glm::vec3(0, 1, 0));
+	glm::quat qYaw   = glm::angleAxis(yaw, glm::vec3(0, 1, 0));
 	glm::quat qPitch = glm::angleAxis(pitch, glm::vec3(1, 0, 0));
 
 	m_rot = qYaw * qPitch;
@@ -75,11 +75,11 @@ void Player::UpdateVectors()
 
 	glm::vec3 front = m_rot * glm::vec3(0, 0, -1);
 	glm::vec3 right = m_rot * glm::vec3(1, 0, 0);
-	glm::vec3 up = m_rot * glm::vec3(0, 1, 0);
+	glm::vec3 up    = m_rot * glm::vec3(0, 1, 0);
 
-	SetDir(glm::normalize(front));
+	SetDir	(glm::normalize(front));
 	SetRight(glm::normalize(right));
-	SetUp(glm::normalize(up));
+	SetUp	(glm::normalize(up));
 
 	m_camera->UpdateVectors();
 	m_isDirty = true;
