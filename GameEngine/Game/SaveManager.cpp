@@ -3,6 +3,7 @@
 #include "GameContext.h"
 #include "Inventory.h"
 #include "Watch.h"
+#include "Light.h"
 
 float randomFloat()
 {
@@ -234,6 +235,32 @@ void SaveManager::WriteInteractiveInfo(InteractiveGameObject* obj)
 
 		fprintf(m_interactive, "}\n");
 	}
+
+	if (obj->m_type == ObjectType::Light)
+	{
+		fprintf(m_interactive, "{\n");
+
+		if (Light* light = dynamic_cast<Light*>(obj))
+		{
+			fprintf(m_interactive, "\tm_type:%d\n", (int)(obj->m_type));
+			fprintf(m_interactive, "\tm_mesh:%d\n", MESH_DEFINES.GetMeshIndex(obj->m_mesh));
+			glm::vec3 pos = obj->m_pos;
+			fprintf(m_interactive, "\tm_pos:%f %f %f\n", pos.x, pos.y, pos.z);
+			fprintf(m_interactive, "\tm_shader:%d\n", obj->m_shaderId);
+			glm::vec3 scale = obj->m_scale;
+			fprintf(m_interactive, "\tm_scale:%f %f %f\n", scale.x, scale.y, scale.z);
+			fprintf(m_interactive, "\tm_anchor:%d\n", obj->IsAnchor());
+			glm::quat orient = obj->m_rot;
+			fprintf(m_interactive, "\tm_rot:%f %f %f %f\n", orient.x, orient.y, orient.z, orient.w);
+			fprintf(m_interactive, "\tm_ka:%f\n", obj->m_shaderId);
+			fprintf(m_interactive, "\tm_kd:%f\n", obj->m_shaderId);
+			fprintf(m_interactive, "\tm_ks:%f\n", obj->m_shaderId);
+			glm::vec4 color = obj->m_color;
+			fprintf(m_interactive, "\tm_color:%f %f %f %f\n", color.x, color.y, color.z, color.w);
+		}
+
+		fprintf(m_interactive, "}\n");
+	}
 }
 
 void SaveManager::LoadInteractives()
@@ -257,6 +284,7 @@ void SaveManager::LoadInteractives()
 
 	RangedWeapon* wep   = nullptr;
 	Watch*		  watch	= nullptr;
+	Light*		  light = nullptr;
 
 	while (fgets(line, sizeof(line), m_interactive))
 	{
@@ -402,6 +430,53 @@ void SaveManager::LoadInteractives()
 				GAMECONTEXT.AddInteractiveGameObject(watch);
 				
 				watch = nullptr;
+			}
+		}
+
+		if (type == static_cast<int>(ObjectType::Light))
+		{
+			if (sscanf(line, " m_mesh:%d", &mesh) == 1)
+			{
+				light = new Light();
+				light->SetMesh(MESH_DEFINES.GetMesh(mesh));
+			}
+			else if (sscanf(line, " m_pos:%f %f %f", &x, &y, &z) == 3)
+			{
+				light->SetPos(glm::vec3(x, y, z));
+			}
+			else if (sscanf(line, " m_shader:%d", &shaderId) == 1)
+			{
+				light->InitShader(shaderId);
+			}
+			else if (sscanf(line, " m_scale:%f %f %f", &x, &y, &z) == 3)
+			{
+				light->SetScale(glm::vec3(x, y, z));
+			}
+			else if (sscanf(line, " m_ka:%f", &val) == 1)
+			{
+				light->SetIntensity(val);
+			}
+			else if (sscanf(line, " m_kd:%f", &val) == 1)
+			{
+				light->SetDifCoef(val);
+			}
+			else if (sscanf(line, " m_ks:%f", &val) == 1)
+			{
+				light->SetSpecIntensity(val);
+			}
+			else if (sscanf(line, " m_scale:%f %f %f", &xO, &yO, &zO, &wO) == 4)
+			{
+				light->SetColor(glm::vec4(xO, yO, zO, wO));
+			}
+
+
+			if (strchr(line, '}'))
+			{
+				light->ComputeBoundingBox();
+				
+				GAMECONTEXT.SetLight(light);
+
+				light = nullptr;
 			}
 		}
 

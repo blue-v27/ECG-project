@@ -7,6 +7,7 @@ Light::Light()
 	m_specIntensity = 0.5f;
 	m_lightColor    = glm::vec4(1.f);
 	m_isSun			= false;
+	m_type			= ObjectType::Light;
 }
 
 void Light::Update()

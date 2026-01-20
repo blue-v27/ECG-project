@@ -88,9 +88,9 @@ GLuint loadCubemap(const std::vector<const char*>& faces)
 
 			fread(header, 1, 54, file);
 
-			width = *(int*)&header[0x12];
+			width  = *(int*)&header[0x12];
 			height = *(int*)&header[0x16];
-			unsigned int dataPos = *(int*)&header[0x0A];
+			unsigned int dataPos   = *(int*)&header[0x0A];
 			unsigned int imageSize = *(int*)&header[0x22];
 			if (dataPos == 0) dataPos = 54;
 			if (imageSize == 0) imageSize = width * height * 3;

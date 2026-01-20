@@ -160,9 +160,6 @@ void GameObject::RotateZ(float angle)
 
 void GameObject::RecomputeModel()
 {
-
-    GameObject* obj = this;
-
     if (m_isDirty)
     {
         m_modelMatrix  = glm::translate(glm::mat4(1.0f), m_pos);

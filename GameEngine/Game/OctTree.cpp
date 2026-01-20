@@ -50,7 +50,7 @@ void OctreeNode::Insert(GameObject* object)
 void OctreeNode::Subdivide()
 {
     glm::vec3 center = m_bounds.GetCenter();
-    glm::vec3 half = m_bounds.GetOffset() * 0.5f;
+    glm::vec3 half   = m_bounds.GetOffset() * 0.5f;
 
     glm::vec3 childCenters[8];
 

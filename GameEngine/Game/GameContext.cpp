@@ -148,11 +148,6 @@ void GameContext::Update()
             {                       
                 if (m_player)
                 {
-                    glm::vec3    d = obj->GetBoundingBox().GetCenter() - m_player->m_pos;
-                    if (glm::dot(d, d) > 100.f * 100.f)
-                        continue;
-
-                    float x = 1;
                     obj->IUpdate();
 
                     if (obj->m_type != ObjectType::Player && obj->m_isInPast == m_isInPast)
@@ -186,18 +181,11 @@ void GameContext::Update()
         {          
             if (m_player)
             {
-                if (iobj->GetParrent() != m_player)
-                {
-                    glm::vec3 d = iobj->GetBoundingBox().GetCenter() - m_player->m_pos;
-                    if (glm::dot(d, d) > 100.f * 100.f)
-                        continue;
-                }
-
                 iobj->Update();           
 
                 if (iobj->IsPhysicsEnable())
                 {
-                    for (GameObject* obj : m_objects)
+                    for (GameObject* obj : nearby)
                     {
                         if (iobj->m_id == obj->m_id)
                             continue;
@@ -244,7 +232,8 @@ void GameContext::Update()
     {
         for (Light* light : m_lights)
         {
-            light->Update();
+            if(light->m_isDirty)
+                light->Update();
         }
     }
 
@@ -270,7 +259,7 @@ void GameContext::Render()
                 BoundingBox bb = obj->GetBoundingBox();
                 glm::vec3    d = obj->GetBoundingBox().GetCenter() - CAMERA.GetPos();
                 if (glm::dot(d, d) > 750.f * 750.f)
-                //if(!CAMERA.AABBInFrustum(bb.GetCenter(), bb.GetOffset(), CAMERA.GetFrustum()))
+               //if(!CAMERA.AABBInFrustum(bb.GetCenter(), bb.GetOffset(), CAMERA.GetFrustum()))
                     continue;
 
                 obj->IRender();

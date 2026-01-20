@@ -48,23 +48,6 @@ int main()
 
 	SAVE_MANAGER.LoadInteractives();
 
-	/*Weapon* knife = new Weapon(10.f, 0.5f, 500.f);
-	player->SetChild(knife);
-	knife->SetPos(glm::vec3(0.0f, 7.f, 1.f));
-	knife->SetRotation(glm::quat(0.70710678f, 0.70710678f, 0.0f, 0.0f));
-	knife->SetScale(glm::vec3(0.25f));
-	knife->Init(&MESH_DEFINES.GetMesh(MESH_KNIFE));
-	GAMECONTEXT.AddInteractiveGameObject(knife);
-	INVETORY.AddKnife(knife);*/
-
-	Light* light = new Light();
-	light->SetPos(glm::vec3(200.f, 150.f, 100.f));
-	light->SetShaderId(BASIC);
-	//light->Init(&MESH_DEFINES.GetMesh(MESH_SUN));
-	light->SetColor(glm::vec4(1.f, 1.f, 1.f, 1.f));
-//	light->IsSun(true);
-	GAMECONTEXT.SetLight(light);
-
 	GUI.Init();
 	GAMECONTEXT.InitLights();
 	GAMECONTEXT.BuildOctree();

@@ -1,4 +1,4 @@
-Length: 1
+Length: 2
 
 {
 	m_type:3
@@ -27,5 +27,18 @@ Length: 1
 	m_relPos:0.000000 7.000000 1.000000
 	m_hasParent:0
 	m_droped:1
+}
+
+
+{
+	m_type:2
+	m_mesh:14
+	m_pos:200.000 150.000 100.000
+	m_shader:0
+	m_scale:0.250000 0.250000 0.250000
+	m_ka:0.1000
+	m_kd:1.0000
+	m_kf:0.5000
+	m_color:1.0000 1.0000 1.000 1.000
 }
 
