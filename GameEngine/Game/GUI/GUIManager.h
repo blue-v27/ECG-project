@@ -13,9 +13,9 @@
 class GUIManager : public fSingleton<GUIManager>
 {
 private:
-    Window* m_window        = nullptr;
+    Window* m_window = nullptr;
+    Shader* m_shader = nullptr;
 
-    Shader* m_shader        = nullptr;
     GLuint  m_fontTexture   = 0;
     GLuint  m_shaderProgram = 0;
     GLuint  VAO             = 0; 

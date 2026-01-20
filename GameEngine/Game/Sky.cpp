@@ -15,8 +15,21 @@ void Sky::Start()
         "Resources/Textures/back.bmp" 
     };
 
-    m_cubemapTexture = loadCubemap(faces);
+    m_cubemapTexturePresent = loadCubemap(faces);
 
+    std::vector<const char*> faces1
+    {
+        "Resources/Textures/right_future.bmp",
+        "Resources/Textures/left_future.bmp",
+        "Resources/Textures/top_future.bmp",
+        "Resources/Textures/bottom_future.bmp",
+        "Resources/Textures/front_future.bmp",
+        "Resources/Textures/back_future.bmp"
+    };
+
+    m_cubemapTextureFuture = loadCubemap(faces1);
+
+    m_cubemapTexture = m_cubemapTexturePresent;
     // Cube vertices for skybox
     float skyboxVertices[] = {
         // positions          
@@ -114,4 +127,12 @@ void Sky::Render()
     // 4?? Re-enable standard depth testing
     glDepthMask(GL_TRUE);
     glDepthFunc(GL_LESS);
+}
+
+void Sky::SwitchCubeMap()
+{
+    if (GAMECONTEXT.IsInPast())
+        m_cubemapTexture = m_cubemapTexturePresent;
+    else
+        m_cubemapTexture = m_cubemapTextureFuture;
 }

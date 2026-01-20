@@ -10,8 +10,8 @@ Length: 1
 	m_rot:0.172431 -0.702466 0.685760 -0.080881
 	m_relPos:2.000000 -2.000000 4.000000
 	m_hasParent:0
-	m_damage:0.000000
-	m_delay:0.000000
+	m_damage:60.0
+	m_delay:0.500000
 	m_range:0.000000
 	m_droped:1
 }

@@ -58,4 +58,5 @@ public:
 #define MESH_BUILD1  15
 #define MESH_BUILD2  16
 #define MESH_BUILD3  17
+#define MESH_GROUNDF 18
 };

@@ -99,6 +99,13 @@ void MeshDefines::Start()
 	m_textures[0].type = "texture_diffuse";
 	m_meshes.push_back(m_loader.loadObj(MeshDefines::build3));
 	m_textures.clear();
+
+	m_tex = loadBMP(TextureDefine::black);
+	m_textures.push_back(Texture());
+	m_textures[0].id = m_tex;
+	m_textures[0].type = "texture_diffuse";
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::plane));
+	m_textures.clear();
 }
 
 int MeshDefines::GetMeshIndex(Mesh mesh)

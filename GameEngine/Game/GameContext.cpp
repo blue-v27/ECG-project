@@ -50,6 +50,8 @@ void GameContext::TimeTravel()
 {
     if (m_isInPast)m_isInPast = false;
         else m_isInPast = true;
+
+    SKYBOX.SwitchCubeMap();
 }
 
 void GameContext::Start()
