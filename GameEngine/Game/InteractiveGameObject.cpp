@@ -14,7 +14,10 @@ void InteractiveGameObject::IsPickable(bool val)
 
 	if (m_pickable)
 	{		
-		m_scale	= glm::vec3(0.25f);
+		if(m_type == ObjectType::Watch)
+			m_scale	= glm::vec3(1.f);
+		else
+			m_scale = glm::vec3(0.25f);
 	}
 	else
 	{
@@ -52,4 +55,12 @@ void InteractiveGameObject::PickUp(GameObject* other)
 void InteractiveGameObject::Update()
 {
 	GameObject::Update();
+
+	if (m_pickable)
+	{
+		RotateY(0.1f);
+		RotateZ(0.1f);
+		RotateX(0.1f);
+	}
+		
 }
