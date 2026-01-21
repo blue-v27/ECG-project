@@ -207,4 +207,33 @@ void GUIManager::DrawImage(GLuint textureID, float x, float y, float width, floa
     glEnable(GL_DEPTH_TEST);
 }
 
+bool GUIManager::IsMopuseOver(float x, float y, float w, float h)
+{
+    double mouseX, mouseY;
+    m_window->getMousePos(mouseX, mouseY);
+
+    mouseY = m_window->getHeight() - mouseY;
+
+    return mouseX >= x && mouseX <= x + w &&
+           mouseY >= y && mouseY <= y + h;
+}
+
+bool GUIManager::DrawButton(Button& btn)
+{
+    bool hover = IsMopuseOver(btn.x, btn.y, btn.w, btn.h);
+
+    glm::vec3 color = hover ? glm::vec3(0.8f, 0.8f, 0.8f) : glm::vec3(0.5f, 0.5f, 0.5f);
+
+    DrawImage("Resources/test.png", btn.x, btn.y, 1.0f, color);
+
+    DrawText((char*)btn.text, btn.x + 10, btn.y + btn.h / 2 - 12, 0.5f, glm::vec3(0, 0, 0));
+
+    if (hover && m_window->IsMouseReleased(0))
+    {
+        return true;
+    }
+
+    return false;
+}
+
 

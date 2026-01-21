@@ -10,6 +10,12 @@
 #include <unordered_map>
 #include "../../Graphics/window.h"
 
+struct Button
+{
+    float x, y, w, h;
+    const char* text;
+};
+
 class GUIManager : public fSingleton<GUIManager>
 {
 private:
@@ -39,6 +45,8 @@ public:
     GLuint LoadTexture(char* path);
     void DrawImage(char* path, float x, float y, float scale = 1.0f, const glm::vec3& tint = glm::vec3(1.0f));
     void DrawImage(GLuint textureID, float x, float y, float width, float height, const glm::vec3& tint = glm::vec3(1.0f)); 
+    bool IsMopuseOver(float x, float y, float w, float h);
+    bool DrawButton(Button& btn);
 
 #define GUI GUIManager::Instance()
 };

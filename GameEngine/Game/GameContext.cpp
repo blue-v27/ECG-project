@@ -316,6 +316,11 @@ void GameContext::Update()
     }
 
     UpdateLights();
+
+    if (m_window->isPressed(GLFW_KEY_TAB))
+    {
+        glfwSetInputMode(m_window->getWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    }
 }
 
 void GameContext::Render()
@@ -398,6 +403,14 @@ void GameContext::Render()
 
     if (&QUEST_MANAGER)
         QUEST_MANAGER.RenderQuestText();
+
+    Button playBtn{ 100, 100, 200, 50, "TimeChange" };
+
+    if (GUI.DrawButton(playBtn))
+    {        
+        TimeTravel();
+        glfwSetInputMode(m_window->getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    }
 
     CAMERA.IsDirty(false);
 }
