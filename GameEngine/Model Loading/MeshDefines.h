@@ -59,4 +59,5 @@ public:
 #define MESH_BUILD2  16
 #define MESH_BUILD3  17
 #define MESH_GROUNDF 18
+#define MESH_FIRE	 19
 };

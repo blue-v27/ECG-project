@@ -3,9 +3,8 @@
 
 InteractiveGameObject::InteractiveGameObject()
 {
-	m_pickable = false;
+	m_pickable       = false;
 	m_shoudlBePicked = false;
-	GameObject::GameObject();
 }
 
 void InteractiveGameObject::IsPickable(bool val)
@@ -49,6 +48,8 @@ void InteractiveGameObject::PickUp(GameObject* other)
 		DisablePhysics();
 		other->SetChild(this->AsGameObject());
 		m_pickable = false;
+		m_rot = glm::quat(0.f, 0.f, 0.f, 0.f);
+		m_relativeRot = glm::quat(0.f, .71f, 0.71f, 0.f);
 	}
 }
 

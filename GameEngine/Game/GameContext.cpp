@@ -56,6 +56,56 @@ void GameContext::TimeTravel()
 
 void GameContext::Start()
 {
+    BoundingBox bb;
+    bb.SetWorldMax(glm::vec3(-87.f, 1000.f, 100.f));
+    bb.SetWorldMin(glm::vec3(-89.f, -10.f, -80.f));
+    m_worldBounds.push_back(bb);
+
+    BoundingBox bb1;
+    bb1.SetWorldMax(glm::vec3(90.f,  1000.f, -79.f));
+    bb1.SetWorldMin(glm::vec3(-89.f, -10.f, -82.f));
+    m_worldBounds.push_back(bb1);
+
+    BoundingBox bb2;
+    bb2.SetWorldMax(glm::vec3(89.f, 1000.f, 100.f));
+    bb2.SetWorldMin(glm::vec3(87.f, -10.f, -80.f));
+    m_worldBounds.push_back(bb2);
+
+    BoundingBox bb3;
+    bb3.SetWorldMax(glm::vec3(90.f, 1000.f,  82.f));
+    bb3.SetWorldMin(glm::vec3(-89.f, -10.f, 60.f));
+    m_worldBounds.push_back(bb3);
+
+    BoundingBox bb4;
+    bb.SetWorldMax(glm::vec3(76, 70, -22));
+    bb.SetWorldMin(glm::vec3(38, 0, -79));
+    m_worldBounds.push_back(bb);
+
+    BoundingBox bb5;
+    bb1.SetWorldMax(glm::vec3(72, 70, 55));
+    bb1.SetWorldMin(glm::vec3(36, 0, -3));
+    m_worldBounds.push_back(bb1);
+
+    BoundingBox bb6;
+    bb2.SetWorldMax(glm::vec3(8, 297, -15));
+    bb2.SetWorldMin(glm::vec3(-25, 0, -78));
+    m_worldBounds.push_back(bb2);
+
+    BoundingBox bb7;
+    bb3.SetWorldMax(glm::vec3(8, 189, 66));
+    bb3.SetWorldMin(glm::vec3(-27, 0, 0));
+    m_worldBounds.push_back(bb3);
+
+    BoundingBox bb8;
+    bb.SetWorldMax(glm::vec3(-66, 189, -35));
+    bb.SetWorldMin(glm::vec3(-104, 0, -104));
+    m_worldBounds.push_back(bb);
+
+    BoundingBox bb9;
+    bb1.SetWorldMax(glm::vec3(-65, 287, 73));
+    bb1.SetWorldMin(glm::vec3(-65, 0, -4));
+    m_worldBounds.push_back(bb1);
+
     if (&MESH_DEFINES)
         MESH_DEFINES.Start();
 
@@ -140,6 +190,8 @@ void GameContext::Update()
     if(m_player)
         m_octTree->Query(m_player->GetBoundingBox(), nearby);
 
+    printf("%f %f %f\n", CAMERA.GetPos().x, CAMERA.GetPos().y, CAMERA.GetPos().z);
+
     if (nearby.size())
     {
         for (GameObject* obj : nearby)
@@ -174,6 +226,32 @@ void GameContext::Update()
             }
         }
     }
+
+    if (m_player)
+    {
+        for (int i = 0; i < m_worldBounds.size(); ++i)
+        {
+            if (i < 4)
+            {
+                glm::vec3 velocity = glm::vec3(100);
+                velocity = m_player->GetPhysicsMask()->GetVelocity();
+
+                m_player->m_boundingBox.HandleIntersection(m_player->m_pos, m_worldBounds.at(i), velocity);
+            }
+            else if (!m_isInPast)
+            {
+                glm::vec3 velocity = glm::vec3(100);
+                velocity = m_player->GetPhysicsMask()->GetVelocity();
+
+                m_player->m_boundingBox.HandleIntersection(m_player->m_pos, m_worldBounds.at(i), velocity);
+            }
+
+        }
+    }
+
+    if (m_player->GetPos().y < -15.f)
+        m_player->SetPos(glm::vec3(0, 0, 0));
+   
 
     if (m_interactiveObjects.size())
     {

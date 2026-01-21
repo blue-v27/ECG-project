@@ -2,6 +2,7 @@
 #include "GameContext.h"
 #include "Ray.h"
 #include "../Shaders/ShaderManager.h"
+#include "QuestManager.h"
 
 RangedWeapon::RangedWeapon(float damange, float delay, float range) : Weapon(damange, delay, range)
 {
@@ -62,6 +63,9 @@ void RangedWeapon::GrabAnchor()
 				if (obj->IsAnchor())
 				{
 					GetParrent()->GetPhysicsMask()->StartSwing(obj->GetPos());
+					if (QUEST_MANAGER.GetCurrentQuest() == 3)
+						QUEST_MANAGER.CompleteQuest(3);
+
 					break;
 				}
 

@@ -362,8 +362,6 @@ void SaveManager::LoadInteractives()
 			{
 				wep->ComputeBoundingBox();
 				wep->InitShader(shaderId);
-				wep->RotateX(90.f);
-				wep->RotateZ(-90.f);
 				GAMECONTEXT.AddInteractiveGameObject(wep);
 
 

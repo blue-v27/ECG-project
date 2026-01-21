@@ -17,6 +17,9 @@ void QuestManager::CompleteQuest(int quest)
 			return;
 	}
 
+	if (m_quests[m_currentQuest] == 1)
+		return;
+
 	m_quests[m_currentQuest] = 1;
 	m_currentQuest++;
 }
@@ -42,6 +45,10 @@ void QuestManager::RenderQuestText()
 		GUI.DrawText(QUEST1, 0, 700, 1.f);
 	else if (m_currentQuest == 2)
 		GUI.DrawText(QUEST2, 0, 700, 1.f);
-	else
+	else if (m_currentQuest == 3)
 		GUI.DrawText(QUEST3, 0, 700, 1.f);
+	else if (m_currentQuest == 4)
+		GUI.DrawText(QUEST4, 0, 700, 1.f);
+	else
+		GUI.DrawText(QUEST5, 0, 200, 50.f);
 }

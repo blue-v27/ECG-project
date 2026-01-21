@@ -3,7 +3,7 @@
 class InteractiveGameObject : public GameObject
 {
 private:
-	bool m_pickable = false;
+	bool m_pickable		  = false;
 	bool m_shoudlBePicked = false;
 public:
 	InteractiveGameObject();

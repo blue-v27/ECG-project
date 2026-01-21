@@ -45,6 +45,8 @@ private:
     bool m_isInPast = true;
     OctreeNode* m_octTree = nullptr;
 
+    std::vector<BoundingBox> m_worldBounds;
+
 public:
 
     float getHeight() { return m_window->getHeight(); }
