@@ -20,6 +20,13 @@
 #include "OctTree.h"
 #include "DataSturctures/fArray.h"
 
+
+struct ShaderBatch
+{
+    Shader* type;
+    Array<Array<GameObject*>> m_textureGroup;
+};
+
 class GameContext : public fSingleton<GameContext>
 {
 private:
@@ -43,6 +50,8 @@ private:
 
     Player* m_player = nullptr;
 
+    Array<ShaderBatch> m_shadersBatch;
+
     bool m_isInPast = true;
     //OctreeNode* m_octTree = nullptr;
 
@@ -58,16 +67,16 @@ public:
     void    SetCamera(Camera* camera) { m_camera = camera; }
     Camera* GetCamera() { return m_camera; }
 
-    float GetFov()          { return m_fov; }
+    float GetFov() { return m_fov; }
     void  SetFov(float fov) { m_fov = fov; }
 
     Player* GetPlayer() { return m_player; }
 
-    void   SetLight(Light* obj)  { m_lights.PushLast(obj); }
-    size_t GetLightCount()       { return m_lights.GetSize(); }
-    Light* GetLight(int index)   { return m_lights.GetAt(index); }
+    void   SetLight(Light* obj) { m_lights.PushLast(obj); }
+    size_t GetLightCount() { return m_lights.GetSize(); }
+    Light* GetLight(int index) { return m_lights.GetAt(index); }
 
-    glm::vec2 GetMousePos() const { return glm::vec2(m_mousePosX, m_mousePosY);}
+    glm::vec2 GetMousePos() const { return glm::vec2(m_mousePosX, m_mousePosY); }
 
     void SetMousePos(glm::vec2 pos)
     {
@@ -80,12 +89,7 @@ public:
         m_player = player;
     }
 
-    void AddObject(GameObject* obj)
-    {
-        m_objects.PushLast(obj);
-        if (m_objects.GetSize() > 1)
-            obj->m_id = m_objects.GetAt(m_objects.GetSize() - 1)->m_id + 1;
-    }
+    void AddObject(GameObject* obj);
 
     void AddInteractiveGameObject(InteractiveGameObject* iobj)
     {
@@ -101,18 +105,18 @@ public:
         {
             for (GameObject* obj : m_objectsToRemove)
             {
-               /* auto it = std::find(m_objects.begin(), m_objects.end(), obj);
-                if (it != m_objects.end())
-                {
-                    delete* it;
-                    m_objects.erase(it);
-                    obj = nullptr;
-                }*/
+                /* auto it = std::find(m_objects.begin(), m_objects.end(), obj);
+                 if (it != m_objects.end())
+                 {
+                     delete* it;
+                     m_objects.erase(it);
+                     obj = nullptr;
+                 }*/
                 obj->m_isActive = false;
             }
 
             m_objectsToRemove.clear();
-        }    
+        }
 #endif
     }
 
@@ -121,7 +125,7 @@ public:
         if (m_objectsToRemove.GetSize())
         {
             size_t size = m_objectsToRemove.GetSize();
-            for(int i = 0; i < size; ++i)
+            for (int i = 0; i < size; ++i)
                 if (m_objectsToRemove.GetAt(i) == obj)
                     return;
         }
@@ -158,7 +162,7 @@ public:
 
     void TimeTravel();
     bool IsInPast() { return m_isInPast; }
-    
+
     void UpdateFov()
     {
         if (glm::abs(m_fov - m_targetFov) > 0.01f)
@@ -167,6 +171,14 @@ public:
         m_fov -= 10.f * m_deltaTime;
         if (m_fov != m_targetFov && glm::abs(m_fov - m_targetFov) <= 0.1f)
             m_fov = m_targetFov;
+    }
+
+    void AddShderBatch(Shader* shader)
+    {
+        ShaderBatch shaderBatch;
+        shaderBatch.type = shader;
+
+        m_shadersBatch.PushLast(shaderBatch);
     }
     void Start();
     void InitLights();

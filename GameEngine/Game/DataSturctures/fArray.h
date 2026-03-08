@@ -23,8 +23,10 @@ public:
 	void PushAt(T val, int index);
 	void PushAfter(T val, T element);
 
-	T& GetAtAdress(int index);
+	T& operator[](size_t index);
+
 	T GetAt(int index);
+	T GetLast();
 	size_t GetSize();
 	int  GetIndex(T val);
 	
@@ -112,12 +114,10 @@ inline void Array<T>::Resize()
 }
 
 template<typename T>
-inline T& Array<T>::GetAtAdress(int index)
+inline T& Array<T>::operator[](size_t index)
 {
 	if (index < size)
 		return buffer[(first + index ) % capacity];
-
-	return nullptr;
 }
 
 template<typename T>
@@ -125,6 +125,14 @@ inline T Array<T>::GetAt(int index)
 {
 	if (index < size)
 		return buffer[(first + index) % capacity];
+}
+
+template<typename T>
+inline T Array<T>::GetLast()
+{
+	return buffer[(last + capacity - 1) % capacity];
+
+	return T();
 }
 
 template<typename T>

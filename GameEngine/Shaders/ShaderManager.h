@@ -3,17 +3,18 @@
 #include "../Model Loading/ShaderTypes.h"
 #include "../Game/fSingleton.h"
 #include <vector>
+#include "../Game/DataSturctures/fArray.h"
 
 class ShaderManager : public fSingleton<ShaderManager>
 {
 private:
-	std::vector<Shader*> m_shaders;
+	Array<Shader*> m_shaders;
 public:
 	void    Start();
 	void    Update();
-	Shader* GetShader(int index) { return m_shaders.at(index); }
+	Shader* GetShader(int index) { return m_shaders.GetAt(index); }
 
-	int GetShaderCount() { return m_shaders.size(); }
+	int GetShaderCount() { return m_shaders.GetSize(); }
 
 #define SHADER_MANAGER ShaderManager::Instance()
 

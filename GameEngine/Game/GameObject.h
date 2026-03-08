@@ -19,7 +19,7 @@ class GameObject : public IGameObject
 {
 private:
 	GLuint m_tex = 0;
-	std::vector<Texture> m_textures;
+	Array<Texture> m_textures;
 
 	std::vector<GameObject*> m_children;
 	GameObject* m_parent = nullptr;
@@ -136,12 +136,12 @@ public:
 	void SetTexture(char* texturePath)
 	{
 		m_tex = loadBMP(texturePath);
-		m_textures.push_back(Texture());
+		m_textures.PushLast(Texture());
 		m_textures[0].id = m_tex;
 		m_textures[0].type = "texture_diffuse";
 	}
 
-	std::vector<Texture> GetTexture() { return m_textures; }
+	Array<Texture> GetTexture() { return m_textures; }
 
 	void GetDamage(float damage) { m_health -= damage; }
 

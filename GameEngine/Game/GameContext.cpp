@@ -9,6 +9,45 @@
 #include "QuestManager.h"
 #include "Inventory.h"
 
+void GameContext::AddObject(GameObject* obj)
+{
+    m_objects.PushLast(obj);
+    if (m_objects.GetSize() > 1)
+        obj->m_id = m_objects.GetAt(m_objects.GetSize() - 1)->m_id + 1;
+
+    int size = m_shadersBatch.GetSize();
+    for (int i = 0;i < size; ++i)
+    {
+        ShaderBatch& batch = m_shadersBatch[i];
+
+        if (obj->m_shader->getId() == batch.type->getId())
+        {
+            int textures = batch.m_textureGroup.GetSize();
+
+            bool newTextureType = true;
+            for (int j = 0; j < textures; j++)
+            {
+                Array<GameObject*>& group = batch.m_textureGroup[j];
+                if (group.GetSize() > 0)
+                {
+                    GameObject* lastObj = group.GetLast();
+                    if (lastObj && lastObj->GetTexture()[0].id == obj->GetTexture()[0].id)
+                    {
+                        newTextureType = false;
+                        group.PushLast(obj);
+                        break;
+                    }
+                }
+            }
+            if (newTextureType)
+            {
+                Array<GameObject*> array;
+                array.PushLast(obj);
+                batch.m_textureGroup.PushLast(array);
+            }
+        }       
+    }
+}
 
 
 std::vector<GameObject*> GameContext::GetObjectsInRange(glm::vec3 pos, float range)
@@ -360,6 +399,44 @@ void GameContext::Render()
         }
     }
 
+    size_t renderBatches = m_shadersBatch.GetSize();
+    
+    for (int i = 0; i < renderBatches; ++i)
+    {
+        ShaderBatch& shaderBatch = m_shadersBatch.GetAt(i);
+        
+        shaderBatch.type->use();
+
+        int textureTypes = shaderBatch.m_textureGroup.GetSize();
+
+        for (int j = 0; j < textureTypes; j++)
+        {
+            Array<GameObject*>& array = shaderBatch.m_textureGroup.GetAt(j);
+
+            int objectSize = array.GetSize();
+
+            for (int k = 0; k < objectSize; ++k)
+            {
+                GameObject* obj = array.GetAt(k);
+
+                if (!obj)
+                    continue;
+
+                if (obj->m_isActive && obj->m_isInPast == m_isInPast)
+                {
+                    BoundingBox bb = obj->GetBoundingBox();
+                    glm::vec3    d = obj->GetBoundingBox().GetCenter() - CAMERA.GetPos();
+                    if (glm::dot(d, d) > 750.f * 750.f)
+                        //if(!CAMERA.AABBInFrustum(bb.GetCenter(), bb.GetOffset(), CAMERA.GetFrustum()))
+                        continue;
+
+                    obj->IRender();
+    }
+            }
+        }
+    }
+
+#if 0
     if (size_t objSize = m_objects.GetSize())
     { 
         for (int i = 0; i < objSize; ++i)
@@ -381,6 +458,7 @@ void GameContext::Render()
             }
         }
     }
+#endif
 
     if (size_t interSize = m_interactiveObjects.GetSize())
     {

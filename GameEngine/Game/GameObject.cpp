@@ -217,7 +217,7 @@ void GameObject::Render()
     if (!m_shader) 
         return;
 
-    m_shader->use();
+ //   m_shader->use();
 
     Window* window = GAMECONTEXT.GetWindow();
     Camera* camera = GAMECONTEXT.GetCamera();
