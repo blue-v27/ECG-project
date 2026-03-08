@@ -91,12 +91,7 @@ public:
 
     void AddObject(GameObject* obj);
 
-    void AddInteractiveGameObject(InteractiveGameObject* iobj)
-    {
-        m_interactiveObjects.PushLast(iobj);
-        if (m_objects.GetSize() > 1)
-            iobj->m_id = m_interactiveObjects.GetAt(m_interactiveObjects.GetSize() - 1)->m_id + 1;
-    }
+    void AddInteractiveGameObject(InteractiveGameObject* iobj);
 
     void RemoveObject()
     {

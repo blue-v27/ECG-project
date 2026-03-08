@@ -17,5 +17,6 @@ public:
 	void Update() override;
 
 	InteractiveGameObject* AsGameObject() { return this; }
+	InteractiveGameObject* AsInteractive() override { return this; }
 };
 

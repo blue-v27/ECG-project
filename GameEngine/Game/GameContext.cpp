@@ -49,6 +49,46 @@ void GameContext::AddObject(GameObject* obj)
     }
 }
 
+void GameContext::AddInteractiveGameObject(InteractiveGameObject* iobj)
+{
+    m_interactiveObjects.PushLast(iobj);
+    if (m_objects.GetSize() > 1)
+        iobj->m_id = m_interactiveObjects.GetAt(m_interactiveObjects.GetSize() - 1)->m_id + 1;
+
+    int size = m_shadersBatch.GetSize();
+    for (int i = 0;i < size; ++i)
+    {
+        ShaderBatch& batch = m_shadersBatch[i];
+
+        if (iobj->m_shader->getId() == batch.type->getId())
+        {
+            int textures = batch.m_textureGroup.GetSize();
+
+            bool newTextureType = true;
+            for (int j = 0; j < textures; j++)
+            {
+                Array<GameObject*>& group = batch.m_textureGroup[j];
+                if (group.GetSize() > 0)
+                {
+                    GameObject* lastObj = group.GetLast();
+                    if (lastObj && lastObj->GetTexture()[0].id == iobj->GetTexture()[0].id)
+                    {
+                        newTextureType = false;
+                        group.PushLast(iobj);
+                        break;
+                    }
+                }
+            }
+            if (newTextureType)
+            {
+                Array<GameObject*> array;
+                array.PushLast(iobj);
+                batch.m_textureGroup.PushLast(array);
+            }
+        }
+    }
+}
+
 
 std::vector<GameObject*> GameContext::GetObjectsInRange(glm::vec3 pos, float range)
 {
@@ -421,7 +461,40 @@ void GameContext::Render()
 
                 if (!obj)
                     continue;
+                if (InteractiveGameObject* iobj = obj->AsInteractive())
+                {
+                    if (iobj->m_isActive)
+                    {
 
+                        BoundingBox bb = iobj->GetBoundingBox();
+                        glm::vec3    d = bb.GetCenter() - CAMERA.GetPos();
+                        if (glm::dot(d, d) > 750.f * 750.f)
+                            continue;
+
+                        iobj->Render();
+
+                        Ray ray;
+                        glm::vec3 hitPoint;
+                        if (ray.RayCast(CAMERA.GetPos(), CAMERA.getCameraViewDirection(), 200.f, iobj, hitPoint))
+                        {
+                            if (iobj->IsPickable())
+                            {
+                                GUI.DrawText("PRESS E TO PICKUP", 400.f, 600.f, 1.f);
+                                if (GAMECONTEXT.GetWindow()->IsReleased(GLFW_KEY_E))
+                                {
+                                    if (iobj->m_type != ObjectType::Watch && QUEST_MANAGER.GetCurrentQuest() != 1)
+                                    {
+                                        iobj->PickUp(m_player);
+                                        INVETORY.Add(iobj);
+                                    }
+                                }
+
+                            }
+
+                        }
+                    }
+                }
+                else
                 if (obj->m_isActive && obj->m_isInPast == m_isInPast)
                 {
                     BoundingBox bb = obj->GetBoundingBox();
@@ -435,75 +508,7 @@ void GameContext::Render()
             }
         }
     }
-
-#if 0
-    if (size_t objSize = m_objects.GetSize())
-    { 
-        for (int i = 0; i < objSize; ++i)
-        {
-            GameObject* obj = m_objects.GetAt(i);
-
-            if (!obj)
-                continue;
-
-            if (obj->m_isActive && obj->m_isInPast == m_isInPast)
-            {
-                BoundingBox bb = obj->GetBoundingBox();
-                glm::vec3    d = obj->GetBoundingBox().GetCenter() - CAMERA.GetPos();
-                if (glm::dot(d, d) > 750.f * 750.f)
-               //if(!CAMERA.AABBInFrustum(bb.GetCenter(), bb.GetOffset(), CAMERA.GetFrustum()))
-                    continue;
-
-                obj->IRender();
-            }
-        }
-    }
-#endif
-
-    if (size_t interSize = m_interactiveObjects.GetSize())
-    {
-        for (int i = 0; i < interSize; ++i)
-        {
-            InteractiveGameObject* iobj = m_interactiveObjects.GetAt(i);
-
-            if (!iobj)
-                continue;
-
-            if (iobj->m_isActive)
-            {
-
-                BoundingBox bb = iobj->GetBoundingBox();
-                glm::vec3    d = bb.GetCenter() - CAMERA.GetPos();
-                if (glm::dot(d, d) > 750.f * 750.f)
-                    continue;
-
-                iobj->Render();
-
-                Ray ray;
-                glm::vec3 hitPoint;
-                if (ray.RayCast(CAMERA.GetPos(), CAMERA.getCameraViewDirection(), 200.f, iobj, hitPoint))
-                {
-                    if (iobj->IsPickable())
-                    {
-                        GUI.DrawText("PRESS E TO PICKUP", 400.f, 600.f, 1.f);
-                        if (GAMECONTEXT.GetWindow()->IsReleased(GLFW_KEY_E))
-                        {
-                            if (iobj->m_type != ObjectType::Watch && QUEST_MANAGER.GetCurrentQuest() != 1)
-                            {
-                                iobj->PickUp(m_player);
-                                INVETORY.Add(iobj);
-                            }
-                        }
-                            
-                    }
-
-                }
-            }
-        }
-    }
-
    
-
     if (&HUD)
         HUD.Render();
 

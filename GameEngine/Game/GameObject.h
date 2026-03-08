@@ -15,6 +15,8 @@
 
 enum class ObjectType { Basic, Player, Light, RangedWeapon, Water, Bullet , Watch, Weapon};
 
+class InteractiveGameObject;
+
 class GameObject : public IGameObject
 {
 private:
@@ -146,6 +148,8 @@ public:
 	void GetDamage(float damage) { m_health -= damage; }
 
 	GameObject* AsGameObject() { return this; }
+
+	virtual InteractiveGameObject* AsInteractive() { return nullptr; }
 
 	void Render() override;
 	void Init(Mesh* mesh = nullptr) override;
