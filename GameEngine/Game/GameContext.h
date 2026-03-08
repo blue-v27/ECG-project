@@ -43,7 +43,7 @@ private:
     Player* m_player = nullptr;
 
     bool m_isInPast = true;
-    OctreeNode* m_octTree = nullptr;
+    //OctreeNode* m_octTree = nullptr;
 
     std::vector<BoundingBox> m_worldBounds;
 

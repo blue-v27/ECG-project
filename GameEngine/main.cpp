@@ -50,7 +50,7 @@ int main()
 
 	GUI.Init();
 	GAMECONTEXT.InitLights();
-	GAMECONTEXT.BuildOctree();
+	//GAMECONTEXT.BuildOctree();
 
 	while (!window.IsReleased(GLFW_KEY_ESCAPE) && glfwWindowShouldClose(window.getWindow()) == 0)
 	{

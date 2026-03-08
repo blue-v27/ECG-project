@@ -35,6 +35,7 @@ std::vector<GameObject*> GameContext::GetObjectsInRange(glm::vec3 pos, float ran
 
 void GameContext::BuildOctree()
 {
+#if 0
     BoundingBox worldBounds;
     worldBounds.SetWorldMin(glm::vec3(-5000));
     worldBounds.SetWorldMax(glm::vec3(5000));
@@ -43,7 +44,7 @@ void GameContext::BuildOctree()
 
     for (GameObject* obj : m_objects)
         m_octTree->Insert(obj);
-
+#endif
 }
 
 void GameContext::TimeTravel()
@@ -187,14 +188,12 @@ void GameContext::Update()
         mask->SetLastFramePos(m_player->m_pos);
 
     std::vector<GameObject*> nearby;
-    if(m_player)
-        m_octTree->Query(m_player->GetBoundingBox(), nearby);
+   // if(m_player)
+       // m_octTree->Query(m_player->GetBoundingBox(), nearby);
 
     printf("%f %f %f\n", CAMERA.GetPos().x, CAMERA.GetPos().y, CAMERA.GetPos().z);
 
-    if (nearby.size())
-    {
-        for (GameObject* obj : nearby)
+        for (GameObject* obj : m_objects)
         {
             if (obj && obj->m_isActive)
             {                       
@@ -225,7 +224,6 @@ void GameContext::Update()
                 }
             }
         }
-    }
 
     if (m_player)
     {
@@ -263,7 +261,7 @@ void GameContext::Update()
 
                 if (iobj->IsPhysicsEnable())
                 {
-                    for (GameObject* obj : nearby)
+                    for (GameObject* obj : m_objects)
                     {
                         if (iobj->m_id == obj->m_id)
                             continue;
