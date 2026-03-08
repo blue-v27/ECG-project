@@ -51,6 +51,7 @@ int main()
 	GUI.Init();
 	GAMECONTEXT.InitLights();
 	//GAMECONTEXT.BuildOctree();
+	glfwSwapInterval(0);
 
 	while (!window.IsReleased(GLFW_KEY_ESCAPE) && glfwWindowShouldClose(window.getWindow()) == 0)
 	{
