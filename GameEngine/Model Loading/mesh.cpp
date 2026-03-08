@@ -11,7 +11,7 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<int> indices)
 	setup2();
 }
 
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<int> indices, std::vector<Texture> textures)
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<int> indices, Array<Texture> textures)
 {
 	this->vertices = vertices;
 	this->indices = indices;
@@ -23,30 +23,6 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<int> indices, std::vector<T
 // render the mesh
 void Mesh::draw(Shader shader)
 {
-	unsigned int diffuseNr = 1;
-	unsigned int specularNr = 1;
-	unsigned int normalNr = 1;
-	unsigned int heightNr = 1;
-
-	for (unsigned int i = 0; i < textures.size(); i++)
-	{
-		glActiveTexture(GL_TEXTURE0 + i); 
-											
-		std::string number;
-		std::string name = textures[i].type;
-		if (name == "texture_diffuse")
-			number = std::to_string(diffuseNr++);
-		else if (name == "texture_specular")
-			number = std::to_string(specularNr++); 
-		else if (name == "texture_normal")
-			number = std::to_string(normalNr++);
-		else if (name == "texture_height")
-			number = std::to_string(heightNr++); 
-
-		glUniform1i(glGetUniformLocation(shader.getId(), (name + number).c_str()), i);
-		glBindTexture(GL_TEXTURE_2D, textures[i].id);
-	}
-
 	glBindVertexArray(vao);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
@@ -102,7 +78,7 @@ void Mesh::setup2()
 	glBindVertexArray(0);
 }
 
-void Mesh::setTextures(std::vector<Texture> textures)
+void Mesh::setTextures(Array<Texture> textures)
 {
 	this->textures = textures;
 	setup();

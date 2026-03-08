@@ -97,6 +97,19 @@ inline T Array<T>::PopLast()
 }
 
 template<typename T>
+inline void Array<T>::Clear()
+{
+	for (size_t i = 0; i < capacity; ++i)
+	{
+		buffer[i] = T();
+	}
+
+	first = 0;
+	last = 0;
+	size = 0;
+}
+
+template<typename T>
 inline void Array<T>::Resize()
 {
 	size_t newCapacity = 2 * capacity;

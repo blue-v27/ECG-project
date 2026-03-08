@@ -157,7 +157,7 @@ Mesh MeshLoaderObj::loadObj(const std::string &filename)
 	return mesh;
 }
 
-Mesh MeshLoaderObj::loadObj(const std::string &filename, std::vector<Texture> textures)
+Mesh MeshLoaderObj::loadObj(const std::string &filename, Array<Texture> textures)
 {
 	Mesh mesh = loadObj(filename);
 	mesh.setTextures(textures);

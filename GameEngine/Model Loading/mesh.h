@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include "..\Shaders\shader.h"
+#include "..\Game\DataSturctures\fArray.h"
 
 struct Vertex 
 {
@@ -69,17 +70,17 @@ class Mesh
 	public:
 		std::vector<Vertex> vertices;
 		std::vector<int> indices;
-		std::vector<Texture> textures;
+		Array<Texture> textures;
 		char* m_path = nullptr;
 
 		unsigned int vao, vbo, ibo;
 
 		Mesh();	
-		Mesh(std::vector<Vertex> vertices, std::vector<int> indices, std::vector<Texture> textures);
+		Mesh(std::vector<Vertex> vertices, std::vector<int> indices, Array<Texture> textures);
 		Mesh(std::vector<Vertex> vertices, std::vector<int> indices);
 		~Mesh();
 
-		void setTextures(std::vector<Texture> textures);
+		void setTextures(Array<Texture> textures);
 		void setup();
 		void setup2();
 		void draw(Shader shader);

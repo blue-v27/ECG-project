@@ -1,119 +1,94 @@
 #include "MeshDefines.h"
 #include "texture.h"
 #include "TextureDefine.h"
+#include "..\Game\DataSturctures\fArray.h"
 
 void MeshDefines::Start()
 {
 	GLuint m_tex = 0;
-	std::vector<Texture> m_textures;
 
 	m_meshes.push_back(m_loader.loadObj(MeshDefines::cube));
 	m_meshes.push_back(m_loader.loadObj(MeshDefines::sphere));
 	m_meshes.push_back(m_loader.loadObj(MeshDefines::plane));
 
 	m_tex = loadBMP(TextureDefine::Wood);
-	m_textures.push_back(Texture());
-	m_textures[0].id = m_tex;
-	m_textures[0].type = "texture_diffuse";
-	m_meshes.push_back(m_loader.loadObj(MeshDefines::cube, m_textures));
-	m_textures.clear();
+	Array<Texture> woodArray;
+	woodArray.PushLast(Texture());
+	woodArray[0].id = m_tex;
+	woodArray[0].type = "texture_diffuse";
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::cube, woodArray));
 
-	m_tex = loadBMP(TextureDefine::Water);
-	m_textures.push_back(Texture());
-	m_textures[0].id = m_tex;
-	m_textures[0].type = "texture_diffuse";
-	m_meshes.push_back(m_loader.loadObj(MeshDefines::water, m_textures));
-	m_textures.clear();
+	m_tex = loadBMP(TextureDefine::Water);	
+	Array<Texture> Water;
+	Water.PushLast(Texture());
+	Water[0].id = m_tex;
+	Water[0].type = "texture_diffuse";
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::water, Water));
 
 	m_tex = loadBMP(TextureDefine::Dirt);
-	m_textures.push_back(Texture());
-	m_textures[0].id = m_tex;
-	m_textures[0].type = "texture_diffuse";
-	m_meshes.push_back(m_loader.loadObj(MeshDefines::plane, m_textures));
-	m_textures.clear();
+	Array<Texture> dirt;
+	dirt.PushLast(Texture());
+	dirt[0].id = m_tex;
+	dirt[0].type = "texture_diffuse";
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::plane, dirt));
 
 	m_meshes.push_back(m_loader.loadObj(MeshDefines::knife));
 	m_meshes.push_back(m_loader.loadObj(MeshDefines::pistol));
 
 	m_tex = loadBMP(TextureDefine::Grass);
-	m_textures.push_back(Texture());
-	m_textures[0].id = m_tex;
-	m_textures[0].type = "texture_diffuse";
-	m_meshes.push_back(m_loader.loadObj(MeshDefines::grass, m_textures));
-	m_textures.clear();
+	Array<Texture> grass;
+	grass.PushLast(Texture());
+	grass[0].id = m_tex;
+	grass[0].type = "texture_diffuse";
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::grass, grass));
 
 	m_tex = loadBMP(TextureDefine::Rock);
-	m_textures.push_back(Texture());
-	m_textures[0].id = m_tex;
-	m_textures[0].type = "texture_diffuse";
-	m_meshes.push_back(m_loader.loadObj(MeshDefines::rock, m_textures));
-	m_textures.clear();
+	Array<Texture> rock;
+	rock.PushLast(Texture());
+	rock[0].id = m_tex;
+	rock[0].type = "texture_diffuse";
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::rock, rock));
 
 	m_tex = loadBMP(TextureDefine::treeStem);
-	m_textures.push_back(Texture());
-	m_textures[0].id = m_tex;
-	m_textures[0].type = "texture_diffuse";
-	m_meshes.push_back(m_loader.loadObj(MeshDefines::treeStem, m_textures));
-	m_textures.clear();
+	Array<Texture> treeStem;
+	treeStem.PushLast(Texture());
+	treeStem[0].id = m_tex;
+	treeStem[0].type = "texture_diffuse";
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::treeStem, treeStem));
 
-	m_tex = loadBMP(TextureDefine::Grass);
-	m_textures.push_back(Texture());
-	m_textures[0].id = m_tex;
-	m_textures[0].type = "texture_diffuse";
-	m_meshes.push_back(m_loader.loadObj(MeshDefines::treeLeaves, m_textures));
-	m_textures.clear();
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::treeLeaves, grass));
 
 	m_tex = loadBMP(TextureDefine::Rock);
-	m_textures.push_back(Texture());
-	m_textures[0].id = m_tex;
-	m_textures[0].type = "texture_diffuse";
-	m_meshes.push_back(m_loader.loadObj(MeshDefines::sphere, m_textures));
-	m_textures.clear();
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::sphere, rock));
 
 	m_tex = loadBMP(TextureDefine::Dirt);
-	m_textures.push_back(Texture());
-	m_textures[0].id = m_tex;
-	m_textures[0].type = "texture_diffuse";
-	m_meshes.push_back(m_loader.loadObj(MeshDefines::cliff, m_textures));
-	m_textures.clear();
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::cliff, dirt));
 
-	m_meshes.push_back(m_loader.loadObj(MeshDefines::clock));
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::clock, rock));
 
 	m_tex = loadBMP(TextureDefine::black);
-	m_textures.push_back(Texture());
-	m_textures[0].id = m_tex;
-	m_textures[0].type = "texture_diffuse";
-	m_meshes.push_back(m_loader.loadObj(MeshDefines::build1));
-	m_textures.clear();
+	Array<Texture> black;
+	black.PushLast(Texture());
+	black[0].id = m_tex;
+	black[0].type = "texture_diffuse";
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::build1, black));
+
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::build2, black));
+
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::build3, black));
 
 	m_tex = loadBMP(TextureDefine::black);
-	m_textures.push_back(Texture());
-	m_textures[0].id = m_tex;
-	m_textures[0].type = "texture_diffuse";
-	m_meshes.push_back(m_loader.loadObj(MeshDefines::build2));
-	m_textures.clear();
-
-	m_tex = loadBMP(TextureDefine::black);
-	m_textures.push_back(Texture());
-	m_textures[0].id = m_tex;
-	m_textures[0].type = "texture_diffuse";
-	m_meshes.push_back(m_loader.loadObj(MeshDefines::build3));
-	m_textures.clear();
-
-	m_tex = loadBMP(TextureDefine::black);
-	m_textures.push_back(Texture());
-	m_textures[0].id = m_tex;
-	m_textures[0].type = "texture_diffuse";
-	m_meshes.push_back(m_loader.loadObj(MeshDefines::plane));
-	m_textures.clear();
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::plane, black));
 
 	m_tex = loadBMP(TextureDefine::Orange);
-	m_textures.push_back(Texture());
-	m_textures[0].id = m_tex;
-	m_textures[0].type = "texture_diffuse";
-	m_meshes.push_back(m_loader.loadObj(MeshDefines::sphere));
-	m_textures.clear();
-}
+	Array<Texture> orange;
+	orange.PushLast(Texture());
+	orange[0].id = m_tex;
+	orange[0].type = "texture_diffuse";
+	m_meshes.push_back(m_loader.loadObj(MeshDefines::sphere, orange));
+
+}	
+
 
 int MeshDefines::GetMeshIndex(Mesh mesh)
 {

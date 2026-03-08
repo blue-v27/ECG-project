@@ -455,12 +455,20 @@ void GameContext::Render()
 
             int objectSize = array.GetSize();
 
+            bool boundTexture = false;
+
             for (int k = 0; k < objectSize; ++k)
             {
                 GameObject* obj = array.GetAt(k);
 
                 if (!obj)
                     continue;
+
+                if (!boundTexture && obj->GetTexture().GetSize() > 0)
+                {
+                    boundTexture = true;
+                    shaderBatch.type->BindTexture(array.GetLast()->GetTexture());
+                }
                 if (InteractiveGameObject* iobj = obj->AsInteractive())
                 {
                     if (iobj->m_isActive)
@@ -504,7 +512,7 @@ void GameContext::Render()
                         continue;
 
                     obj->IRender();
-    }
+                }
             }
         }
     }

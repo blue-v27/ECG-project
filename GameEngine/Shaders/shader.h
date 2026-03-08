@@ -7,6 +7,10 @@
 #include <iostream>
 #include <vector>
 
+#include "../Game/DataSturctures/fArray.h"
+
+class Texture;
+
 struct LightUniform
 {
 	GLint color;
@@ -22,6 +26,7 @@ public:
 	Shader(const char* vertexPath, const char* fragmentPath);
 	~Shader();
 	void use();
+	void BindTexture(Array<Texture>& textures);
 	int getId();
 
 	void UseLights(bool val) { m_useLight = val; }

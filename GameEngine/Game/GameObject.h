@@ -143,7 +143,7 @@ public:
 		m_textures[0].type = "texture_diffuse";
 	}
 
-	Array<Texture> GetTexture() { return m_textures; }
+	Array<Texture> GetTexture() { return m_mesh.textures; }
 
 	void GetDamage(float damage) { m_health -= damage; }
 
