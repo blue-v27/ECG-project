@@ -10,15 +10,16 @@
 #include "Inventory.h"
 
 
+
 std::vector<GameObject*> GameContext::GetObjectsInRange(glm::vec3 pos, float range)
 {
     std::vector<GameObject*> arr;
 
-    if (m_objects.size())
+    if (size_t size = m_objects.GetSize())
     {
-        for (GameObject* obj : m_objects)
+        for (int i = 0; i < size; ++i)
         {
-            if (obj)
+            if (GameObject* obj = m_objects.GetAt(i))
             {
                 BoundingBox bb = obj->GetBoundingBox();
                 glm::vec3 d = bb.GetCenter() - pos;
@@ -130,7 +131,7 @@ void GameContext::InitLights()
     for (int i = 0; i < numShaders; ++i)
     {
         if (SHADER_MANAGER.GetShader(i)->UseLights())
-            SHADER_MANAGER.GetShader(i)->CacheLights(m_lights.size());
+            SHADER_MANAGER.GetShader(i)->CacheLights(m_lights.GetSize());
     }
 }
 
@@ -192,38 +193,43 @@ void GameContext::Update()
        // m_octTree->Query(m_player->GetBoundingBox(), nearby);
 
     printf("%f %f %f\n", CAMERA.GetPos().x, CAMERA.GetPos().y, CAMERA.GetPos().z);
+        
+    size_t size = m_objects.GetSize();
 
-        for (GameObject* obj : m_objects)
+    for (int i = 0; i < size; ++i)
+    {
+        GameObject* obj = m_objects.GetAt(i);
+        if (!obj)
+            continue;
+        if (!obj->m_isActive)
+            continue;
+                    
+        if (m_player)
         {
-            if (obj && obj->m_isActive)
-            {                       
-                if (m_player)
+            obj->IUpdate();
+
+            if (obj->m_type != ObjectType::Player && obj->m_isInPast == m_isInPast)
+            {
+                glm::vec3 velocity = glm::vec3(100);
+
+                if (mask)
+                    velocity = mask->GetVelocity();
+
+                if (m_player->m_boundingBox.HandleIntersection(m_player->m_pos, obj->GetBoundingBox(), velocity))
                 {
-                    obj->IUpdate();
-
-                    if (obj->m_type != ObjectType::Player && obj->m_isInPast == m_isInPast)
+                    if (mask && mask->GetVelocity().y <= 0)
                     {
-                        glm::vec3 velocity = glm::vec3(100);
-
-                        if (mask)
-                            velocity = mask->GetVelocity();
-
-                        if (m_player->m_boundingBox.HandleIntersection(m_player->m_pos, obj->GetBoundingBox(), velocity))
-                        {
-                            if (mask && mask->GetVelocity().y <= 0)
-                            {
-                                m_player->SetGrounded(true);
-                                mask->SetVelocityY(0.f);
-                            }
-                        }
+                        m_player->SetGrounded(true);
+                        mask->SetVelocityY(0.f);
                     }
-
-                    if (obj->m_type == ObjectType::Player)
-                        if (PhysicsMask* pMask = obj->GetPhysicsMask())
-                            pMask->ComputeVelocity();
                 }
             }
+
+            if (obj->m_type == ObjectType::Player)
+                if (PhysicsMask* pMask = obj->GetPhysicsMask())
+                    pMask->ComputeVelocity();
         }
+    }
 
     if (m_player)
     {
@@ -251,18 +257,29 @@ void GameContext::Update()
         m_player->SetPos(glm::vec3(0, 0, 0));
    
 
-    if (m_interactiveObjects.size())
+    if (size_t size = m_interactiveObjects.GetSize())
     {
-        for (InteractiveGameObject* iobj : m_interactiveObjects)
+        for (int i = 0; i < size; ++i)
         {          
+            InteractiveGameObject* iobj = m_interactiveObjects.GetAt(i);
+            if (!iobj)
+                continue;
+
             if (m_player)
             {
                 iobj->Update();           
 
                 if (iobj->IsPhysicsEnable())
                 {
-                    for (GameObject* obj : m_objects)
+                    size_t objSize = m_objects.GetSize();
+
+                    for (int i = 0; i < objSize; ++i)
                     {
+                        GameObject* obj = m_objects.GetAt(i);
+
+                        if (!obj)
+                            continue;
+
                         if (iobj->m_id == obj->m_id)
                             continue;
 
@@ -304,10 +321,15 @@ void GameContext::Update()
         }
     }
 
-    if (m_lights.size())
+    if (size_t lightsize = m_lights.GetSize())
     {
-        for (Light* light : m_lights)
+        for (int i =0; i < lightsize; ++i)
         {
+            Light* light = m_lights.GetAt(i);
+
+            if (!light)
+                continue;
+
             if(light->m_isDirty)
                 light->Update();
         }
@@ -325,17 +347,29 @@ void GameContext::Render()
 {
     SKYBOX.Render();
 
-    if (m_lights.size())
+    if (size_t lightsize = m_lights.GetSize())
     {
-        for (Light* light : m_lights)
+        for (int i = 0; i < lightsize; ++i)
+        {
+            Light* light = m_lights.GetAt(i);
+
+            if (!light)
+                continue;
+
             light->Render();
+        }
     }
 
-    if (m_objects.size())
+    if (size_t objSize = m_objects.GetSize())
     { 
-        for (GameObject* obj : m_objects)
+        for (int i = 0; i < objSize; ++i)
         {
-            if (obj && obj->m_isActive && obj->m_isInPast == m_isInPast)
+            GameObject* obj = m_objects.GetAt(i);
+
+            if (!obj)
+                continue;
+
+            if (obj->m_isActive && obj->m_isInPast == m_isInPast)
             {
                 BoundingBox bb = obj->GetBoundingBox();
                 glm::vec3    d = obj->GetBoundingBox().GetCenter() - CAMERA.GetPos();
@@ -348,11 +382,16 @@ void GameContext::Render()
         }
     }
 
-    if (m_interactiveObjects.size())
+    if (size_t interSize = m_interactiveObjects.GetSize())
     {
-        for (InteractiveGameObject* iobj : m_interactiveObjects)
+        for (int i = 0; i < interSize; ++i)
         {
-            if (iobj && iobj->m_isActive)
+            InteractiveGameObject* iobj = m_interactiveObjects.GetAt(i);
+
+            if (!iobj)
+                continue;
+
+            if (iobj->m_isActive)
             {
 
                 BoundingBox bb = iobj->GetBoundingBox();
@@ -371,11 +410,11 @@ void GameContext::Render()
                         GUI.DrawText("PRESS E TO PICKUP", 400.f, 600.f, 1.f);
                         if (GAMECONTEXT.GetWindow()->IsReleased(GLFW_KEY_E))
                         {
-                            if (iobj->m_type == ObjectType::Watch && QUEST_MANAGER.GetCurrentQuest() != 1)
-                                return;
-
-                            iobj->PickUp(m_player);
-                            INVETORY.Add(iobj);
+                            if (iobj->m_type != ObjectType::Watch && QUEST_MANAGER.GetCurrentQuest() != 1)
+                            {
+                                iobj->PickUp(m_player);
+                                INVETORY.Add(iobj);
+                            }
                         }
                             
                     }

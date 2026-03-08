@@ -18,6 +18,7 @@
 #include "fSingleton.h"
 #include "Light.h"
 #include "OctTree.h"
+#include "DataSturctures/fArray.h"
 
 class GameContext : public fSingleton<GameContext>
 {
@@ -35,10 +36,10 @@ private:
 
     bool m_isEditorActive = false;
 
-    std::vector<GameObject*> m_objects;
-    std::vector<GameObject*> m_objectsToRemove;
-    std::vector<InteractiveGameObject*> m_interactiveObjects;
-    std::vector<Light*> m_lights;
+    Array<GameObject*> m_objects;
+    Array<GameObject*> m_objectsToRemove;
+    Array<InteractiveGameObject*> m_interactiveObjects;
+    Array<Light*> m_lights;
 
     Player* m_player = nullptr;
 
@@ -62,9 +63,9 @@ public:
 
     Player* GetPlayer() { return m_player; }
 
-    void   SetLight(Light* obj)  { m_lights.push_back(obj); }
-    size_t GetLightCount() const { return m_lights.size(); }
-    Light* GetLight(int index)   { return m_lights.at(index); }
+    void   SetLight(Light* obj)  { m_lights.PushLast(obj); }
+    size_t GetLightCount()       { return m_lights.GetSize(); }
+    Light* GetLight(int index)   { return m_lights.GetAt(index); }
 
     glm::vec2 GetMousePos() const { return glm::vec2(m_mousePosX, m_mousePosY);}
 
@@ -81,21 +82,22 @@ public:
 
     void AddObject(GameObject* obj)
     {
-        m_objects.push_back(obj);
-        if (m_objects.size() > 1)
-            obj->m_id = m_objects.at(m_objects.size() - 1)->m_id + 1;
+        m_objects.PushLast(obj);
+        if (m_objects.GetSize() > 1)
+            obj->m_id = m_objects.GetAt(m_objects.GetSize() - 1)->m_id + 1;
     }
 
     void AddInteractiveGameObject(InteractiveGameObject* iobj)
     {
-        m_interactiveObjects.push_back(iobj);
-        if (m_objects.size() > 1)
-            iobj->m_id = m_interactiveObjects.at(m_interactiveObjects.size() - 1)->m_id + 1;
+        m_interactiveObjects.PushLast(iobj);
+        if (m_objects.GetSize() > 1)
+            iobj->m_id = m_interactiveObjects.GetAt(m_interactiveObjects.GetSize() - 1)->m_id + 1;
     }
 
     void RemoveObject()
     {
-        if (m_objectsToRemove.size())
+#if 0
+        if (m_objectsToRemove.GetSize())
         {
             for (GameObject* obj : m_objectsToRemove)
             {
@@ -110,41 +112,43 @@ public:
             }
 
             m_objectsToRemove.clear();
-        }        
+        }    
+#endif
     }
 
     void MarkForRemoval(GameObject* obj)
     {
-        if (m_objectsToRemove.size())
+        if (m_objectsToRemove.GetSize())
         {
-            for (GameObject* ob : m_objectsToRemove)
-                if (ob = obj)
+            size_t size = m_objectsToRemove.GetSize();
+            for(int i = 0; i < size; ++i)
+                if (m_objectsToRemove.GetAt(i) == obj)
                     return;
         }
 
-        m_objectsToRemove.push_back(obj);
+        m_objectsToRemove.PushLast(obj);
     }
 
-    size_t GetObjectCount() const
+    size_t GetObjectCount()
     {
-        return m_objects.size();
+        return m_objects.GetSize();
     }
 
-    size_t GetInteractiveObjectCount() const
+    size_t GetInteractiveObjectCount()
     {
-        return m_interactiveObjects.size();
+        return m_interactiveObjects.GetSize();
     }
 
     std::vector<GameObject*> GetObjectsInRange(glm::vec3 pos, float range);
 
     GameObject* GetObject(size_t index)
     {
-        return m_objects.at(index);
+        return m_objects.GetAt(index);
     }
 
     InteractiveGameObject* GetInteractiveObject(size_t index)
     {
-        return m_interactiveObjects.at(index);
+        return m_interactiveObjects.GetAt(index);
     }
 
     void BuildOctree();
