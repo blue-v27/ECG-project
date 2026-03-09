@@ -11,7 +11,7 @@ private:
 	size_t capacity;
 
 public:
-	Array(size_t size = 100);
+	Array(size_t size = 2);
 	~Array()
 	{
 	}

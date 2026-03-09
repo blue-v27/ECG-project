@@ -83,7 +83,7 @@ class Mesh
 		void setTextures(Array<Texture> textures);
 		void setup();
 		void setup2();
-		void draw(Shader shader);
+		void draw();
 
 		void  SetPath(const char* path) { m_path = _strdup(path); }
 		char* GetPath()				    { return m_path; }

@@ -60,7 +60,7 @@ public:
 	int   m_shaderId = 0;
 	float m_isAnchor;
 
-	Mesh	m_mesh;
+	Mesh*   m_mesh   = nullptr;
 	Shader* m_shader = nullptr;
 
 	glm::mat4 m_modelMatrix = glm::mat4(1.f);
@@ -133,7 +133,7 @@ public:
 	BoundingBox GetRenderBoundingBox() { return m_renderBoundingBox; }
 	void ComputeRenderBoundingBox();
 
-	void SetMesh(Mesh mesh) { m_mesh = mesh; }
+	void SetMesh(Mesh* mesh) { m_mesh = mesh; }
 
 	void SetTexture(char* texturePath)
 	{
@@ -143,7 +143,7 @@ public:
 		m_textures[0].type = "texture_diffuse";
 	}
 
-	Array<Texture> GetTexture() { return m_mesh.textures; }
+	Array<Texture> GetTexture() { return m_mesh->textures; }
 
 	void GetDamage(float damage) { m_health -= damage; }
 

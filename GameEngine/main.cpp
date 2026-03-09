@@ -41,7 +41,7 @@ int main()
 	player->SetPos(glm::vec3(0.f, 10.f, 0.f));
 	player->SetCamera(&CAMERA);
 	player->GetCamera()->SetPos(glm::vec3(0.0f, 7.f, 2.4f));
-	player->Init(&MESH_DEFINES.GetMesh(MESH_CUBE));
+	player->Init(MESH_DEFINES.GetMesh(MESH_CUBE));
 	player->InitPhysics();
 	GAMECONTEXT.AddPlayer(player);
 	GAMECONTEXT.AddObject(player);

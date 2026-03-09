@@ -2,13 +2,14 @@
 
 #include "meshLoaderObj.h"
 #include "../Game/fSingleton.h"
+#include "../Game/DataSturctures/fArray.h"
 
 class MeshDefines : public fSingleton<MeshDefines>
 {
 private:
 
 	MeshLoaderObj m_loader;
-	std::vector<Mesh> m_meshes;
+	Array<Mesh*> m_meshes;
 
 	bool m_isActive = false;
 public:
@@ -29,11 +30,11 @@ public:
 	static constexpr char* build3		= "Resources/Models/ResidentialBuildings010.obj";
 
 	void Start();
-	Mesh GetMesh(int index) { return m_meshes.at(index); }
+	Mesh* GetMesh(int index) { return m_meshes[index]; }
 
-	int GetMeshIndex(Mesh mesh);
+	int GetMeshIndex(Mesh* mesh);
 
-	int GetMeshCount() { return m_meshes.size(); }
+	int GetMeshCount() { return m_meshes.GetSize(); }
 
 	void IsActive(bool val) { m_isActive = val; }
 	bool IsActive()			{ return m_isActive; }

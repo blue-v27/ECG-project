@@ -12,7 +12,7 @@ class MeshLoaderObj
 {
 	public:
 		MeshLoaderObj();
-		Mesh loadObj(const std::string &filename, Array<Texture> textures);
-		Mesh loadObj(const std::string &filename);
+		Mesh* loadObj(const std::string &filename, Array<Texture> textures);
+		Mesh* loadObj(const std::string &filename);
 };
 

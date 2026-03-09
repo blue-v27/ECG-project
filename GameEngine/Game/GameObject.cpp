@@ -94,7 +94,7 @@ void GameObject::Init(Mesh* mesh)
 {
     if (mesh)
     {
-        m_mesh = *mesh;
+        m_mesh = mesh;
     }
     else
     {
@@ -202,13 +202,13 @@ void GameObject::DisablePhysics()
 
 void GameObject::ComputeBoundingBox(float height)
 {
-    m_boundingBox.AddVertexArray(m_mesh.vertices);
+    m_boundingBox.AddVertexArray(m_mesh->vertices);
     m_boundingBox.ComputeMinMax(height);
 }
 
 void GameObject::ComputeRenderBoundingBox()
 {
-    m_renderBoundingBox.AddVertexArray(m_mesh.vertices);
+    m_renderBoundingBox.AddVertexArray(m_mesh->vertices);
     m_renderBoundingBox.ComputeMinMax();
 }
 
@@ -227,5 +227,5 @@ void GameObject::Render()
 
     RecomputeModel();   
 
-    m_mesh.draw(*m_shader);
+    m_mesh->draw();
 }

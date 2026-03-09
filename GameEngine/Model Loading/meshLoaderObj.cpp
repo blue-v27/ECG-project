@@ -3,7 +3,7 @@
 
 MeshLoaderObj::MeshLoaderObj() {};
 
-Mesh MeshLoaderObj::loadObj(const std::string &filename)
+Mesh* MeshLoaderObj::loadObj(const std::string &filename)
 {
 	std::vector<Vertex> vertices;
 	std::vector<int> indices;
@@ -150,18 +150,18 @@ Mesh MeshLoaderObj::loadObj(const std::string &filename)
 
 	std::cout << "Loading:  " << filename << std::endl;
 
-	Mesh mesh(vertices, indices);
+	Mesh* mesh = new Mesh(vertices, indices);
 
-	mesh.SetPath(filename.c_str());
+	mesh->SetPath(filename.c_str());
 
 	return mesh;
 }
 
-Mesh MeshLoaderObj::loadObj(const std::string &filename, Array<Texture> textures)
+Mesh* MeshLoaderObj::loadObj(const std::string &filename, Array<Texture> textures)
 {
-	Mesh mesh = loadObj(filename);
-	mesh.setTextures(textures);
-	mesh.SetPath(filename.c_str());
+	Mesh* mesh = loadObj(filename);
+	mesh->setTextures(textures);
+	mesh->SetPath(filename.c_str());
 
 	return mesh;
 }

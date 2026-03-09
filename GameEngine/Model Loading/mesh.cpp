@@ -21,7 +21,7 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<int> indices, Array<Texture
 }
 
 // render the mesh
-void Mesh::draw(Shader shader)
+void Mesh::draw()
 {
 	glBindVertexArray(vao);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
