@@ -80,6 +80,8 @@ class Mesh
 		Mesh(std::vector<Vertex> vertices, std::vector<int> indices);
 		~Mesh();
 
+
+		bool operator==(Mesh* other);
 		void setTextures(Array<Texture> textures);
 		void setup();
 		void setup2();
@@ -88,4 +90,9 @@ class Mesh
 		void  SetPath(const char* path) { m_path = _strdup(path); }
 		char* GetPath()				    { return m_path; }
 };
+
+inline bool Mesh::operator==(Mesh* other)
+{
+	return this->vao == other->vao;
+}
 
